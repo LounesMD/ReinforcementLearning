@@ -1,9 +1,10 @@
 Tâches effectuées :
 ->Algorithme 0. Fonction Valeur qui calcul la valeur d'une politique + exemple du taxi (Fait le jour1/2)
 ->Algorithme 1. Fonction qui détermine la politique espilon-optimale d'un environnement en utilisant l'équation de Bellman + exemple du taxi (Fait le jour 2/3)
-->Preuve du nombre de politique possible pour un environnement à E états et A actions possiblse(Fait le jour 2)
+->Preuve du nombre de politique possible pour un environnement à E états et A actions possiblse(Fait le jour 3)
 ->Faire un dépôt GIT (Fait jour3)
-->Algorithme 2. Fonction qui détermine la politique espilon-optimale d'un environnement en utilisant l'équation d'optimalité de Bellman + exemple du taxi (Fait jour3)
+->Algorithme 2. Fonction qui détermine la politique espilon-optimale d'un environnement en utilisant l'équation d'optimalité de Bellman + exemple du taxi (Fait jour4)
+->Début du document de présentation en Latex (Fait jour4)
 
 A venir:
 ->Document Latex de présentation du projet
