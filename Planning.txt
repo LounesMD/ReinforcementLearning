@@ -10,7 +10,7 @@ Tâches effectuées :
 
 ->Algorithme 3. Fonction qui permet de se rapprocher de la valeur optimale sans connaitre les fonctions de transition ni de retour. (Fait le jour 7/8)
 Cet algorithme me semble pas correct dû a son cout même si un critère d'arrêt est que chaque état soit visité une infinité de fois
-
+->Programme qui affiche les valeurs possibles de toutes les politiques stationnaires et déterministes possibles du problème du chauffeur de taxi, pour gamma= 0,9. (Fait jour 8)
 
 A venir:
 ->Document Latex de présentation du projet (régulièrement fait)
