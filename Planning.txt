@@ -6,9 +6,17 @@ Tâches effectuées :
 ->Algorithme 2. Fonction qui détermine la politique espilon-optimale d'un environnement en utilisant l'équation d'optimalité de Bellman + exemple du taxi (Fait jour4)
 ->Début du document de présentation en Latex (Fait jour4)
 
+-> Week-end (J-5/6)
+
+->Algorithme 3. Fonction qui permet de se rapprocher de la valeur optimale sans connaitre les fonctions de transition ni de retour. (Fait le jour 7/8)
+Cet algorithme me semble pas correct dû a son cout même si un critère d'arrêt est que chaque état soit visité une infinité de fois
+
+
 A venir:
-->Document Latex de présentation du projet
-->Algorithme 3. Différence temporelle, algorithme TD pour une politique déterministe (et stationnaire)
+->Document Latex de présentation du projet (régulièrement fait)
+
+->Algorithme 3. Différence temporelle, algorithme TD pour une politique déterministe (et stationnaire) (à retravailler pour la vérification des résultats)
+
 ->Algorithme 4. Algorithme de Q-learning
 	->L'implémenter pour un labyrinthe
 	->Trouver d'autres possibilités (Mario ?)
