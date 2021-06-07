@@ -5,6 +5,8 @@ Created on Mon May 31 10:56:43 2021
 @author: Lounès
 """
 
+import matplotlib.pyplot as plt
+
 
 def politique_taxi():
     """
@@ -146,5 +148,38 @@ etats.append('C')
 V = valeur(politique_taxi() , actions , etats , transition_taxi(),retour_taxi() , 0.9)
 print(V)
 
+politique = dict()
+politique['A'] = {'a1':0 , 'a2':0 , 'a3':0}
+politique['B'] = {'a1':0 , 'a3':0}
+politique['C'] = {'a1':0 , 'a2':0 , 'a3':0}
 
 
+y = list()
+for i in ['a1','a2','a3']:
+    politique['A'][i] = 1
+    for j in ['a1','a3']:
+        politique['B'][j] = 1
+        for k in ['a1','a2','a3']:
+            politique['C'][k] = 1
+            p = valeur(politique , actions , etats , transition_taxi(),retour_taxi() , 0.9) 
+            y.append(list(p[i] for i in p))
+            politique['C'][k] = 0
+        politique['B'][j]=0
+    politique['A'][i] = 0
+            
+print(y)
+
+x = ['A','B','C']
+
+
+for yy in y:
+    plt.plot(x, yy, color='black', linestyle='dashed', linewidth = 1,
+         marker='x', markerfacecolor='black', markersize=5)
+
+plt.xlabel('x - états')
+
+plt.ylabel('y - valeurs')
+  
+plt.title('Fonction valeur de toutes les politiques stationnaires/déterministes pour le pb du taxi')
+
+plt.show()
