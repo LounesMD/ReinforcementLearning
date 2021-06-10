@@ -9,18 +9,26 @@ Tâches effectuées :
 -> Week-end (J-5/6)
 
 ->Algorithme 3. Fonction qui permet de se rapprocher de la valeur optimale sans connaitre les fonctions de transition ni de retour. (Fait le jour 7/8)
-Cet algorithme me semble pas correct dû a son cout même si un critère d'arrêt est que chaque état soit visité une infinité de fois
+Cet algorithme me semble pas correct dû a son cout même si un critère d'arrêt est que chaque état soit visité une infinité de fois (à retravailler)
+
 ->Programme qui affiche les valeurs possibles de toutes les politiques stationnaires et déterministes possibles du problème du chauffeur de taxi, pour gamma= 0,9. (Fait jour 8)
+
+->Algorithme 4 : Q-learning. (Fait le jour 9/10/11)
+
 
 A venir:
 ->Document Latex de présentation du projet (régulièrement fait)
 
-->Algorithme 3. Différence temporelle, algorithme TD pour une politique déterministe (et stationnaire) (à retravailler pour la vérification des résultats)
+->Algorithme 3. Différence temporelle, algorithme TD pour une politique déterministe (et stationnaire) (à retravailler pour la vérification des résultats)(essayer d'étudier la vitesse de convergence)
 
 ->Algorithme 4. Algorithme de Q-learning
-	->L'implémenter pour un labyrinthe
+	->L'implémenter pour un labyrinthe !/
 	->Trouver d'autres possibilités (Mario ?)
-	->Tracer la courbre d'apprentissage
+	->Tracer la courbre d'apprentissage !/
+	->Etudier les fonctions de tau
+	->Evolution de l'environnement
+->Algorithme fait par programmation linéaire
+
 
 ->Algorithme 5. Algorithme SARSA
 ->Algorithme 6. Algorithme Q(lambda)
