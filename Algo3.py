@@ -5,6 +5,7 @@ Created on Thu Jun  3 17:46:18 2021
 @author: Lounès
 """
 
+import matplotlib.pyplot as plt
 from random import choices
 from random import choice
 
@@ -117,8 +118,7 @@ def td(etats , actions , gamma , politique , init , est_final , etat_suivant ):
         
     cpt = 0
     
-
-    while cpt <10000  : #Le problème ici, c'est qu'il faut vérifier les conditions (càd : passer une infinité de fois dans chaque état )
+    while cpt < 10000 : #Le problème ici, c'est qu'il faut vérifier les conditions (càd : passer une infinité de fois dans chaque état )
         t = 0
         s = list() #On va stocker tous les états
         s.append(init())
@@ -127,20 +127,22 @@ def td(etats , actions , gamma , politique , init , est_final , etat_suivant ):
         while( not est_final(s[t]) ): #On vérifie le critère de l'état final
             #Faire l'action 
             #Pour l'action, on va utiliser la politique, qui va nous donner un état d'arriver et un retour rt
-            a.append(politique[s[t]])   #De là, on est censé pouvoir observer un retour et un nouvel état (car l'action va nous le permettre)                             
+           
+            a.append(politique[s[t]])   #De là, on va pouvoir observer un retour et un nouvel état (car l'action va nous le permettre)                             
             
-            #Observer rt et st1:
+            #Observer rt et st+1:
             l = etat_suivant(s[t],a[t]) #Là, on connait notre état actuel + l'action qu'on doit faire, pour cela on récupère l'ensemble des possibilités 
             p = choices(l , list(i[1] for i in l ))[0] #On fait un choix aléatoire parmi  les états suivant possibles (en fonction de leur probabilité)
             
             r.append(p[0]) #une foix choisi, on observe un retour rt
             s.append(p[2]) #ainsi qu'un nouvel état st+1
-
+            
             alpha= 1/(1+NS[s[t]])
             VS[s[t]] = VS[s[t]] + alpha * (r[t] + gamma*VS[s[t+1]] - VS[s[t]] )
             
-            NS[s[t]] = NS[s[t]] + 1
-            t+=1                    
+            NS[s[t]] = NS[s[t]] + 1            
+            t+=1 
+
         cpt+=1
     return VS
         
