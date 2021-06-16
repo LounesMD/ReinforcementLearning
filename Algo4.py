@@ -322,7 +322,7 @@ def affichage(maze , s):
                 print(CSI+"34;44m" + " S" + CSI + "0m" , end='')
             else:
                 print(CSI+"32;42m" + " D" + CSI + "0m",end='')
-        print('\n')
+        print('')
         
         
 affichage(maze , [1234 , 1234])
