@@ -203,7 +203,18 @@ def teleportation(maze , final , episode):
         maze[coo[0]][coo[1]] , maze[final[0]][final[1]] =   maze[final[0]][final[1]] ,  maze[coo[0]][coo[1]]
 
         return coo
-
+    
+def deplacement(maze , final , episode):
+    actions = [0,1,2,3]
+    actionsPossibles = list()
+    for k in actions:
+        if exectution_labyrinthe(final,k)[0] != 100 :
+            actionsPossibles.append(k)
+            
+    action = choice(actionsPossibles)
+    nv_final = exectution_labyrinthe(final,action)
+    return nv_final[1]
+    
 CSI="\x1B["
 def affichage2_0(maze , s , final):    
     ligne = len(maze)
@@ -300,6 +311,8 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
             print(s[t] , final)
             print("Episode : "+str(cpt))
             print("Action : "+str(ct))
+            while(time.perf_counter() - val < 0.1):
+                pass
                 
             val = time.perf_counter()
             
@@ -310,7 +323,7 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
                     actionsPossibles.append(ap)
 
             
-            d = decision(Q , actionsPossibles , s[t] , 60 )
+            d = decision(Q , actionsPossibles , s[t] , 1 )
             action = choices(actionsPossibles , d , k=1)[0]
 
             #action = decision(Q , actionsPossibles , s[t] , 1 )
@@ -346,11 +359,11 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
     print(len(laa[69]))
     return x,y
 
-
+"""
 
 #Ici on va plot le graphique
 data = list()        
-for i in range(1):
+for i in range(15):
     data.append(Q_Learning(etats_labyrinthe() , actions_labyrinthe() , 0.9 , exectution_labyrinthe , init_labyrinthe , boltzmann  , est_final_labyrinthe , maze)    )
 
 
@@ -363,7 +376,247 @@ plt.ylabel('y - Number of steps to leave')
   
 plt.title('Learning curve')
 
-plt.savefig('OnPolicyTeleportation.png')
 
 plt.show()
 
+"""
+
+CSI="\x1B["
+def affichage(maze , s):    
+    global t
+    t = tuple()
+    ligne = len(maze)
+    colonne =  len(maze[0])
+    for i in range(ligne):
+        for j in range(colonne):
+            if(i == s[0] and j ==s[1]):
+                print (CSI+"30;40m" + " A" + CSI + "0m" , end='')
+            elif(maze[i][j] == -100 ):                
+                print(CSI+"31;41m" +' W' + CSI + "0m" , end='')
+            elif(maze[i][j]==0):
+                print(CSI+"37;47m" + " P" + CSI + "0m" , end='')
+            elif(maze[i][j] == 100):
+                print(CSI+"34;44m" + " S" + CSI + "0m" , end='')
+            else:
+                print(CSI+"32;42m" + " D" + CSI + "0m",end='')
+        print('')
+
+#affichage(maze , [1234 , 1234])
+
+
+
+        
+        
+
+file = open("Maze1.txt","r")
+
+maze = list()
+for line in file:
+    l = list()
+    for character in line:
+        if(character != '\n'):
+            l.append(conversion(character))
+    maze.append(l)
+
+maze.reverse()
+
+
+def deplacement1(maze , final , episode):
+    """
+    fonction qui renvoi le labyrinthe passé en paramètre mais en déplacent l'état final.
+    Un épisode sur 2 il va se déplacer de 1 vers la gauche, sinon vers la droite
+    """    
+    if episode%2 == 0:
+        coo = exectution_labyrinthe(final , 2)[1]
+        print(coo , final)
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])
+        maze[coo[0]][coo[1]] , maze[final[0]][final[1]] =   maze[final[0]][final[1]] ,  maze[coo[0]][coo[1]]
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])
+        for ligne in maze:
+            print(ligne)
+        return coo
+    else:
+        coo = exectution_labyrinthe(final , 0)[1]
+        print(coo , final)
+        
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])
+        
+        maze[coo[0]][coo[1]] , maze[final[0]][final[1]] =   maze[final[0]][final[1]] ,  maze[coo[0]][coo[1]]
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])        
+        for ligne in maze:
+            print(ligne)
+        return coo
+    
+
+
+def deplacement2(maze , final , episode):
+    """
+    fonction qui renvoi le labyrinthe passé en paramètre mais en déplacent l'état final en le téléportant.
+    Un épisode sur 2 il va se téléporter de la case (6,3) à la (3,6)
+    """    
+    if episode%2 == 0:
+        coo = [3,6]
+        print(coo , final)
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])
+        maze[coo[0]][coo[1]] , maze[final[0]][final[1]] =   maze[final[0]][final[1]] ,  maze[coo[0]][coo[1]]
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])
+        for ligne in maze:
+            print(ligne)
+        return coo
+    else:
+        coo = [6,3]
+        print(coo , final)
+        
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])
+        
+        maze[coo[0]][coo[1]] , maze[final[0]][final[1]] =   maze[final[0]][final[1]] ,  maze[coo[0]][coo[1]]
+        print(maze[coo[0]][coo[1]] , maze[final[0]][final[1]])        
+        for ligne in maze:
+            print(ligne)
+        return coo
+    
+
+
+def deplacement_petit(maze , final , episode):
+    actions = [0,1,2,3]
+    actionsPossibles = list()
+    for k in actions:
+        if exectution_labyrinthe(final,k)[0] != 100 :
+            actionsPossibles.append(k)
+            
+    action = choice(actionsPossibles)
+    nv_final = exectution_labyrinthe(final,action)[1]
+    
+    maze[nv_final[0]][nv_final[1]] , maze[final[0]][final[1]] =   maze[final[0]][final[1]] ,  maze[nv_final[0]][nv_final[1]]
+    
+    return nv_final
+
+
+
+#Cette fonction sert seulement à l'affichage pour le petit labyrinthe (ajout de la fonction affichage dans le code)
+def Q_Learning_PourAffichage(etats , actions , gamma , execution , init , decision , final , environnement):
+    """
+
+    Parameters
+    ----------
+    etats : TYPE
+        DESCRIPTION.
+    actions : TYPE
+        DESCRIPTION.
+    gamma : TYPE
+        DESCRIPTION.
+    execution : TYPE
+        DESCRIPTION.
+    init : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
+    ligne = len(environnement)
+    colonne =  len(environnement[0])
+
+    #Q va nous permettre de stocker la qualité pour tous les couples (etat , action)
+
+    Q = list()
+    for i in range(ligne):
+        jl= list()
+        for j in range(colonne):
+            kl= list()
+            for k in range(len(actions)):
+                kl.append(0)
+            jl.append(kl)
+        Q.append(jl)  
+
+
+    #N va nous permettre de calculer le taux d'apprentissage pour  chaque 
+    N = list()
+    for i in range(ligne):
+        jl= list()
+        for j in range(colonne):
+            kl= list()
+            for k in range(len(actions)):
+                kl.append(0)
+            jl.append(kl)
+        N.append(jl)
+    laa = list()
+    acc = list()
+    cpt = 0
+    x = list()
+    y = list()
+    final = [6,3]
+
+    while(cpt < 20): #On va faire 70 épisodes
+    
+        s = list()
+        s.append([1,2])
+        ac = list()
+        t=0
+        r = list()
+        a = list()
+        la = list()
+        ct = 0
+        val = time.perf_counter()
+        
+        final = deplacement_petit(maze , final , cpt)
+        
+        while  s[t] != final: #r[t]!=100    
+        
+            final = deplacement_petit(maze , final , cpt)
+            print(s[t] , final)
+            print("Episode : "+str(cpt))
+            print("Action : "+str(ct))
+            while(time.perf_counter() - val < 0.1):
+                pass
+                
+            val = time.perf_counter()
+            
+            actionsPossibles = list()
+            for ap in actions:
+                if(execution(s[t] , ap)[0] != -100):
+                    actionsPossibles.append(ap)
+
+            
+            d = decision(Q , actionsPossibles , s[t] , 5 )    #Cas Boltzmann
+            action = choices(actionsPossibles , d , k=1)[0]
+
+            #action = decision(Q , actionsPossibles , s[t] , 1 ) #Cas glouton
+
+
+            a.append( execution(s[t] , action ) )
+
+            r.append(a[t][0]) #le retour rt
+            s.append(a[t][1]) #L'état st+1
+
+            la.append(action)            
+            alpha= 1/(1+N[s[t][1]][s[t][0]][action] )
+
+            l = list()
+            for ac in actions:
+                l.append(Q[s[t+1][1]][s[t+1][0]][ac])     
+            v = max(l)
+            
+
+            Q[s[t][1]][s[t][0]][action] = Q[s[t][1]][s[t][0]][action] + alpha * (r[t] + gamma*v - Q[s[t][1]][s[t][0]][action])            
+
+            ct+=1
+
+            t+=1 
+            p = s
+            p[0],p[1]=p[1],p[0]
+            affichage2_0(maze , s[t] , final)
+            
+            print("---------------------------------------------")
+
+        acc.append(ac)
+        laa.append(la)
+        cpt +=1
+                
+        y.append(len(la))
+        x.append(cpt)
+    return x,y
+
+
+Q_Learning_PourAffichage(etats_labyrinthe() , actions_labyrinthe() , 0.9 , exectution_labyrinthe , init_labyrinthe , boltzmann ,est_final_labyrinthe , maze)
