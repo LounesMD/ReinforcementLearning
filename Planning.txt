@@ -15,6 +15,18 @@ Cet algorithme me semble pas correct dû a son cout même si un critère d'arrê
 
 ->Algorithme 4 : Q-learning. (Fait le jour 9/10/11)
 
+->Semaine 3:
+	->Etude de la fonction qualité dans environnement autre que celui dans le quel elle a été entrainée
+	->Etude de l'algorithme de Q-Learning dans un environnement évolutif
+	->Rédaction des idées d'amélioration de l'algorithme de Q-Learning (tau qui croit et décroit)
+	->Etude de la compléxité des algorithmes
+	->Rédaction de tout ça sur le fichier Latex
+
+
+->Semaine4:
+	->Remise au propre du code
+
+
 
 A venir:
 ->Document Latex de présentation du projet (régulièrement fait)
