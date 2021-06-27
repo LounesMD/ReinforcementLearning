@@ -25,7 +25,7 @@ Cet algorithme me semble pas correct dû a son cout même si un critère d'arrê
 
 ->Semaine4:
 	->Remise au propre du code
-	->Detection d'un gros problème de code (oublie de faire n(st,at) = n(st,at) +1)
+	->Detection d'un gros problème de code (oublie de faire n(st,at) = n(st,at) +1) /!\Est-ce un PB ? 
 	->Sarsa (seulement pour Boltzmann pour l'instant, pour Eps-Gloutonne arrive)
 	->Q(Lambda) (avec Boltzmann)
 
