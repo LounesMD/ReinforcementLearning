@@ -27,7 +27,7 @@ Cet algorithme me semble pas correct dû a son cout même si un critère d'arrê
 	->Remise au propre du code
 	->Detection d'un gros problème de code (oublie de faire n(st,at) = n(st,at) +1)
 	->Sarsa (seulement pour Boltzmann pour l'instant, pour Eps-Gloutonne arrive)
-	->Q(Lambda) début
+	->Q(Lambda) (avec Boltzmann)
 
 
 A venir:
