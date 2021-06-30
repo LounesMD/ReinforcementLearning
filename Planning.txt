@@ -29,27 +29,6 @@ Cet algorithme me semble pas correct dû a son cout même si un critère d'arrê
 	->Sarsa (seulement pour Boltzmann pour l'instant, pour Eps-Gloutonne arrive)
 	->Q(Lambda) (avec Boltzmann)
 
-
-A venir:
-->Document Latex de présentation du projet (régulièrement fait)
-
-->Algorithme 3. Différence temporelle, algorithme TD pour une politique déterministe (et stationnaire) (à retravailler pour la vérification des résultats)(essayer d'étudier la vitesse de convergence)
-
-->Algorithme 4. Algorithme de Q-learning
-	->L'implémenter pour un labyrinthe !/
-	->Trouver d'autres possibilités (Mario ?)
-	->Tracer la courbre d'apprentissage !/
-	->Etudier les fonctions de tau
-	->Evolution de l'environnement
-->Algorithme fait par programmation linéaire
-
-
-->Algorithme 5. Algorithme SARSA
-->Algorithme 6. Algorithme Q(lambda)
-->Algorithme 7. ALgorithme Monte Carlo 
-
-	-> Faire une étude de l'éfficacité de chacun de ces algorithmes
-
-->Application du Q-learning pour le cas de la voiture-dans-la-colline
-
-->Etude de la compléxité de chacun des algorithmes
+->Semaine 5:
+	->Derniers algorithmes
+	->Rédaction final du compte rendu
