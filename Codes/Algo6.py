@@ -137,7 +137,7 @@ def Q_Lambda(etats , actions , gamma , lambd , environnement , init , execution 
                     Q[etat[1]][etat[0]][action] = Q[etat[1]][etat[0]][action] + alpha * delta *  E[etat[1]][etat[0]][action]
                     E[etat[1]][etat[0]][action] = gamma * lambd * E[etat[1]][etat[0]][action]
             t+=1
-        
+
         cpt += 1
         laa.append(la)
         x.append(cpt)
@@ -151,7 +151,7 @@ def Q_Lambda(etats , actions , gamma , lambd , environnement , init , execution 
 #Affichage de la Learning Curve
 data = list()        
 for i in range(15):
-    v = Q_Lambda(etats_labyrinthe , actions_labyrinthe , 0.9 , 0.6 , maze , init_labyrinthe ,exectution_labyrinthe,  boltzmann , 0.85 , est_final_labyrinthe)
+    v = Q_Lambda(etats_labyrinthe , actions_labyrinthe , 0.9 , 0.9 , maze , init_labyrinthe ,exectution_labyrinthe,  boltzmann , 0.85 , est_final_labyrinthe)
     data.append(v )
 
 for path in data:
