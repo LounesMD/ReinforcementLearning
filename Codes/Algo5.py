@@ -139,9 +139,9 @@ def Sarsa(etats , actions , gamma , environnement , init , decision , execution 
             
             alpha= 1/(1+N[s[t][1]][s[t][0]][a[t]] )
             
-            Q[s[t][1]][s[t][0]][a[t]] = Q[s[t][1]][s[t][0]][a[t]] + 0.85 * (r[t] + gamma* Q[s[t+1][1]][s[t+1][0]][a[t+1]] - Q[s[t][1]][s[t][0]][a[t]])            
+            Q[s[t][1]][s[t][0]][a[t]] = Q[s[t][1]][s[t][0]][a[t]] + alpha * (r[t] + gamma* Q[s[t+1][1]][s[t+1][0]][a[t+1]] - Q[s[t][1]][s[t][0]][a[t]])            
 
-            N[s[t][1]][s[t][0]][a[t]] += 1
+            N[s[t][1]][s[t][0]][a[t]] += 0.1
             t+=1
             
             #print(t , cpt)
