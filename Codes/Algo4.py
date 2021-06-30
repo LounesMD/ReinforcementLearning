@@ -164,6 +164,7 @@ def boltzmann(Q , actions , s , to):
             v+= math.exp((Q[s[1]][s[0]][a])/to)        
         p = ex / v
         l.append(p)
+
     return l
     
 
@@ -271,6 +272,14 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
         Q.append(jl)  
 
 
+
+    
+    laa = list()
+    acc = list()
+    cpt = 0
+    x = list()
+    y = list()
+    
     #N va nous permettre de calculer le taux d'apprentissage pour  chaque 
     N = list()
     for i in range(ligne):
@@ -281,15 +290,10 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
                 kl.append(0)
             jl.append(kl)
         N.append(jl)
-    
-    laa = list()
-    acc = list()
-    cpt = 0
-    x = list()
-    y = list()
-    
+            
+            
     while(cpt < 70): #On va faire 70 épisodes
-    
+        
         s = list()
         s.append(init())
         ac = list()
@@ -298,6 +302,7 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
         a = list()
         la = list()
         ct = 0
+        
         while   not final(s[t]) : #On va faire 1 épisode     
 
             actionsPossibles = list()
@@ -313,31 +318,41 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
 
             a.append( execution(s[t] , action ) )
 
+
             r.append(a[t][0]) #le retour rt
             s.append(a[t][1]) #L'état st+1
 
             la.append(action)            
+            
             alpha= 1/(1+N[s[t][1]][s[t][0]][action] )
-
+            
+            
             l = list()
             for ac in actions:
                 l.append(Q[s[t+1][1]][s[t+1][0]][ac])     
             v = max(l)
-            
 
             Q[s[t][1]][s[t][0]][action] = Q[s[t][1]][s[t][0]][action] + alpha * (r[t] + gamma*v - Q[s[t][1]][s[t][0]][action])            
 
+            N[s[t][1]][s[t][0]][action]+=0.01
+
+            
             ct+=1
 
             t+=1 
+
+                
+                
         acc.append(ac)
         laa.append(la)
+        
         cpt +=1
         
         y.append(len(la))
         x.append(cpt)
+        
     print(len(laa[-1])) #Cela va nous permettre de connaitre le nombre de pas fait pour le dernier épisode
-    return x,y
+    return x,y,Q
 
 
 
@@ -354,6 +369,7 @@ def Q_Learning(etats , actions , gamma , execution , init , decision , final , e
 
 #########################################------GRAPHIQUE------#####################################################
 
+
 #Ici on va récolter les données de 15 appel à la fonction pour ensuite en faire un graphique 
 data = list()        
 for i in range(15):
@@ -362,7 +378,7 @@ for i in range(15):
 
 
 for path in data:
-    plt.plot(path[0], path[1], color='darkgrey', linewidth = 0.6, markerfacecolor='black', markersize=5)
+    plt.plot(path[0], path[1], color='darkgrey', linewidth = 0.4, markerfacecolor='black', markersize=5)
 
 plt.xlabel('x - Episode')
 
@@ -372,7 +388,25 @@ plt.title('Learning curve')
 
 
 plt.show()
+"""
+import seaborn as sns; sns.set_theme()
 
+QModifier = Q_Learning(etats_labyrinthe() , actions_labyrinthe() , 0.9 , exectution_labyrinthe , init_labyrinthe , boltzmann  , est_final_labyrinthe , maze)[2]
+
+
+il = list()
+for i in range(16):
+    jl = list()
+    for j in range(16):
+        jl.append(max(QModifier[j][i]))
+    il.append(jl)
+
+
+
+    
+uniform_data = il
+ax = sns.heatmap(uniform_data)
+"""
 ####################################################################################################################
 
 
@@ -572,9 +606,7 @@ def Q_Learning_PourAffichage(etats , actions , gamma , execution , init , decisi
 
             #action = decision(Q , actionsPossibles , s[t] , 1 ) #Cas glouton
 
-
             a.append( execution(s[t] , action ) )
-
             r.append(a[t][0]) #le retour rt
             s.append(a[t][1]) #L'état st+1
 
@@ -605,6 +637,7 @@ def Q_Learning_PourAffichage(etats , actions , gamma , execution , init , decisi
         y.append(len(la))
         x.append(cpt)
     return x,y
-
+"""
 
 Q_Learning_PourAffichage(etats_labyrinthe() , actions_labyrinthe() , 0.9 , exectution_labyrinthe , init_labyrinthe , boltzmann ,est_final_labyrinthe , maze)
+"""
