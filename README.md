@@ -21,3 +21,10 @@ non-exhaustive list of what's coming soon :
   6. Model-based
 + Environment :
   1. car-in-the-hill.
+
+## Questions / Answers
+### Questions
+In this part, I will keep track of the questions I ask myself and publish their answers when I have the answer. <br>
+1. If we want to learn the optimal policy from the environnement (environnement we discover during exploration), why initialize the Quality function to 0 for each (state, action) at the beginning ? Should not we just add a value to (state,action) when we discover it ? (Generaly you'll see something like `Initialize Q(s,a) arbitrarily`)
+
+### Answers
