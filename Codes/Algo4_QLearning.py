@@ -1,10 +1,25 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jun  8 11:03:04 2021
 
 @author: Lounès
 
-Algortithme de Q-learning
+Quality Function based algorithm :
+
+The purpose of the Q-Learning algorithm is to compute the optimal policy of an agent on an environnement where the reward and transition functions are unknown.
+The steps are :
+
+°) Random initialisation of the Quality Function (for each (state, action))
+    1) From the current state 's', choose the action 'a' to do
+    2) Perform the action 'a' and observe the reward 'r' and the new state 's*'
+    3) Update Q
+    4) Repeat
+
+In order to choose the action to do in the step 1), I've implemented 3 functions :
+1) Random choice
+2) Greedy choice
+3) Blotzmann 
 """
 import time
 from random import choice

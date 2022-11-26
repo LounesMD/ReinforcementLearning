@@ -4,7 +4,14 @@ Created on Wed Jun 23 09:28:28 2021
 
 @author: Lounès Meddahi
 
-Fichier avec une implémentation de l'algorithme SARSA appliquée à un labyrinthe
+Quality Function based algorithm :
+
+The purpose of the SARSA algorithm (on-policy) is to compute the Quality function. 
+The on-policy algorithms use the action done instead of the best action.
+
+So instead of :  max_{a \in Actions} Q(s* , a) 
+      we have :  Q(s* , a*)
+Where s* is the state the agent is and a* the action on this state
 """
 
 

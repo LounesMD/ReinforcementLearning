@@ -3,6 +3,9 @@
 Created on Mon May 31 10:56:43 2021
 
 @author: Lounès
+
+
+This file gives an implementation of a simple algorithm that computes the value of an environnement using the Bellman equation
 """
 
 import matplotlib.pyplot as plt

@@ -3,11 +3,19 @@
 Created on Thu Jun  3 09:21:18 2021
 
 @author: Lounès
+
+Value Function based algorithm.
+
+This file gives an implementation of an algorithm that computes a policy from the optimal Value function.
+For this purpose we 
+1) Compute the optimal Value Function using the Bellman optimal equation
+2) Compute the policy by choosing the action that gives the best value from a state
+
 """
 
-from Algo0 import valeur
-from Algo0 import transition_taxi
-from Algo0 import retour_taxi
+from Algo0_ValueFunction import valeur
+from Algo0_ValueFunction import transition_taxi
+from Algo0_ValueFunction import retour_taxi
 
 
 def IterationValeur(etats , actions , transitions , retour , gamma , epsilon):

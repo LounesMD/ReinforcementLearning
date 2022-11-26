@@ -4,7 +4,9 @@ Created on Thu Jun 24 11:56:12 2021
 
 @author: Lounès Meddahi
 
-Fichier avec une implémentation de l'algorithme Q(λ) appliquée à un labyrinthe.
+Quality Function based algorithm :
+
+The Q(λ) algorithm uses the eligibility of a tupple (action , state) made at time t on time t+k.
 """
 from random import choice
 from random import choices

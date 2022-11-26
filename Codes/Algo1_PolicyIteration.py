@@ -3,12 +3,18 @@
 Created on Tue Jun  1 13:28:06 2021
 
 @author: Lounès
+
+
+Value Function based algorithm.
+
+This file gives an implementation of an algorithm that computes a policy from a random policy and iterate on it as long as it is improvable.
+
 """
 import random
 from random import choice
 from random import random
-from Algo0 import transition_taxi
-from Algo0 import retour_taxi
+from Algo0_ValueFunction import transition_taxi
+from Algo0_ValueFunction import retour_taxi
 
 
 def random_pol(actions):

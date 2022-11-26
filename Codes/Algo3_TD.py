@@ -3,6 +3,12 @@
 Created on Thu Jun  3 17:46:18 2021
 
 @author: Lounès
+
+Value Function based algorithm.
+
+This file gives an implementation of the TD algorithm that computes the Value Function from a given policy.
+
+The main difference with the previous algorithms is that we DO NOT know both the reward function and the transition function
 """
 
 import matplotlib.pyplot as plt

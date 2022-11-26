@@ -4,7 +4,9 @@ Created on Tue Jun  8 11:03:04 2021
 
 @author: Lounès
 
-Algortithme de Q-learning
+Quality Function based algorithm :
+
+This file gives an implementation of the Q-Learning algorithm when we use a pre-trained Q-Function on another environnement.
 """
 import time
 from random import choice

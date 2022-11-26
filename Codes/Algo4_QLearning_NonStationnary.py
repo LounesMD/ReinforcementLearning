@@ -3,7 +3,11 @@ Created on Tue Jun  8 11:03:04 2021
 
 @author: Lounès
 
-Algortithme de Q-learning
+Quality Function based algorithm :
+
+This file gives an implementation of the Q-Learning algorithm applied to an non-stationnary environnement.
+
+
 """
 
 
@@ -137,6 +141,7 @@ def decision_labyrinthe():
 def boltzmann(Q , actions , s , to):  
     """
     Fonction qui va choisir une action à faire en utilisant le modèle de Boltzmann
+    Function that will choose the action to do regarding the Boltzmann model
 
     Parameters
     ----------
@@ -172,6 +177,7 @@ def boltzmann(Q , actions , s , to):
 def gloutonne(Q , actions , s , a):
     """
     Fonction pour le modèle glouton
+    Greedy function 
 
     Parameters
     ----------
