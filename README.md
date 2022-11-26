@@ -10,7 +10,7 @@ This repository provides an implementation of several reinforcement learning alg
 My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english](https://www.google.com)) proposed an in-dept study of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For my part, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## To come
-Monte-Carlo algorithm to estimate the Q function.
+Monte-Carlo algorithm to estimate the Q function.  <br>
 non-exhaustive list of what's coming soon : 
 + Algorithms :
   1. Monte Carlo
