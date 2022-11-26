@@ -11,3 +11,13 @@ My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/m
 
 ## To come
 Monte-Carlo algorithm to estimate the Q function.
+non-exhaustive list of what's coming soon : 
++ Algorithms :
+  1. Monte Carlo
+  2. Fitted Q-Iteration
+  3. Deep Q-Network
+  4. REINFORCE
+  5. PPO
+  6. Model-based
++ Environment :
+  1. car-in-the-hill.
