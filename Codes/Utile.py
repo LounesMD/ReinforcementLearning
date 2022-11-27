@@ -5,6 +5,7 @@ Created on Mon Jun 28 14:46:47 2021
 @author: Lounès
 """
 
+import os
 from random import choice
 from random import choices
 import math
@@ -25,8 +26,7 @@ def conversion(c):
         return 100
 
 
-
-file = open("Maze.txt","r")
+file = open("./Maze.txt","r")
 
 maze = list()
 for line in file:
@@ -147,6 +147,22 @@ def boltzmann(Q , actions , s , to):
         l.append(p)
     return l
     
+def boltzmannP(Q , actions , s , to):  
+    """
+    """
+    l =  list()
+    s = str(s)
+    for action in actions:
+        p = 0     
+        action = str(action)
+        ex = math.exp((Q[s][action])/to)        
+        v = 0        
+        for a in actions:  
+            a = str(a)  
+            v+= math.exp((Q[s][a])/to)        
+        p = ex / v
+        l.append(p)
+    return l
 
 def gloutonne(Q , actions , s , a):
     """
