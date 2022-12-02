@@ -21,10 +21,17 @@ non-exhaustive list of what's coming soon :
   6. Model-based
 + Environment :
   1. car-in-the-hill.
+  
+## To read
+  - [x] [Complexity of Planning with Partial Observability](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf)
+  - [ ] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
+  - [ ] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
+  - [ ] More ...
 
+  
 ## Questions / Answers
 ### Questions
-In this part, I will keep track of the questions I ask myself and publish their answers when I have the answer. <br>
+In this part, I will keep track of the questions I ask myself and publish their answers when I have the answer.<br>
 1. If we want to learn the optimal policy from the environnement (environnement we discover during exploration), why initialize the Quality function to 0 for each (state, action) at the beginning ? Should not we just add a value to (state,action) when we discover it ? (Generaly you'll see something like `Initialize Q(s,a) arbitrarily`)
 
 
@@ -33,5 +40,10 @@ However, for various application, when the agent does something wrong and gets a
 This is, from my point of view, different from the current approach wich is : The agent learns to don't do errors several times because it will learn to do no errors (by choosing the action that maximize its total reward). <br>
 I'll try to implement this idea with the CarInTheHill problem and publish my results. <br>
 *I'm still looking for the first article about this.
+
+3. When we use an algorithm to find the optimal policy, let's say in go, do we use the same policy for both player (= and so update it by the score of both players) ? If yes, why do we think that the optimal policy found is optimal for the black payer and the white player ? <br>
+Also, is it interesting to use different algorithms for the two players?
+
+4. What is the difference between a bandit and an agent ? When to choose which one and can we oppose an agent and a bandit ?
 
 ### Answers
