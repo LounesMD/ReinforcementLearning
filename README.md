@@ -31,6 +31,7 @@ Also, I would like to provide a script, based on Deep-Q Learning, that can be ru
   - [ ] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
   - [ ] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
   - [x] [Gans](https://arxiv.org/pdf/1406.2661.pdf) and [its analysis](https://www.youtube.com/watch?v=eyxmSmjmNS0&ab_channel=YannicKilcher)
+  - [ ] [MDPs]()
   - [ ] More ...
 
   
@@ -50,5 +51,8 @@ I'll try to implement this idea with the CarInTheHill problem and publish my res
 Also, is it interesting to use different algorithms for the two players?
 
 4. What is the difference between a bandit and an agent ? When to choose which one and can we oppose an agent and a bandit ?
+
+
+5. How important it is to be able to know the new state of the agent after doing an action ? (Check this [article](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf))
 
 ### Answers
