@@ -3,7 +3,7 @@
 This repository provides an implementation of several reinforcement learning algorithms, must read papers/books and questions (of any kind).
 
 <p align="center">
-  <img src="Images/GIF.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
+  <img src="Images/Gif_Maze.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
 </p>
 
 In addition, I keep this repository updated with my thoughts and future work (mainly to answer the question: How to improve reinforcement learning for non-stationary environments).
