@@ -13,6 +13,8 @@ My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/m
 
 ## To come
 car-in-the-hill environnement.  <br>
+Q-Learning applied to car-in-the-hill (the environnement will be discretize). <br>
+
 non-exhaustive list of what's coming soon : 
 + Algorithms :
   1. Monte Carlo Search
