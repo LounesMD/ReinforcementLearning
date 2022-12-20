@@ -3,16 +3,18 @@
 This repository provides an implementation of several reinforcement learning algorithms, must read papers/books and questions (of any kind).
 
 <p align="center">
-  <img src="Images/GIF.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
+  <img src="Images/Gif_Maze.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
 </p>
 
 In addition, I keep this repository updated with my thoughts and future work (mainly to answer the question: How to improve reinforcement learning for non-stationary environments).
 
 ## Report
-My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english](https://www.google.com)) proposed an in-dept study of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For my part, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
+My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english](https://www.google.com)) proposed an in-dept study of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## To come
 car-in-the-hill environnement.  <br>
+Q-Learning applied to car-in-the-hill (the environnement will be discretize). <br>
+
 non-exhaustive list of what's coming soon : 
 + Algorithms :
   1. Monte Carlo Search
@@ -32,6 +34,8 @@ Also, I would like to provide a script, based on Deep-Q Learning, that can be ru
   - [ ] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
   - [x] [Gans](https://arxiv.org/pdf/1406.2661.pdf) and [its analysis](https://www.youtube.com/watch?v=eyxmSmjmNS0&ab_channel=YannicKilcher)
   - [ ] [MDPs]()
+  - [ ] Offline Reinforcement Learning : [Paper1](https://arxiv.org/abs/2005.01643) & [Paper2](https://arxiv.org/abs/2203.01387)
+  - [ ] [Online Reinforcement Learning](https://arxiv.org/abs/1612.03780)
   - [ ] More ...
 
   
