@@ -4,7 +4,7 @@ This repository provides an implementation of several reinforcement learning alg
 
 <p align="center">
   <img src="Images/Gif_Maze.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
-  <img src="Images/Mountain_Car.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
+  <img src="Images/Mountain_Car.gif" width="400" height="300" title="Qlearning applied to find the shortest way in a maze">
 </p>
 
 
