@@ -14,8 +14,8 @@ In addition, I keep this repository updated with my thoughts and future work (ma
 My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english](https://www.google.com)) proposed an in-dept study of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## To come
-car-in-the-hill environnement.  <br>
-Q-Learning applied to car-in-the-hill (the environnement will be discretize). <br>
+Fitted Q-Iteration.  <br>
+Deep Q-Learning. <br>
 
 non-exhaustive list of what's coming soon : 
 + Algorithms :
@@ -26,9 +26,12 @@ non-exhaustive list of what's coming soon :
   5. PPO
   6. Model-based
 + Environment :
-  1. car-in-the-hill.
+  1. Classic Control : Cart Pole and Acroboy.
+  2. Mujoco : Ant, Hopper and Humanoid
+  3. My own environments !
  
-Also, I would like to provide a script, based on Deep-Q Learning, that can be run on *every* video game website to find the best way to *maximize* a score.
+Also, I would like to provide a script, based on Deep-Q Learning, that can be run on *every* video game website to find the best way to *maximize* a score. <br>
+At the beginning of 2023, you will have an object-oriented implementation of my algorithms.
  
 ## To read
   - [x] [Complexity of Planning with Partial Observability](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf)
@@ -62,3 +65,4 @@ Also, is it interesting to use different algorithms for the two players?
 5. How important it is to be able to know the new state of the agent after doing an action ? (Check this [article](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf))
 
 ### Answers
+1. I have done such an implementation for the mountain car problem, and the performance is the same. I asked this question before I realized that you can discretize your environment if you use a classic Q-Learning tabular method.
