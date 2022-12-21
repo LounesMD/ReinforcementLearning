@@ -4,7 +4,9 @@ This repository provides an implementation of several reinforcement learning alg
 
 <p align="center">
   <img src="Images/Gif_Maze.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
+  <img src="Images/Mountain_Car.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
 </p>
+
 
 In addition, I keep this repository updated with my thoughts and future work (mainly to answer the question: How to improve reinforcement learning for non-stationary environments).
 
