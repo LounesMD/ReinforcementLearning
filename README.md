@@ -27,7 +27,7 @@ non-exhaustive list of what's coming soon :
   6. Model-based
 + Environment :
   1. Classic Control : Cart Pole and Acroboy.
-  2. Mujoco : Ant, Hopper and Humanoid
+  2. Mujoco : Ant, Hopper and Humanoid.
   3. My own environments !
  
 Also, I would like to provide a script, based on Deep-Q Learning, that can be run on *every* video game website to find the best way to *maximize* a score. <br>
