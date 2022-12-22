@@ -60,7 +60,7 @@ def conversion(c):
 
 
 
-file = open("Maze.txt","r")
+file = open("../Environments/Maze.txt","r")
 
 maze = list()
 for line in file:
