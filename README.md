@@ -36,7 +36,7 @@ At the beginning of 2023, you will have an object-oriented implementation of my 
 ## To read
   - [x] [Complexity of Planning with Partial Observability](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf)
   - [ ] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
-  - [ ] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
+  - [x] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
   - [x] [Gans](https://arxiv.org/pdf/1406.2661.pdf) and [its analysis](https://www.youtube.com/watch?v=eyxmSmjmNS0&ab_channel=YannicKilcher)
   - [ ] [MDPs]()
   - [ ] Offline Reinforcement Learning : [Paper1](https://arxiv.org/abs/2005.01643) & [Paper2](https://arxiv.org/abs/2203.01387)
