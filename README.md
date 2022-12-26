@@ -42,7 +42,7 @@ At the beginning of 2023, you will have an object-oriented implementation of my 
   - [ ] Offline Reinforcement Learning : [Paper1](https://arxiv.org/abs/2005.01643) & [Paper2](https://arxiv.org/abs/2203.01387)
   - [ ] [Online Reinforcement Learning](https://arxiv.org/abs/1612.03780)
   - [x] [Outracing champion Gran Turismo drivers with deep reinforcement learning](https://www.nature.com/articles/s41586-021-04357-7)
-  - [ ] [Hierarchical Reinforcement Learning for Precise Soccer Shooting Skills using a Quadrupedal Robot](https://arxiv.org/pdf/2208.01160.pdf)
+  - [x] [Hierarchical Reinforcement Learning for Precise Soccer Shooting Skills using a Quadrupedal Robot](https://arxiv.org/pdf/2208.01160.pdf)
   - [ ] [AnyMorph: Learning Transferable Polices By Inferring Agent Morphology](https://arxiv.org/pdf/2206.12279.pdf)
   - [ ] More ...
 
