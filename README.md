@@ -38,7 +38,7 @@ At the beginning of 2023, you will have an object-oriented implementation of my 
   - [ ] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
   - [x] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
   - [x] [Gans](https://arxiv.org/pdf/1406.2661.pdf) and [its analysis](https://www.youtube.com/watch?v=eyxmSmjmNS0&ab_channel=YannicKilcher)
-  - [ ] [MDPs]()
+  - [x] [Learn more about (finite) MDPs](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
   - [ ] Offline Reinforcement Learning : [Paper1](https://arxiv.org/abs/2005.01643) & [Paper2](https://arxiv.org/abs/2203.01387)
   - [ ] [Online Reinforcement Learning](https://arxiv.org/abs/1612.03780)
   - [x] [Outracing champion Gran Turismo drivers with deep reinforcement learning](https://www.nature.com/articles/s41586-021-04357-7)
