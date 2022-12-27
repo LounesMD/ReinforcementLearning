@@ -14,6 +14,8 @@ In addition, I keep this repository updated with my thoughts and future work (ma
 My report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english](https://www.google.com)) proposed an in-dept study of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## To come
+
+### <ins> Soon : </ins>
 Fitted Q-Iteration.  <br>
 Deep Q-Learning. <br>
 
@@ -31,7 +33,9 @@ non-exhaustive list of what's coming soon :
   3. My own environments !
  
 Also, I would like to provide a script, based on Deep-Q Learning, that can be run on *every* video game website to find the best way to *maximize* a score. <br>
-At the beginning of 2023, you will have an object-oriented implementation of my algorithms.
+At the beginning of 2023, you will have an object-oriented implementation of my algorithms. <br>
+During the first months of 2023, I will do my best to publish my answers to Richard S. Sutton's book questions on a weekly basis (Before and after receiving the answers). <br>
+I will also try to read more *theoretical articles* and articles on RL applied to robotics.
  
 ## To read
   - [x] [Complexity of Planning with Partial Observability](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf)
@@ -44,9 +48,14 @@ At the beginning of 2023, you will have an object-oriented implementation of my 
   - [x] [Outracing champion Gran Turismo drivers with deep reinforcement learning](https://www.nature.com/articles/s41586-021-04357-7)
   - [x] [Hierarchical Reinforcement Learning for Precise Soccer Shooting Skills using a Quadrupedal Robot](https://arxiv.org/pdf/2208.01160.pdf)
   - [ ] [AnyMorph: Learning Transferable Polices By Inferring Agent Morphology](https://arxiv.org/pdf/2206.12279.pdf)
+  - [ ] [Human-level control through deep reinforcement learning](https://daiwk.github.io/assets/dqn.pdf)
+  - [ ] [CONTINUOUS CONTROL WITH DEEP REINFORCEMENT LEARNING](https://arxiv.org/pdf/1509.02971.pdf?source=post_page---------------------------)
+  - [ ] [Deep reinforcement learning with double q-learning](https://scholar.google.com/citationsview_op=view_citation&hl=en&user=-8DNE4UAAAAJ&citation_for_view=-8DNE4UAAAAJ:iH-uZ7U-co4C)
+  - [ ] [The road to modern AI](https://arxiv.org/ftp/arxiv/papers/2212/2212.11279.pdf)
   - [ ] More ...
 
-  
+I will soon deploy a link to my notes of some articles.
+
 ## Questions / Answers
 ### Questions
 In this part, I will keep track of the questions I ask myself and publish their answers when I have the answer. I will do my best to publish them soon on stackoverflow, Quora, ...<br>
