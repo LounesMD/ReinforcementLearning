@@ -43,8 +43,7 @@ I will also try to read more *theoretical articles* and articles on RL applied t
   - [x] [World Models](https://arxiv.org/pdf/1803.10122.pdf)
   - [x] [Gans](https://arxiv.org/pdf/1406.2661.pdf) and [its analysis](https://www.youtube.com/watch?v=eyxmSmjmNS0&ab_channel=YannicKilcher)
   - [x] [Learn more about (finite) MDPs](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
-  - [ ] Offline Reinforcement Learning : [Paper1](https://arxiv.org/abs/2005.01643) & [Paper2](https://arxiv.org/abs/2203.01387)
-  - [ ] [Online Reinforcement Learning](https://arxiv.org/abs/1612.03780)
+  - [ ] [Offline Reinforcement Learning](https://arxiv.org/abs/2005.01643)
   - [x] [Outracing champion Gran Turismo drivers with deep reinforcement learning](https://www.nature.com/articles/s41586-021-04357-7)
   - [x] [Hierarchical Reinforcement Learning for Precise Soccer Shooting Skills using a Quadrupedal Robot](https://arxiv.org/pdf/2208.01160.pdf)
   - [ ] [AnyMorph: Learning Transferable Polices By Inferring Agent Morphology](https://arxiv.org/pdf/2206.12279.pdf)
@@ -53,6 +52,12 @@ I will also try to read more *theoretical articles* and articles on RL applied t
   - [ ] [Deep reinforcement learning with double q-learning](https://scholar.google.com/citationsview_op=view_citation&hl=en&user=-8DNE4UAAAAJ&citation_for_view=-8DNE4UAAAAJ:iH-uZ7U-co4C)
   - [ ] [The road to modern AI](https://arxiv.org/ftp/arxiv/papers/2212/2212.11279.pdf)
   - [ ] [UNSUPERVISED REPRESENTATION LEARNING WITH DEEP CONVOLUTIONAL GENERATIVE ADVERSARIAL NETWORKS](https://arxiv.org/pdf/1511.06434.pdf)
+  - [ ] [TACTO: A Fast, Flexible, and Open-source Simulator for High-Resolution Vision-based Tactile Sensors](https://arxiv.org/pdf/2012.08456.pdf)
+  - [ ] [In-Hand Object Rotation via Rapid Motor Adaptation](https://arxiv.org/pdf/2210.04887.pdf)
+  - [ ] [Learning to Play Table Tennis From Scratch using Muscular Robots](https://arxiv.org/pdf/2006.05935.pdf)
+  - [ ] [Improving Intrinsic Exploration with Language Abstractions](https://arxiv.org/pdf/2202.08938.pdf)
+  - [ ] [Exploration via Elliptical Episodic Bonuses](https://arxiv.org/pdf/2210.05805.pdf)
+  - [ ] [MAESTRO: OPEN-ENDED ENVIRONMENT DESIGN FOR MULTI-AGENT REINFORCEMENT LEARNING](https://openreview.net/pdf?id=sKWlRDzPfd7)
   - [ ] More ...
 
 I will soon deploy a link to my notes of some these articles.
