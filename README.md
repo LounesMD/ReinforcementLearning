@@ -21,12 +21,11 @@ Deep Q-Learning. <br>
 
 non-exhaustive list of what's coming soon : 
 + Algorithms :
-  1. Monte Carlo Search
-  2. Fitted Q-Iteration
-  3. Deep Q-Network
-  4. REINFORCE
-  5. PPO
-  6. Model-based
+  1. Fitted Q-Iteration
+  2. Deep Q-Network
+  3. REINFORCE
+  4. PPO
+  5. Quality-Diversity algorithms
 + Environment :
   1. Classic Control : Cart Pole and Acroboy.
   2. Mujoco : Ant, Hopper and Humanoid.
