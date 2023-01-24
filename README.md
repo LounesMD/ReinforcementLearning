@@ -94,5 +94,9 @@ Also, is it interesting to use different algorithms for the two players?
 
 5. How important it is to be able to know the new state of the agent after doing an action ? (Check this [article](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf))
 
+6. Let's say we want to train a robot to develop a policy that prevents it from falling when pushed into a wall. If we use a traditional reinforcement learning algorithm and consistently apply the same or similar force vectors during training, the robot will likely learn a single policy, such as using its right arm. How can we introduce diversity in the training data to encourage the robot to develop a variety of different policies, such as using its left arm, knees, or both arms, given the same initial state? Additionally, what does it mean when "two policies are similar" and how can we detect when the robot uses the same action, such as using its right arm, with different angles?
+
 ### Answers
 1. I have done such an implementation for the mountain car problem, and the performance is the same. I asked this question before I realized that you can discretize your environment if you use a classic Q-Learning tabular method.
+
+6. One solution to achieve a diverse set of policies is to use Quality-Diversity (QD) algorithms (check this [website](https://quality-diversity.github.io/) from Antoine Cully, Jean-Baptiste Mouret and Stephane Doncieux). To measure the similarity between two policies, we can represent them as vectors or use a spatial representation, and calculate the difference between these two vectors.
