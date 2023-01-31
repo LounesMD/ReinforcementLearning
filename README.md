@@ -77,9 +77,11 @@ I will soon deploy a link to my notes of some these articles.
 Here are the courses I took to further my knowledge of Reinforcement Learning :
   - [ ] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf) by [Richard S. Sutton](http://incompleteideas.net/) and [Andrew G. Barto](https://people.cs.umass.edu/~barto/) <br>
   - [x] [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf) by [Philippe Preux](https://philippe-preux.github.io/)<br>
-  - [x] [Deep Learning for Computer Vision](https://www.youtube.com/watch?v=dJYGatp4SvA&list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r&ab_channel=MichiganOnline) by [Justin Johnson](https://web.eecs.umich.edu/~justincj/) <br>
+  - [x] [Game Theory and Applications](https://www.dropbox.com/s/lkbqe5i3wgc3on3/support.pdf?dl=0) by [Bruno Tuffin](https://people.rennes.inria.fr/Bruno.Tuffin/) and [Patrick Maillé](https://www.imt-atlantique.fr/fr/personne/patrick-maille) <br>
   - [x] Markov Chains by [Bruno Tuffin](https://people.rennes.inria.fr/Bruno.Tuffin/) and [Bruno Sericola](https://scholar.google.fr/citations?user=YOQcueAAAAAJ&hl=fr) <br>
   - [x] [Deep Learning with Python](https://sourestdeeds.github.io/pdf/Deep%20Learning%20with%20Python.pdf) by [François Chollet](https://fchollet.com/)
+  - [x] [Deep Learning for Computer Vision](https://www.youtube.com/watch?v=dJYGatp4SvA&list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r&ab_channel=MichiganOnline) by [Justin Johnson](https://web.eecs.umich.edu/~justincj/) <br>
+
 
 ## Questions / Answers
 ### Questions
