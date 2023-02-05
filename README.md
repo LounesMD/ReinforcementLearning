@@ -13,6 +13,9 @@ In addition, I keep this repository updated with my thoughts and future work (ma
 ## Report
 A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english]()) proposed an in-dept study of some of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
+## News
+This repository is not dead. I'm just busy **looking for a research internship in reinforcement learning**. I'll upload the summarizes, new algorithms and answers from Barto/Sutton's book soon.
+
 ## To come
 
 ### <ins> Soon : </ins>
@@ -71,6 +74,14 @@ I will soon deploy a link to my notes of some these articles.
   - [ ] [MAESTRO: OPEN-ENDED ENVIRONMENT DESIGN FOR MULTI-AGENT REINFORCEMENT LEARNING](https://openreview.net/pdf?id=sKWlRDzPfd7)
   - [x] [Accelerated Quality-Diversity through Massive Parallelism](https://arxiv.org/pdf/2202.01258.pdf) <br>
     Teams involved : [Adaptive & Intelligent Robotics Lab](https://www.imperial.ac.uk/adaptive-intelligent-robotics/publications/) at the [Imperial College London](https://www.imperial.ac.uk/)
+  - [x] [Discovering and Exploiting Sparse Rewards in a Learned Behavior Space](https://arxiv.org/pdf/2111.01919.pdf) <br>
+    Teams involved : [AI Lab, SoftBank Robotics Europe](https://www.softbankrobotics.com/) and [Institut des Systémes Intelligents et de Robotique, ISIR](https://www.isir.upmc.fr/equipes/amac/)
+  - [x] [Sparse Reward Exploration via Novelty Search and Emitters](https://arxiv.org/pdf/2102.03140.pdf) <br>
+    Teams involved : [AI Lab, SoftBank Robotics Europe](https://www.softbankrobotics.com/) and [Institut des Systémes Intelligents et de Robotique, ISIR](https://www.isir.upmc.fr/equipes/amac/)
+  - [x] [Emergence of Spatial Coordinates via Exploration](https://arxiv.org/pdf/2010.15469.pdf) <br>
+    Team involved : [AI Lab, SoftBank Robotics Europe](https://www.softbankrobotics.com/)
+  - [x] [Generalization in Cooperative Multi-Agent Systems](https://arxiv.org/pdf/2202.00104.pdf) <br>
+    Team involved : [WhiRL](http://whirl.cs.ox.ac.uk/index.html) and [DARK Lab](https://ucldark.com/)
   - [ ] More ...
 
 ## Courses
