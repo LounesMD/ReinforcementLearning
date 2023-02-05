@@ -9,9 +9,10 @@ This repository provides an implementation of several reinforcement learning alg
 
 
 In addition, I keep this repository updated with my thoughts and future work (mainly to answer the question: How to improve reinforcement learning for non-stationary environments).
+The long term goal of this repository is to be python library for reinforcement with RL algorithms and environments.
 
 ## Report
-A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) or in [english]()) proposed an in-dept study of some of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
+A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) and soon in [english]()) proposed an in-dept study of some of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## News
 This repository is not dead. I'm just busy **looking for a research internship in reinforcement learning**. I'll upload the summarizes, new algorithms and answers from Barto/Sutton's book soon.
