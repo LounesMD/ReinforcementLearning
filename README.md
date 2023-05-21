@@ -15,7 +15,7 @@ The long term goal of this repository is to be python library for reinforcement 
 A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) and soon in [english]()) proposed an in-dept study of some of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## News
-This repository is not dead. I'm just busy **looking for a research internship in reinforcement learning**. I'll upload the summarizes, new algorithms and answers from Barto/Sutton's book soon.
+I am back to update this repository! From now on, you will have weekly RL papers with notes and I will try to post my correction of the exercises from R. Sutton's book every week. <br>
 
 ## To come
 
@@ -83,13 +83,13 @@ I will soon deploy a link to my notes of some these articles.
     Team involved : [AI Lab, SoftBank Robotics Europe](https://www.softbankrobotics.com/)
   - [x] [Generalization in Cooperative Multi-Agent Systems](https://arxiv.org/pdf/2202.00104.pdf) <br>
     Team involved : [WhiRL](http://whirl.cs.ox.ac.uk/index.html) and [DARK Lab](https://ucldark.com/)
-  - [x] [(MuZero) Mastering Atari, Go, chess and shogi by planning with a learned model](./WebPages/(MuZero)%20Mastering%20Atari%2C%20Go%2C%20chess%20and%20shogi%20by%20p%207bd57d21e0bf4b8fa23fad8842ded445.html) <br>
+  - [x] [(MuZero) Mastering Atari, Go, chess and shogi by planning with a learned model](./WebPages/(MuZero)%20Mastering%20Atari%2C%20Go%2C%20chess%20and%20shogi%20by%20p%207bd57d21e0bf4b8fa23fad8842ded445.md) <br>
     Team involved : [DeepMind](https://deepmind.com/)
-  - [x] [(AlphaZero) Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm](./WebPages/(AlphaZero)%20Mastering%20Chess%20and%20Shogi%20by%20Self-Play%206460966613664c28af351340322afdce.html) <br>
+  - [x] [(AlphaZero) Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm](./WebPages/(AlphaZero)%20Mastering%20Chess%20and%20Shogi%20by%20Self-Play%206460966613664c28af351340322afdce.md) <br>
     Team involved : [DeepMind](https://deepmind.com/)
-  - [x] [(AlphaGo Zero) Mastering the game of Go without human knowledge](./WebPages/(AlphaGO%20Zero)%20Mastering%20the%20game%20of%20Go%20without%20hu%20558133da88ee461b8107d36fddcf6ea0.html) <br>
+  - [x] [(AlphaGo Zero) Mastering the game of Go without human knowledge](./WebPages/(AlphaGO%20Zero)%20Mastering%20the%20game%20of%20Go%20without%20hu%20558133da88ee461b8107d36fddcf6ea0.md) <br>
     Team involved : [DeepMind](https://deepmind.com/)
-  - [x] [(AlphaGO) Mastering the game of GO with deep neural networks and tree search](./WebPages/(AlphaGO)%20Mastering%20the%20game%20of%20GO%20with%20deep%20neura%20f71f9f55522545b58de0d7e1c0410492.html) <br>
+  - [x] [(AlphaGO) Mastering the game of GO with deep neural networks and tree search](./WebPages/(AlphaGO)%20Mastering%20the%20game%20of%20GO%20with%20deep%20neura%20f71f9f55522545b58de0d7e1c0410492.md) <br>
     Team involved : [DeepMind](https://deepmind.com/)
   - [ ] More ...
 
