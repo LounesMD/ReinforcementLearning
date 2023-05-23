@@ -91,6 +91,12 @@ I will soon deploy a link to my notes of some these articles.
     Team involved : [DeepMind](https://deepmind.com/)
   - [x] [(AlphaGO) Mastering the game of GO with deep neural networks and tree search](./WebPages/(AlphaGO)%20Mastering%20the%20game%20of%20GO%20with%20deep%20neura%20f71f9f55522545b58de0d7e1c0410492.md) <br>
     Team involved : [DeepMind](https://deepmind.com/)
+  - [x] [(AlphaFold) Mastering the game of GO with deep neural networks and tree search](./WebPages/(AlphaGO)%20Mastering%20the%20game%20of%20GO%20with%20deep%20neura%20f71f9f55522545b58de0d7e1c0410492.md) <br>
+    Team involved : [DeepMind](https://deepmind.com/)
+  - [x] [(AlphaTensor) Discovering faster matrix multiplication algorithms with Reinforcement Learning](./WebPages/(AlphaTensor)%20Discovering%20faster%20matrix%20multiplica%206e5d564f0366440697a1de1fa4b2d2f6.md)<br>
+    Team involved : [DeepMind](https://deepmind.com/)
+  - [x] [(AlphaFold) Highly accurate protein structure prediction with AlphaFold](./WebPages/(AlphaFold)%20Highly%20accurate%20protein%20structure%20pred%20a6b0bd2932304666ae55f0a0aef1f220.md)<br>
+    Team involved : [DeepMind](https://deepmind.com/)
   - [ ] More ...
 
 ## Courses
