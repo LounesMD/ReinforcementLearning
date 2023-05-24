@@ -20,6 +20,7 @@ I am back to update this repository! From now on, you will have weekly RL papers
 ## To come
 
 ### <ins> Soon : </ins>
+Q-Learning for inverted pendulum<br>
 Fitted Q-Iteration.  <br>
 Deep Q-Learning. <br>
 
@@ -96,6 +97,8 @@ I will soon deploy a link to my notes of some these articles.
   - [x] [(AlphaTensor) Discovering faster matrix multiplication algorithms with Reinforcement Learning](./WebPages/(AlphaTensor)%20Discovering%20faster%20matrix%20multiplica%206e5d564f0366440697a1de1fa4b2d2f6.md)<br>
     Team involved : [DeepMind](https://deepmind.com/)
   - [x] [(AlphaFold) Highly accurate protein structure prediction with AlphaFold](./WebPages/(AlphaFold)%20Highly%20accurate%20protein%20structure%20pred%20a6b0bd2932304666ae55f0a0aef1f220.md)<br>
+    Team involved : [DeepMind](https://deepmind.com/)
+  - [x] [(DeepNash) Mastering the Game of Stratego with Model-Free Multiagent Reinforcement Learning]()<br>
     Team involved : [DeepMind](https://deepmind.com/)
   - [ ] More ...
 
