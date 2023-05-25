@@ -98,7 +98,7 @@ I will soon deploy a link to my notes of some these articles.
     Team involved : [DeepMind](https://deepmind.com/)
   - [x] [(AlphaFold) Highly accurate protein structure prediction with AlphaFold](./WebPages/(AlphaFold)%20Highly%20accurate%20protein%20structure%20pred%20a6b0bd2932304666ae55f0a0aef1f220.md)<br>
     Team involved : [DeepMind](https://deepmind.com/)
-  - [x] [(DeepNash) Mastering the Game of Stratego with Model-Free Multiagent Reinforcement Learning]()<br>
+  - [x] [(DeepNash) Mastering the Game of Stratego with Model-Free Multiagent Reinforcement Learning](./WebPages/(DeepNash)%20Mastering%20the%20game%20of%20Stratego%20with%20mod%20b064bddef212485db6f72bd3c67afd49.md)<br>
     Team involved : [DeepMind](https://deepmind.com/)
   - [ ] More ...
 
