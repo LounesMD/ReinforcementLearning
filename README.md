@@ -8,19 +8,19 @@ This repository provides an implementation of several reinforcement learning alg
 </p>
 
 
-In addition, I keep this repository updated with my thoughts and future work (mainly to answer the question: How to improve reinforcement learning for non-stationary environments).
-The long term goal of this repository is to be python library for reinforcement with RL algorithms and environments.
+In addition, I keep this repository updated with my thoughts and future work (mainly to answer the question: How to improve reinforcement learning for non-stationary environments.<br>
+The long term goal of this repository is to be the must-have of GitHub Reinforcement Learning repository (RL Algo, environements, papers, etc).
 
 ## Report
 A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) and soon in [english]()) proposed an in-dept study of some of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
 ## News
 I am back to update this repository! From now on, you will have weekly RL papers with notes and I will try to post my correction of the exercises from R. Sutton's book every week. <br>
+Moreover, I intend to make this repository as useful as possible for myself as my goal is to do a PhD in LR in 1/2 years. So I will soon publish a list of all the RL researchers/teams and their research topics, as well as a list of major RL conferences! 
 
 ## To come
-
 ### <ins> Soon : </ins>
-Q-Learning for inverted pendulum<br>
+Q-Learning for inverted pendulum (some problems with discretization...)<br>
 Fitted Q-Iteration.  <br>
 Deep Q-Learning. <br>
 
