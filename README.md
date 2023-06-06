@@ -100,7 +100,8 @@ I will soon deploy a link to my notes of some these articles.
     Team involved : [DeepMind](https://deepmind.com/)
   - [x] [(DeepNash) Mastering the Game of Stratego with Model-Free Multiagent Reinforcement Learning](./WebPages/(DeepNash)%20Mastering%20the%20game%20of%20Stratego%20with%20mod%20b064bddef212485db6f72bd3c67afd49.md)<br>
     Team involved : [DeepMind](https://deepmind.com/)
-  - [ ] More ...
+  - [x] [ETA Prediction with Graph Neural Networks in Google Maps](./WebPages/ETA%20Prediction%20with%20Graph%20Neural%20Networks%20in%20Googl%208403ba3951514491adcd478f930cefc6.md)<br>
+    Team involved : [DeepMind](https://deepmind.com/), [Google](https://research.google/)
 
 ## Courses
 Here are the courses I took to further my knowledge of Reinforcement Learning :
