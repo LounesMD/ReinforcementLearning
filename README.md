@@ -91,6 +91,8 @@ All the articles I've read and plan to read. I keep track of the teams involved 
     Team involved : [DeepMind](https://deepmind.com/), [Google](https://research.google/)
 
 ### To read
+  - [ ] [Player of Games](https://arxiv.org/abs/2112.03178)
+  - [ ] [Approximate exploitability: Learning a best response in large games](https://arxiv.org/abs/2004.09677)
   - [ ] [Towards a Better Understanding of Representation Dynamics under TD-learning](https://arxiv.org/abs/2305.18491)
   - [ ] [MAESTRO: OPEN-ENDED ENVIRONMENT DESIGN FOR MULTI-AGENT REINFORCEMENT LEARNING](https://openreview.net/pdf?id=sKWlRDzPfd7)
   - [ ] [Deep reinforcement learning with double q-learning](https://scholar.google.com/citationsview_op=view_citation&hl=en&user=-8DNE4UAAAAJ&citation_for_view=-8DNE4UAAAAJ:iH-uZ7U-co4C)
@@ -98,6 +100,8 @@ All the articles I've read and plan to read. I keep track of the teams involved 
 
 ## Courses
 Here are the courses I took to further my knowledge of Reinforcement Learning :
+  - [ ] [Algorithms for decision making](https://algorithmsbook.com/#outline) by [Mykel J. Kochenderfer](https://mykel.kochenderfer.com/), [Tim A. Wheeler
+](http://timallanwheeler.com/miniport/home.html) and [Kyle H. Wray](https://kylewray.com/)
   - [ ] [Multi-Agent Reinforcement Learning: Foundations and Modern Approaches](https://www.marl-book.com/) by [Stefano V. Albrecht](https://agents.inf.ed.ac.uk/stefano-albrecht/), [Filippos Christianos](https://fchristianos.com/) and [Lukas Schäfer](https://www.marl-book.com/) <br>
   - [x] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf) by [Richard S. Sutton](http://incompleteideas.net/) and [Andrew G. Barto](https://people.cs.umass.edu/~barto/) <br>
   - [x] [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf) by [Philippe Preux](https://philippe-preux.github.io/)<br>
