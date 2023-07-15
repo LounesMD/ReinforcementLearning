@@ -4,7 +4,9 @@ This repository provides an implementation of several reinforcement learning alg
 
 <p align="center">
   <img src="Images/Gif_Maze.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
-  <img src="Images/Mountain_Car.gif" width="400" height="300" title="Qlearning applied to find the shortest way in a maze">
+  <img src="Images/Mountain_Car.gif" width="400" height="300" title="Qlearning applied to find the shortest way to leave the maze">
+  <img src="Images/CartPole.gif" width="400" height="300" title="Qlearning applied to find the longest sequence of actions to stay alive">
+
 </p>
 
 
@@ -19,21 +21,21 @@ I am back to update this repository! From now on, you will have weekly RL papers
 Moreover, I intend to make this repository as useful as possible for myself as my goal is to do a PhD in RL in 1 or 2 years. So I will soon publish a list of all the RL researchers/teams and their research topics, as well as a list of major RL conferences! 
 
 ## To come
-### <ins> Soon : </ins>
+### <ins> Soon: </ins>
 Q-Learning for inverted pendulum (some problems with discretization and busy for the moment...)<br>
 Fitted Q-Iteration.  <br>
 Deep Q-Learning. <br>
 
-non-exhaustive list of what's coming soon : 
-+ Algorithms :
+non-exhaustive list of what's coming soon: 
++ Algorithms:
   1. Fitted Q-Iteration
   2. Deep Q-Network
   3. REINFORCE
   4. PPO
   5. Quality-Diversity algorithms
-+ Environment :
-  1. Classic Control : Cart Pole and Acroboy.
-  2. Mujoco : Ant, Hopper and Humanoid.
++ Environment:
+  1. Classic Control: Acroboy.
+  2. Mujoco: Ant, Hopper and Humanoid.
   3. My own environments !
  
 Also, I would like to provide a script, based on Deep-Q Learning, that can be run on *every* video game website to find the best way to *maximize* a score. <br>
