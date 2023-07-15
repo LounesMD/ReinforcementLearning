@@ -9,7 +9,7 @@ https://ieeexplore.ieee.org/document/6313077
 import random
 import math
 from matplotlib import pyplot as plt
-
+import numpy as np
 
 class CartPole:
     def __init__(self):
@@ -88,3 +88,30 @@ class CartPole:
         self.velocity = random.uniform(-0.05, -0.05)
         self.pole_angle = random.uniform(-0.05, -0.05)
         self.pole_angular_velocity = random.uniform(-0.05, -0.05)
+
+    def get_possible_actions(self):
+        return [0,1]
+    
+class CartPoleDiscretizer:
+    def __init__(self, bins=(20, 20, 20, 20)):  # You can change the number of bins based on your requirements
+        self.bins = bins
+        self.lowerBounds = [-4.8 , -3 , -(12 * 2 * math.pi / 360), -10]
+        self.upperBounds = [4.8 , 3, (12 * 4 * math.pi / 360), 10 ]
+
+    def discretize(self,state):
+        position =      state[0]
+        velocity =      state[1]
+        angle    =      state[2]
+        angularVelocity=state[3]
+
+        cartPositionBin=np.linspace(self.lowerBounds[0],self.upperBounds[0],self.bins[0])
+        cartVelocityBin=np.linspace(self.lowerBounds[1],self.upperBounds[1],self.bins[1])
+        poleAngleBin=np.linspace(self.lowerBounds[2],self.upperBounds[2],self.bins[2])
+        poleAngleVelocityBin=np.linspace(self.lowerBounds[3],self.upperBounds[3],self.bins[3])
+
+        indexPosition=np.maximum(np.digitize(state[0],cartPositionBin)-1,0)
+        indexVelocity=np.maximum(np.digitize(state[1],cartVelocityBin)-1,0)
+        indexAngle=np.maximum(np.digitize(state[2],poleAngleBin)-1,0)
+        indexAngularVelocity=np.maximum(np.digitize(state[3],poleAngleVelocityBin)-1,0)
+
+        return tuple([indexPosition,indexVelocity,indexAngle,indexAngularVelocity])

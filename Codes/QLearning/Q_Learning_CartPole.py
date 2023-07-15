@@ -11,64 +11,10 @@ import sys
 import os
 from matplotlib.pyplot import savefig
 from Codes.Environments.Cart_Pole import *
+from Codes.ActionSelection.boltzmann import *
 import random
-
-def boltzmann(Q , actions , state  , to):
-    """
-    Fonction qui va choisir une action à faire en utilisant le modèle de Boltzmann
-
-    Parameters
-    ----------
-    Q : list
-        Fonction qualitée.
-    actions : list
-        Actions possibles.
-    s : list
-        coordonnées.
-    to : int
-        température .
-
-    Returns
-    -------
-    l : list
-        (Renvoie une distribution de probabilité des actions en suivant le modele de Boltzmann).
-
-    """
-    l =  list()
-    for action in actions:
-        p = 0
-        ex = math.exp((Q[state[0]][state[1]][state[2]][state[3]][action])/to) #
-        # ex = math.exp((Q[state[0]][state[1]][action])/to) #
-
-        v = 0
-        for a in actions:
-            v+= math.exp((Q[state[0]][state[1]][state[2]][state[3]][a])/to)
-            # v+= math.exp((Q[state[0]][state[1]][a])/to)
-        p = ex / v
-        l.append(p)
-    return l
-
-def epsilon_greedy(Q , state):
-    # return random.choices( [np.argmax(Q[state[0]][state[1]]) , random.choice([0 , 1])] , weights=(0.9 , 0.1) , k=1)[0]
-    return np.argmax(Q[state[0]][state[1]][state[2]][state[3]])
-
-
-
-
-
-
-def final_Car(pole_angle , position):
-    return pole_angle >= 0.20944 or pole_angle <= -0.20944 or position >= 2.4 or position <= -2.4
-
-
-def ActionPossibles():
-    return [0 , 1]
-
-
-
-def AllowActions():
-    return True
-
+from random import choices
+import numpy as np
 
 def render_cart(cart , k , d, action):
     state = cart.get_state()
@@ -91,57 +37,10 @@ def render_cart(cart , k , d, action):
     fig.canvas.draw()
     fig.canvas.flush_events()
 
-
-def exploration_rate(n : int, min_rate= 0.1 ) -> float :
-    """Decaying exploration rate"""
-    return max(min_rate, min(1, 1.0 - math.log10((n  + 1) / 25)))
-
-
-def learning_schedule(episode, n_episodes):
-    return max(0., min(0.8, 1 - episode/n_episodes))
-
-def action_selection(state, Q, episode, n_episodes):
-    epsilon = 0.99 if episode < n_episodes//4 else 0.33 if episode < n_episodes//2 else 0.
-    if np.random.random() < epsilon:
-        action = np.random.randint(0,2)
-    else:
-        action = np.argmax(Q[state[0]][state[1]][state[2]][state[3]])
-    return action
-
-
-from random import choices
-
-import numpy as np
-
-class CartPoleDiscretizer:
-    def __init__(self, bins=(20, 20, 20, 20)):  # You can change the number of bins based on your requirements
-        self.bins = bins
-        self.lowerBounds = [-4.8 , -3 , -(12 * 2 * math.pi / 360), -10]
-        self.upperBounds = [4.8 , 3, (12 * 4 * math.pi / 360), 10 ]
-
-    def discretize(self,state):
-        position =      state[0]
-        velocity =      state[1]
-        angle    =      state[2]
-        angularVelocity=state[3]
-
-        cartPositionBin=np.linspace(self.lowerBounds[0],self.upperBounds[0],self.bins[0])
-        cartVelocityBin=np.linspace(self.lowerBounds[1],self.upperBounds[1],self.bins[1])
-        poleAngleBin=np.linspace(self.lowerBounds[2],self.upperBounds[2],self.bins[2])
-        poleAngleVelocityBin=np.linspace(self.lowerBounds[3],self.upperBounds[3],self.bins[3])
-
-        indexPosition=np.maximum(np.digitize(state[0],cartPositionBin)-1,0)
-        indexVelocity=np.maximum(np.digitize(state[1],cartVelocityBin)-1,0)
-        indexAngle=np.maximum(np.digitize(state[2],poleAngleBin)-1,0)
-        indexAngularVelocity=np.maximum(np.digitize(state[3],poleAngleVelocityBin)-1,0)
-
-        return tuple([indexPosition,indexVelocity,indexAngle,indexAngularVelocity])
-
-
-def Q_Learning( decision , gamma , actions  , cart):
+def Q_Learning( decision , gamma  , cart):
     # Genreate me the doc of this function
 
-
+    actions = cart.get_possible_actions()
     eps = 0.2
     nb = 20
     # Q-table and N-table of size 20x20x20x20 so I'm sure there will be enough cells
@@ -154,7 +53,7 @@ def Q_Learning( decision , gamma , actions  , cart):
                 Q[i][j][l] = dict()
                 for k in range(nb): #pole_angular_velocity_disc):
                     Q[i][j][l][k] = dict()
-                    for a in actions():
+                    for a in actions:
                         Q[i][j][l][k][a] = dict()
                         Q[i][j][l][k][a] = 0
 
@@ -168,27 +67,12 @@ def Q_Learning( decision , gamma , actions  , cart):
                 N[i][j][l] = dict()
                 for k in range(nb): #pole_angular_velocity_disc):
                     N[i][j][l][k] = dict()
-                    for a in actions():
+                    for a in actions:
                         N[i][j][l][k][a] = dict()
                         N[i][j][l][k][a] = 0
 
-    def epsilon_greedy(state, cpt , epsilon=eps):
-        if (cpt < 500):
-            return random.choice([0 , 1])
-        val = np.random.random()
-
-        if (cpt > 7000):
-            epsilon = 0.999*epsilon
-
-        if (val < epsilon):
-            return random.choice([0 , 1])
-        else:
-            return np.argmax(Q[state[0]][state[1]][state[2]][state[3]])
-
     AllActions = list()
     AllStates = list()
-
-
 
 
     laa = list()
@@ -216,7 +100,7 @@ def Q_Learning( decision , gamma , actions  , cart):
         while (cart.Terminated == False):
             k+=1
             actionsPossibles = list()
-            for ap in actions():
+            for ap in actions:
                 actionsPossibles.append(ap) # All actions are possible
 
             pos_disc,vel_disc,p_ang_disc,p_ang_vel_disc = CartPoleDiscretizer().discretize([s[t][0], s[t][1], s[t][2], s[t][3]])
@@ -254,7 +138,7 @@ def Q_Learning( decision , gamma , actions  , cart):
 
             l = list()
 
-            for ac in actions():
+            for ac in actions:
                 ip,jp,ipp,jpp = CartPoleDiscretizer().discretize([s[t+1][0], s[t+1][1], s[t+1][2], s[t+1][3]])
                 l.append(Q[ip][jp][ipp][jpp][ac])
             v = max(l)
@@ -324,7 +208,7 @@ for i in range(1):
     line2, = ax.plot([x, x + cart_length * math.sin(theta)], [0, cart_length * math.cos(theta)], color='brown' , label="Pole")
     fig.show()
 
-    v = Q_Learning( boltzmann , gamma , ActionPossibles , cart)
+    v = Q_Learning( boltzmann , gamma , cart)
     data.append(v )
 
 for path in data:
