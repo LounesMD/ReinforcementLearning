@@ -45,6 +45,7 @@ I will also try to read more *theoretical articles* and articles on RL.
 ## Papers
 All the articles I've read and plan to read. I keep track of the teams involved so that I can get an idea of the research themes of RL teams around the world. <br>
 ### Read
+#### ML Related papers
   - [x] [Complexity of Planning with Partial Observability](https://www.aaai.org/Papers/ICAPS/2004/ICAPS04-041.pdf) <br>
     Teams involved : [Albert-Ludwigs-Universität Freiburg, Institut für Informatik](https://www.informatik.uni-freiburg.de/)
   - [x] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf) and its [video](https://www.youtube.com/watch?v=LyCpuLikLyQ&ab_channel=WeiWei) <br>
@@ -91,6 +92,9 @@ All the articles I've read and plan to read. I keep track of the teams involved 
     Team involved : [DeepMind](https://deepmind.com/)
   - [x] [ETA Prediction with Graph Neural Networks in Google Maps📝](./WebPages/ETA%20Prediction%20with%20Graph%20Neural%20Networks%20in%20Googl%208403ba3951514491adcd478f930cefc6.md)<br>
     Team involved : [DeepMind](https://deepmind.com/), [Google](https://research.google/)
+
+#### Research oriented papers
+  - [x] [Writing a research article: advice to beginners📝](./WebPages/Writing%20a%20research%20article%20advice%20to%20beginners%20684ac4664202472c85c481886be1049a.md)<br>
 
 ### To read
   - [ ] [Player of Games](https://arxiv.org/abs/2112.03178)
