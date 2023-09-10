@@ -95,6 +95,8 @@ All the articles I've read and plan to read. I keep track of the teams involved 
 
 #### Research oriented papers
   - [x] [Writing a research article: advice to beginners📝](./WebPages/Writing%20a%20research%20article%20advice%20to%20beginners%20684ac4664202472c85c481886be1049a.md)<br>
+  - [ ] [How to do Research At the MIT AI Lab](https://dspace.mit.edu/bitstream/handle/1721.1/41487/AI_WP_316.pdf)<br>
+    Team involved : [MIT AI LAB](https://www.csail.mit.edu/)
 
 ### To read
   - [ ] [Player of Games](https://arxiv.org/abs/2112.03178)
