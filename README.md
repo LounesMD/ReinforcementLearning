@@ -16,14 +16,10 @@ The long term goal of this repository is to be the must-have of GitHub Reinforce
 ## Report
 A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/blob/main/CompteRendu.pdf) and soon in [english]()) proposed an in-dept study of some of the algorithms used. Note that the algorithms are not written because they are easily found on the internet. For the first version of the report, my work was based on this document : [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf).
 
-## News
-I am back to update this repository! From now on, you will have weekly RL papers with notes.<br>
-Moreover, I intend to make this repository as useful as possible for myself as my goal is to do a PhD in RL in 1 or 2 years. So I will soon publish a list of all the RL researchers/teams and their research topics, as well as a list of major RL conferences! 
-
 ## To come
 ### <ins> Soon: </ins>
 Q-Learning for inverted pendulum (some problems with discretization and busy for the moment...)<br>
-Fitted Q-Iteration.  <br>
+A new environment about cars on the roads.  <br>
 Deep Q-Learning. <br>
 
 non-exhaustive list of what's coming soon: 
