@@ -18,26 +18,14 @@ A first report (available in [french](https://github.com/LounesMD/Stage2021_RL/b
 
 ## To come
 ### <ins> Soon: </ins>
-Q-Learning for inverted pendulum (some problems with discretization and busy for the moment...)<br>
-A new environment about cars on the roads.  <br>
-Deep Q-Learning. <br>
-
 non-exhaustive list of what's coming soon: 
 + Algorithms:
-  1. Fitted Q-Iteration
-  2. Deep Q-Network
-  3. REINFORCE
-  4. PPO
-  5. Quality-Diversity algorithms
+  1. Deep Q-Network
+  2. PPO
+  3. Actor-Critic
 + Environment:
-  1. Classic Control: Acroboy.
-  2. Mujoco: Ant, Hopper and Humanoid.
-  3. My own environments !
- 
-Also, I would like to provide a script, based on Deep-Q Learning, that can be run on *every* video game website to find the best way to *maximize* a score. <br>
-At the beginning of 2023, you will have an object-oriented implementation of my algorithms (in comming). <br>
-I will also try to read more *theoretical articles* and articles on RL.
- 
+  1. My own environments
+  
 ## Papers
 All the articles I've read and plan to read. I keep track of the teams involved so that I can get an idea of the research themes of RL teams around the world. <br>
 ### Read
@@ -92,7 +80,10 @@ All the articles I've read and plan to read. I keep track of the teams involved 
 #### Research oriented papers
   - [x] [Writing a research article: advice to beginners📝](./WebPages/Writing%20a%20research%20article%20advice%20to%20beginners%20684ac4664202472c85c481886be1049a.md)<br>
   - [ ] [How to do Research At the MIT AI Lab](https://dspace.mit.edu/bitstream/handle/1721.1/41487/AI_WP_316.pdf)<br>
-    Team involved : [MIT AI LAB](https://www.csail.mit.edu/)
+  - [x] [Writing a Good Research Paper](https://vincentlepetit.github.io/files/paper_writing.pdf) by [Vincent Lepetit](https://vincentlepetit.github.io/)<br>
+  - [x] How to write a great research paper: [Slides](https://www.microsoft.com/en-us/research/uploads/prod/2016/07/How-to-write-a-great-research-paper.pdf) and [Video](https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/) by [Simon Peyton Jones](https://simon.peytonjones.org/)<br>
+  - [ ] How to give a great research talk: [Slides](https://www.microsoft.com/en-us/research/uploads/prod/2016/07/How-to-give-a-great-research-talk.pdf), [Video](https://www.microsoft.com/en-us/research/academic-program/give-great-research-talk/) and [Paper](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/giving-a-talk.pdf)<br>
+
 
 ### To read
   - [ ] [Player of Games](https://arxiv.org/abs/2112.03178)
@@ -103,13 +94,18 @@ All the articles I've read and plan to read. I keep track of the teams involved 
   - [ ] [The road to modern AI](https://arxiv.org/ftp/arxiv/papers/2212/2212.11279.pdf)
 
 ## Courses
-Here are the courses I took to further my knowledge of Reinforcement Learning :
-  - [ ] [Algorithms for decision making](https://algorithmsbook.com/#outline) by [Mykel J. Kochenderfer](https://mykel.kochenderfer.com/), [Tim A. Wheeler
-](http://timallanwheeler.com/miniport/home.html) and [Kyle H. Wray](https://kylewray.com/)
-  - [ ] [Multi-Agent Reinforcement Learning: Foundations and Modern Approaches](https://www.marl-book.com/) by [Stefano V. Albrecht](https://agents.inf.ed.ac.uk/stefano-albrecht/), [Filippos Christianos](https://fchristianos.com/) and [Lukas Schäfer](https://www.marl-book.com/) <br>
-  - [x] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf) by [Richard S. Sutton](http://incompleteideas.net/) and [Andrew G. Barto](https://people.cs.umass.edu/~barto/) <br>
-  - [x] [Reinforcement Learning](https://philippe-preux.github.io/Documents/digest-ar.pdf) by [Philippe Preux](https://philippe-preux.github.io/)<br>
+Here are the courses I took to further my knowledge of Reinforcement Learning:
+  - [] [Reinforcement Learning - MVA](http://researchers.lille.inria.fr/~lazaric/Webpage/Teaching.html) by [Alessandro Lazaric](http://researchers.lille.inria.fr/~lazaric/Webpage/Home/Home.html)<br>
+  - [x] [Reinforcement Learning - Scool](https://philippe-preux.github.io/Documents/digest-ar.pdf) by [Philippe Preux](https://philippe-preux.github.io/)<br>
   - [x] [Game Theory and Applications](https://www.dropbox.com/s/lkbqe5i3wgc3on3/support.pdf?dl=0) by [Bruno Tuffin](https://people.rennes.inria.fr/Bruno.Tuffin/) and [Patrick Maillé](https://www.imt-atlantique.fr/fr/personne/patrick-maille) <br>
   - [x] Markov Chains by [Bruno Tuffin](https://people.rennes.inria.fr/Bruno.Tuffin/) and [Bruno Sericola](https://scholar.google.fr/citations?user=YOQcueAAAAAJ&hl=fr) <br>
   - [x] [Deep Learning with Python](https://sourestdeeds.github.io/pdf/Deep%20Learning%20with%20Python.pdf) by [François Chollet](https://fchollet.com/)
   - [x] [Deep Learning for Computer Vision](https://www.youtube.com/watch?v=dJYGatp4SvA&list=PL5-TkQAfAZFbzxjBHtzdVCWE0Zbhomg7r&ab_channel=MichiganOnline) by [Justin Johnson](https://web.eecs.umich.edu/~justincj/) <br>
+
+## Books
+Here are some books that I took or plan to read:
+  - [ ] [Mathematics of Statistical Sequential Decision Making](https://hal.science/tel-02162189) by [Odalric-Ambrym Maillard](http://odalricambrymmaillard.neowordpress.fr/)<br>
+  - [ ] [Statistical Learning and Sequential Prediction](https://www.mit.edu/~rakhlin/courses/stat928/stat928_notes.pdf) by [Karthik Sridharan](https://www.cs.cornell.edu/~sridharan/) and [Sasha Rakhlin](https://www.mit.edu/~rakhlin/)
+  - [ ] [Algorithms for decision making](https://algorithmsbook.com/#outline) by [Mykel J. Kochenderfer](https://mykel.kochenderfer.com/), [Tim A. Wheeler](http://timallanwheeler.com/miniport/home.html) and [Kyle H. Wray](https://kylewray.com/)
+  - [ ] [Multi-Agent Reinforcement Learning: Foundations and Modern Approaches](https://www.marl-book.com/) by [Stefano V. Albrecht](https://agents.inf.ed.ac.uk/stefano-albrecht/), [Filippos Christianos](https://fchristianos.com/) and [Lukas Schäfer](https://www.marl-book.com/) <br>
+  - [x] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf) by [Richard S. Sutton](http://incompleteideas.net/) and [Andrew G. Barto](https://people.cs.umass.edu/~barto/) <br>
