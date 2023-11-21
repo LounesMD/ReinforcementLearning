@@ -112,8 +112,9 @@ Here are some books that I read or plan to read:
   - [x] [An introduction to Reinforcement Learning](http://incompleteideas.net/book/bookdraft2017nov5.pdf) by [Richard S. Sutton](http://incompleteideas.net/) and [Andrew G. Barto](https://people.cs.umass.edu/~barto/) <br>
   - [ ] [Software Engineering at Google](https://abseil.io/resources/swe-book) and the book in short [SWE at Google in short](https://arxiv.org/ftp/arxiv/papers/1702/1702.01715.pdf)
 
-## Blogs
-Here are some blogs or webpages that I found interseting:
+## Blogs and Videos
+Here are some blogs, videos or webpages that I found interseting:
+  - [ ] [CONFERENCE JENSEN HUANG (NVIDIA) and ILYA SUTSKEVER (OPEN AI): AI TODAY AND VISION OF THE FUTURE](https://www.youtube.com/watch?v=ZZ0atq2yYJw&ab_channel=MindCathedral)<br>
   - [ ] [Quality-Diversity optimisation algorithms](https://quality-diversity.github.io/) by [Antoine Cully](https://scholar.google.fr/citations?user=rZtJlPQAAAAJ&hl=fr), [Jean-Baptiste Mouret](https://members.loria.fr/JBMouret/) and [Stephane Doncieux](https://pages.isir.upmc.fr/sdoncieux/)<br>
   - [x] [I am Jürgen Schmidhuber, Ask Me Anything!](https://www.reddit.com/r/MachineLearning/comments/2xcyrl/i_am_j%C3%BCrgen_schmidhuber_ama/) by [Jürgen Schmidhuber](https://people.idsia.ch/~juergen/)<br>
 
