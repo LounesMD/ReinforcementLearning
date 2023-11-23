@@ -114,7 +114,7 @@ Here are some books that I read or plan to read:
 
 ## Blogs and Videos
 Here are some blogs, videos or webpages that I found interseting:
-  - [ ] [CONFERENCE JENSEN HUANG (NVIDIA) and ILYA SUTSKEVER (OPEN AI): AI TODAY AND VISION OF THE FUTURE](https://www.youtube.com/watch?v=ZZ0atq2yYJw&ab_channel=MindCathedral)<br>
+  - [x] [CONFERENCE JENSEN HUANG (NVIDIA) and ILYA SUTSKEVER (OPEN AI): AI TODAY AND VISION OF THE FUTURE📝](./WebPages/Discussion%20Ilya%20x%20Jensen%2073db3112e6e34b4896dc9b97cc9ae961.md) by [Ilya Sutskever](https://www.cs.utoronto.ca/~ilya/) and [Jensen Huang](https://www.nvidia.com/fr-fr/)<br>
   - [ ] [Quality-Diversity optimisation algorithms](https://quality-diversity.github.io/) by [Antoine Cully](https://scholar.google.fr/citations?user=rZtJlPQAAAAJ&hl=fr), [Jean-Baptiste Mouret](https://members.loria.fr/JBMouret/) and [Stephane Doncieux](https://pages.isir.upmc.fr/sdoncieux/)<br>
   - [x] [I am Jürgen Schmidhuber, Ask Me Anything!](https://www.reddit.com/r/MachineLearning/comments/2xcyrl/i_am_j%C3%BCrgen_schmidhuber_ama/) by [Jürgen Schmidhuber](https://people.idsia.ch/~juergen/)<br>
 
