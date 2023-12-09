@@ -1,7 +1,7 @@
-from Codes.Environments.Jump_or_Drop_The_Wall.map import Map_JoD
-from Codes.Environments.Jump_or_Drop_The_Wall.players.attacker import Attacker
-from Codes.Environments.Jump_or_Drop_The_Wall.utils import Wall
-from Codes.Environments.Jump_or_Drop_The_Wall.players.defenser import Defenser
+from Codes.Environments.DAv.map import Map_DAv
+from Codes.Environments.DAv.players.attacker import Attacker
+from Codes.Environments.DAv.utils import Wall
+from Codes.Environments.DAv.players.defenser import Defenser
 
 
 class Environment_JoD:
@@ -11,7 +11,7 @@ class Environment_JoD:
         number_of_defensers: int = 2,
         size: tuple = (15,15),
     ) -> None:
-        self.map = Map_JoD(
+        self.map = Map_DAv(
             map_size=size,
             number_of_attackers=number_of_attackers,
             number_of_defensers=number_of_defensers,

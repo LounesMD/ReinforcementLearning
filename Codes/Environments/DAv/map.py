@@ -1,13 +1,13 @@
-from Codes.Environments.Jump_or_Drop_The_Wall.players.attacker import Attacker
-from Codes.Environments.Jump_or_Drop_The_Wall.players.defenser import Defenser
-from Codes.Environments.Jump_or_Drop_The_Wall.utils import Wall
+from Codes.Environments.DAv.players.attacker import Attacker
+from Codes.Environments.DAv.players.defenser import Defenser
+from Codes.Environments.DAv.utils import Wall
 
 import random
 
-class Map_JoD:
+class Map_DAv:
     def __init__(
         self,
-        map_size: tuple,
+        map_size: tuple = (20,20),
         number_of_attackers: int = 1,
         number_of_defensers: int = 1,
     ) -> None:
@@ -100,9 +100,14 @@ class Map_JoD:
         return self.attackers
     
     def change_position(self, current_position, new_positon) -> None:
+        """
+        Move the element at the position 'current_position' to the new position.
+        Also, it puts a None in the current position.
+        """
         if current_position != new_positon:
             self.map[new_positon[0]][new_positon[1]] = self.get_cell(current_position)
             self.map[current_position[0]][current_position[1]] = None
+            self.get_cell(new_positon).set_position(new_positon)
 
     def is_occupied(self, position) -> bool:
         """

@@ -1,6 +1,6 @@
 import random
 
-from Codes.Environments.Jump_or_Drop_The_Wall.politics.defenser_politic import defenser_politic
+from Codes.Environments.DAv.politics.defenser_politic import defenser_politic
 
 class defenser_politic_random(defenser_politic):
     def __init__(self):

@@ -1,11 +1,11 @@
 from typing import List
-from Codes.Environments.Jump_or_Drop_The_Wall.environment import Environment_JoD
-from Codes.Environments.Jump_or_Drop_The_Wall.players.attacker import Attacker
-from Codes.Environments.Jump_or_Drop_The_Wall.players.defenser import Defenser
+from Codes.Environments.DAv.environment import Environment_JoD
+from Codes.Environments.DAv.players.attacker import Attacker
+from Codes.Environments.DAv.players.defenser import Defenser
 import matplotlib.pyplot as plt
 import time
-from Codes.Environments.Jump_or_Drop_The_Wall.map import Map_JoD
-from Codes.Environments.Jump_or_Drop_The_Wall.utils import Wall
+from Codes.Environments.DAv.map import Map_DAv
+from Codes.Environments.DAv.utils import Wall
 
 wall_length = 0.5
 
@@ -25,7 +25,7 @@ class Render_JoD:
         fig.canvas.flush_events()
         time.sleep(1)
 
-    def render_map(self, map: Map_JoD,ax):
+    def render_map(self, map: Map_DAv,ax):
         ax.plot(map.map_size[0], map.map_size[1])
         
     def render_defensers(self, defensers: List[Defenser],ax):

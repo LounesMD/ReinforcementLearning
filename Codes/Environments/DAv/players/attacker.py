@@ -7,6 +7,18 @@ class Attacker:
         self.map = map
         self.color = "red"
 
+    def get_id(self):
+        return self.id
+    
+    def get_position(self):
+        return self.position
+    
+    def set_position(self,new_position):
+        self.position = new_position
+
+    def get_map(self):
+        return self.map
+
     def step(self, action):
         current_position = self.position
         new_position = self.position
@@ -32,7 +44,6 @@ class Attacker:
             self.map.assign_element(new_position,None)
             new_position = current_position
 
-        self.position = new_position
         self.map.change_position(current_position, new_position)
 
     def break_the_wall(self, wall_position, current_position):

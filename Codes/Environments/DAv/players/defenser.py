@@ -9,6 +9,18 @@ class Defenser:
         self.alive = True
         self.color = "green"
 
+    def get_id(self):
+        return self.id
+    
+    def get_position(self):
+        return self.position
+    
+    def set_position(self,new_position):
+        self.position = new_position
+
+    def get_map(self):
+        return self.map
+
     def step(self, action):
         current_position = self.position
 
@@ -30,7 +42,6 @@ class Defenser:
                 self.add_a_wall(current_position)
                 self.drop = False
                 
-            self.position = new_position            
             self.map.change_position(current_position, new_position)
 
     def add_a_wall(self, wall_position):
