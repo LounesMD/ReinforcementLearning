@@ -1,4 +1,5 @@
-pre-commit
-matplotlib
-numpy
-pytest
+pre-commit == 3.5.0
+matplotlib == 3.8.2
+numpy == 1.26.2
+pytest == 7.4.3
+gymnasium == 0.29.1

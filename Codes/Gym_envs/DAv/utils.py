@@ -4,12 +4,12 @@ class Wall:
         self.position_y = None
         self.broken = False
 
-    def set_position(self,x_pos, y_pos):
-        self.position_x = x_pos
-        self.position_y = y_pos
+    def set_position(self, new_position):
+        self.position_x = new_position[0]
+        self.position_y = new_position[1]
 
     def get_position(self):
-        return (self.position_x,self.position_y)
+        return (self.position_x, self.position_y)
 
     def break_wall(self):
         self.broken = True

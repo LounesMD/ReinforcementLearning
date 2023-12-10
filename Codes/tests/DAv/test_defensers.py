@@ -1,6 +1,6 @@
-from Codes.Environments.DAv.players.defenser import Defenser
-from Codes.Environments.DAv.map import Map_DAv
+from Codes.Gym_envs.DAv.map import Map_DAv
 import pytest
+
 
 @pytest.fixture
 def example_map():
@@ -10,14 +10,16 @@ def example_map():
     """
     return Map_DAv(number_of_attackers=0, number_of_defensers=1)
 
+
 @pytest.fixture
 def defenser_middle(example_map):
     """
     Change the position to the middle of the map so it can be used for tests.
     """
     defenser = example_map.get_defensers()[0]
-    example_map.change_position(defenser.get_position(), (10,10))
+    example_map.change_position(defenser.get_position(), (10, 10))
     return defenser
+
 
 @pytest.fixture
 def defensers_in_borders():
@@ -28,37 +30,43 @@ def defensers_in_borders():
     defensers1 = map.get_defensers()[0]
     defensers2 = map.get_defensers()[1]
 
-    map.change_position(defensers1.get_position(), (0,0))
-    map.change_position(defensers2.get_position(), (19,19))
+    map.change_position(defensers1.get_position(), (0, 0))
+    map.change_position(defensers2.get_position(), (19, 19))
 
-    return (defensers1,defensers2)
+    return (defensers1, defensers2)
+
 
 def test_moving_left(defenser_middle):
     current_position = defenser_middle.get_position()
     defenser_middle.step(0)
     new_position = defenser_middle.get_position()
-    assert new_position == (current_position[0]-1 , current_position[1]) 
+    assert new_position == (current_position[0] - 1, current_position[1])
+
 
 def test_moving_up(defenser_middle):
     current_position = defenser_middle.get_position()
     defenser_middle.step(1)
     new_position = defenser_middle.get_position()
-    assert new_position == (current_position[0] , current_position[1]+1) 
+    assert new_position == (current_position[0], current_position[1] + 1)
+
 
 def test_moving_right(defenser_middle):
     current_position = defenser_middle.get_position()
     defenser_middle.step(2)
     new_position = defenser_middle.get_position()
-    assert new_position == (current_position[0]+1 , current_position[1]) 
+    assert new_position == (current_position[0] + 1, current_position[1])
+
 
 def test_moving_down(defenser_middle):
     current_position = defenser_middle.get_position()
     defenser_middle.step(3)
     new_position = defenser_middle.get_position()
-    assert new_position == (current_position[0] , current_position[1]-1) 
+    assert new_position == (current_position[0], current_position[1] - 1)
+
 
 def test_is_alive(defenser_middle):
     assert defenser_middle.is_alive()
+
 
 def test_is_dead(defenser_middle):
     assert defenser_middle.is_alive()
@@ -66,9 +74,8 @@ def test_is_dead(defenser_middle):
     assert not defenser_middle.is_alive()
 
 
-
 def test_moving_borders(defensers_in_borders):
-    defenser1 =  defensers_in_borders[0]
+    defenser1 = defensers_in_borders[0]
     defenser1_prev_pos = defenser1.get_position()
 
     defenser1.step(0)
@@ -78,8 +85,7 @@ def test_moving_borders(defensers_in_borders):
     defenser1_new_pos_down = defenser1.get_position()
     assert defenser1_new_pos_down == defenser1_prev_pos
 
-
-    defenser2 =  defensers_in_borders[1]
+    defenser2 = defensers_in_borders[1]
     defenser2_prev_pos = defenser2.get_position()
 
     defenser2.step(1)

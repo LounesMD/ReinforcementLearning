@@ -1,25 +1,33 @@
 class Attacker:
-    def __init__(self, position, map, id="attacker", actions=[0, 1, 2, 3]) -> None:
+    def __init__(self, position, map, id="attacker", actions=[0, 1, 2, 3, 4]) -> None:
         self.id = id
         self.position = position
-        # Actions: 0: letf; 1: up; 2: right; 3: down
+        # Actions: 0: letf; 1: up; 2: right; 3: down; 4: doesn't move
         self.actions = actions
         self.map = map
         self.color = "red"
+        self.alive = True
+
+    def is_alive(self):
+        return self.is_alive
 
     def get_id(self):
         return self.id
-    
+
+    def get_actions(self):
+        return self.actions
+
     def get_position(self):
         return self.position
-    
-    def set_position(self,new_position):
+
+    def set_position(self, new_position):
         self.position = new_position
 
     def get_map(self):
         return self.map
 
     def step(self, action):
+        reward = 0
         current_position = self.position
         new_position = self.position
 
@@ -39,12 +47,16 @@ class Attacker:
         if self.map.is_blocked(new_position):
             new_position = self.break_the_wall(new_position, current_position)
 
-        if self.map.is_occupied_by_defenser(new_position): #If there is a defenser, we kill the it and we take its position.
+        if self.map.is_occupied_by_defenser(
+            new_position
+        ):  # If there is a defenser, we kill the it and we take its position.
             self.map.get_cell(new_position).kill()
-            self.map.assign_element(new_position,None)
+            self.map.assign_element(new_position, None)
             new_position = current_position
+            reward = 1
 
         self.map.change_position(current_position, new_position)
+        return reward
 
     def break_the_wall(self, wall_position, current_position):
         self.map.remove_wall(wall_position)
