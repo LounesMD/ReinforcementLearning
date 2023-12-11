@@ -1,4 +1,6 @@
+from Codes.rl_agents.agents.utils import Batch_mode
 import torch
+
 
 class DQN:
     """
@@ -22,6 +24,8 @@ class DQN:
         last_mlp_size: int = 256,
         output_size: int = 5,
         mlp_size: list = [256],
+        learning_rate: float = 0.0001,
+        gamma: float = 0.9,
     ) -> None:
         assert history_length > 0
         self.history_length = history_length
@@ -34,8 +38,15 @@ class DQN:
         self.stride = stride
         self.padding = padding
         self.mlp_size = mlp_size
-        self.conv_model = self._init_conv_model()
-        self.mlp_model = self._init_mlp_model()
+        self.value_model = self._init_model
+        self.target_model = self._init_model
+
+        self.learning_rate = learning_rate
+        self.gamma = gamma
+        self.critertion = torch.nn.SmoothL1Loss()
+        self.optimizer = torch.optim.AdamW(
+            params=self.value_model, lr=self.learning_rate, amsgrad=True
+        )
 
     def _init_conv_model(self):
         """
@@ -64,7 +75,9 @@ class DQN:
         Linear -> ReLU -> ... -> Linear -> ReLU
         """
         modules = list()
-        prev_size = self.nb_filters[-1] * (self.kernel_size[-1] ** 2) # The number of neurons for the first layer is: Number of filters * kernel_size_w * kernel_size_h
+        prev_size = self.nb_filters[-1] * (
+            self.kernel_size[-1] ** 2
+        )  # The number of neurons for the first layer is: Number of filters * kernel_size_w * kernel_size_h
         for _, size in enumerate(self.mlp_size):
             modules.append(torch.nn.Linear(prev_size, size))
             modules.append(torch.nn.ReLU())
@@ -72,14 +85,30 @@ class DQN:
         modules.append(torch.nn.Linear(prev_size, self.output_size))
         return torch.nn.Sequential(*modules)
 
-    def forward(self, input):
+    def _init_model(self, input):
         output_conv = self.conv_model(input)
         input_mlp = torch.flatten(output_conv)
         output = self.mlp_model(input_mlp)
         return output
 
-    def update(self):
-        pass
+    def update(self, input_batch: Batch_mode):
+        q_state_action = self.value_model(
+            input_batch.state
+        )  # We predict Q(s_t,.) for all given states
+        q_state_action = q_state_action.gather(
+            1, input_batch.action.unsqueeze(1)
+        )  # We keep only Q(s_t,a_t)
 
-    def loss(self, input, target):
+        best_next_values = self.target_model(input_batch.next_state).max(1)
+        target_q_values = (
+            input_batch.reward + self.gamma * best_next_values
+        )  # TODO: should we not do input_batch.reward + self.gamma * (best_next_values - q_state_action)
+
+        loss = self.critertion(q_state_action, target_q_values)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+    def loss(self):
         pass
