@@ -3,7 +3,11 @@ import torch
 class DQN:
     """
     An implementation of DQN using CNN. The DQN implementation works as follow:
-    States -> Conv2d -> ReLU -> ... -> Conv2d -> ReLU -> Flatten -> Linear -> ReLU -> ... -> Linear -> ReLU.
+    [States] ->
+    [Conv2d -> ReLU -> ... -> Conv2d -> ReLU] ->
+    [Flatten] ->
+    [Linear -> ReLU -> ... -> Linear -> ReLU] ->
+    [Output]
     """
 
     def __init__(
