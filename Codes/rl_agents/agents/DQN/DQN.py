@@ -91,7 +91,7 @@ class DQN:
         output = self.mlp_model(input_mlp)
         return output
 
-    def update(self, input_batch: Batch_mode):
+    def loss(self, input_batch: Batch_mode):
         q_state_action = self.value_model(
             input_batch.state
         )  # We predict Q(s_t,.) for all given states
@@ -102,13 +102,10 @@ class DQN:
         best_next_values = self.target_model(input_batch.next_state).max(1)
         target_q_values = (
             input_batch.reward + self.gamma * best_next_values
-        )  # TODO: should we not do input_batch.reward + self.gamma * (best_next_values - q_state_action)
+        )  # TODO: should not we do input_batch.reward + self.gamma * (best_next_values - q_state_action)?
 
         loss = self.critertion(q_state_action, target_q_values)
 
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
-
-    def loss(self):
-        pass
