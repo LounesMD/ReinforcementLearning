@@ -29,7 +29,7 @@ class Map_DAv:
         self._random_init_defensers()
 
     def _init_map(self):
-        return [[0 for i in range(self.map_size[0])] for k in range(self.map_size[1])]
+        return [[0 for _ in range(self.map_size[0])] for _ in range(self.map_size[1])]
 
     def get_cell(self, position: tuple):
         """
@@ -66,9 +66,13 @@ class Map_DAv:
     def _random_init_attackers(self):
         # We intialize the attackers with a random position
         for _ in range(self.number_of_attackers):
-            i, j = random.randint(0, self.map_size[0] - 1), random.randint(
-                0, self.map_size[1] - 1
-            )
+            accessible = False
+            while not accessible:
+                i, j = random.randint(0, self.map_size[0] - 1), random.randint(
+                    0, self.map_size[1] - 1
+                )
+                accessible = self.is_accessible((i, j))
+
             new_attacker = Attacker(position=(i, j), map=self)
             self.attackers.append(new_attacker)
             if self.map[i][j] == 0:
@@ -77,9 +81,12 @@ class Map_DAv:
     def _random_init_defensers(self):
         # We intialiaze the defensers with a random position
         for _ in range(self.number_of_defensers):
-            i, j = random.randint(0, self.map_size[0] - 1), random.randint(
-                0, self.map_size[1] - 1
-            )
+            accessible = False
+            while not accessible:
+                i, j = random.randint(0, self.map_size[0] - 1), random.randint(
+                    0, self.map_size[1] - 1
+                )
+                accessible = self.is_accessible((i, j))
             new_defenser = Defenser(position=(i, j), map=self)
             self.defensers.append(new_defenser)
             if self.map[i][j] == 0:
@@ -94,6 +101,16 @@ class Map_DAv:
             self.map[new_positon[0]][new_positon[1]] = self.get_cell(current_position)
             self.map[current_position[0]][current_position[1]] = 0
             self.get_cell(new_positon).set_position(new_positon)
+
+        elif self.is_occupied(
+            new_positon
+        ):  # If the cell is occupied, then let's swap the two.
+            (
+                self.map[new_positon[0]][new_positon[1]],
+                self.map[current_position[0]][current_position[1]],
+            ) = self.get_cell(current_position), self.get_cell(new_positon)
+            self.get_cell(new_positon).set_position(new_positon)
+            self.get_cell(current_position).set_position(current_position)
 
     def is_occupied(self, position) -> bool:
         """

@@ -117,7 +117,7 @@ class Env_DAv(gym.Env):
             attackers_reward += reward
             self.binary_map.update_attackers_tensor(attacker.get_position(), 1.0)
 
-        rewards.append(sum(attackers_reward))
+        rewards.append(attackers_reward)
 
         # Compute the rewards of the defensers
         defensers_reward = 0
