@@ -1,4 +1,4 @@
-import torch
+import numpy as np
 
 
 class ObservationType(object):
@@ -9,34 +9,34 @@ class ObservationType(object):
 class BinaryMapObservation(ObservationType):
     def __init__(
         self,
-        attackers_tensor: torch.Tensor,
-        defensers_tensor: torch.Tensor,
-        walls_tensor: torch.Tensor,
+        attackers_tensor: np.array,
+        defensers_tensor: np.array,
+        walls_tensor: np.array,
     ) -> None:
         super().__init__()
         self.attackers_tensor = attackers_tensor
         self.defensers_tensor = defensers_tensor
         self.walls_tensor = walls_tensor
 
-    def get_attackers_tensor(self) -> torch.Tensor:
+    def get_attackers_tensor(self) -> np.array:
         return self.attackers_tensor
 
     def update_attackers_tensor(self, position, element) -> None:
         self.attackers_tensor[position[0]][position[1]] = element
 
-    def get_defensers_tensor(self) -> torch.Tensor:
+    def get_defensers_tensor(self) -> np.array:
         return self.defensers_tensor
 
     def update_defensers_tensor(self, position, element) -> None:
         self.defensers_tensor[position[0]][position[1]] = element
 
-    def get_walls_tensor(self) -> torch.Tensor:
+    def get_walls_tensor(self) -> np.array:
         return self.walls_tensor
 
     def update_walls_tensor(self, position, element) -> None:
         self.walls_tensor[position[0]][position[1]] = element
 
-    def observe_attackers_pov(self) -> torch.Tensor:
+    def observe_attackers_pov(self) -> np.array:
         """
         For the attackers Neural Net, the observation to use is:
         [
@@ -45,11 +45,11 @@ class BinaryMapObservation(ObservationType):
             [Binary walls slice],
         ]
         """
-        return torch.stack(
+        return np.stack(
             (self.attackers_tensor, self.defensers_tensor, self.walls_tensor)
         )
 
-    def observe_defensers_pov(self) -> torch.Tensor:
+    def observe_defensers_pov(self) -> np.array:
         """
         For the defensers Neural Net, the observation to use is:
         [
@@ -58,6 +58,6 @@ class BinaryMapObservation(ObservationType):
             [Binary walls slice],
         ]
         """
-        return torch.stack(
+        return np.stack(
             (self.defensers_tensor, self.attackers_tensor, self.walls_tensor)
         )

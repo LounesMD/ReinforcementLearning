@@ -61,19 +61,19 @@ class Env_DAv(gym.Env):
         self.terminated = False
 
     def _init_binary_map(self) -> list:
-        walls_tensor = torch.zeros(
-            size=(self.map_size[0], self.map_size[1])
+        walls_tensor = np.zeros(
+            shape=(self.map_size[0], self.map_size[1])
         )  # At the initialisation, there is no wall.
 
         # Initialisation of the attackers position
-        attackers_tensor = torch.zeros(size=(self.map_size[0], self.map_size[1]))
+        attackers_tensor = np.zeros(shape=(self.map_size[0], self.map_size[1]))
         for attacker in self.attackers:
             attackers_tensor[attacker.get_position()[0]][
                 attacker.get_position()[1]
             ] = 1.0
 
         # Initialisation of the defensers position
-        defensers_tensor = torch.zeros(size=(self.map_size[0], self.map_size[1]))
+        defensers_tensor = np.zeros(shape=(self.map_size[0], self.map_size[1]))
         for defenser in self.defensers:
             defensers_tensor[defenser.get_position()[0]][
                 defenser.get_position()[1]
@@ -82,9 +82,11 @@ class Env_DAv(gym.Env):
         return BinaryMapObservation(attackers_tensor, defensers_tensor, walls_tensor)
 
     def _get_obs(self) -> BinaryMapObservation:
-        return (
-            self.binary_map.observe_attackers_pov(),
-            self.binary_map.observe_defensers_pov(),
+        return np.array(
+            [
+                self.binary_map.observe_attackers_pov(),
+                self.binary_map.observe_defensers_pov(),
+            ]
         )
 
     def reset(self) -> Map_DAv:
