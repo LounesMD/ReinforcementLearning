@@ -94,3 +94,8 @@ def test_moving_borders(defensers_in_borders):
     defenser2.step(2)
     defenser2_new_pos_righ = defenser2.get_position()
     assert defenser2_new_pos_righ == defenser2_prev_pos
+
+
+def test_reward(defenser_middle):
+    reward = defenser_middle.step(1)
+    assert reward == 1

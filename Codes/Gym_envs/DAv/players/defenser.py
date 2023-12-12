@@ -25,6 +25,7 @@ class Defenser:
         return self.map
 
     def step(self, action):
+        assert self.is_alive()
         reward = 1
         current_position = self.position
 
@@ -49,8 +50,6 @@ class Defenser:
             else:
                 self.map.change_position(current_position, new_position)
 
-        if not self.is_alive():
-            reward = -1
         return reward
 
     def add_a_wall(self, wall_position):
