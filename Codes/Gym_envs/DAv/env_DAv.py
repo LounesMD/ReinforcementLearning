@@ -178,5 +178,8 @@ class Env_DAv(gym.Env):
         """
         return self.map.get_attackers()
 
+    def get_map(self):
+        return self.map
+
     def close(self):
         pass
