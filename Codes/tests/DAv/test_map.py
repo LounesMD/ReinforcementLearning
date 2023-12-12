@@ -80,13 +80,13 @@ def test_is_occupied(example_map):
 
 def test_change_position(attacker_middle, example_map_2):
     attacker_pres_pos = attacker_middle.get_position()
-    assert example_map_2.get_cell((11, 11)) == None
+    assert example_map_2.get_cell((11, 11)) == 0
     assert example_map_2.get_cell(attacker_pres_pos) == attacker_middle
 
     example_map_2.change_position(attacker_middle.get_position(), (11, 11))
     attacker_new_pos = attacker_middle.get_position()
 
-    assert example_map_2.get_cell(attacker_pres_pos) == None
+    assert example_map_2.get_cell(attacker_pres_pos) == 0
     assert attacker_new_pos == (11, 11)
     assert example_map_2.get_cell(attacker_new_pos) == attacker_middle
 
@@ -100,3 +100,12 @@ def test_kill_a_defenser(map_killer):
 
     for defenser in map_killer.get_defensers():
         assert not defenser.is_alive()
+
+
+def test_rewards(map_killer):
+    for defenser in map_killer.get_defensers():
+        assert defenser.is_alive()
+
+    for attacker in map_killer.get_attackers():
+        reward = attacker.step(1)
+    assert reward == 1

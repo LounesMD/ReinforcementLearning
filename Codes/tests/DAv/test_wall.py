@@ -1,5 +1,5 @@
 from Codes.Gym_envs.DAv.map import Map_DAv
-from Codes.Gym_envs.DAv.utils import Wall
+from Codes.Gym_envs.DAv.utils.Wall import Wall
 
 import pytest
 
@@ -34,12 +34,12 @@ def test_wall_correctly_drop(map_one_defenser):
     defenser = map_one_defenser.get_defensers()[0]
     current_defenser_position = defenser.get_position()
     assert defenser == map_one_defenser.get_cell(current_defenser_position)
-    assert None == map_one_defenser.get_cell(
+    assert 0 == map_one_defenser.get_cell(
         (current_defenser_position[0], current_defenser_position[1] + 1)
     )
     defenser.step(4)
     assert defenser == map_one_defenser.get_cell(current_defenser_position)
-    assert None == map_one_defenser.get_cell(
+    assert 0 == map_one_defenser.get_cell(
         (current_defenser_position[0], current_defenser_position[1] + 1)
     )
     defenser.step(1)
@@ -55,7 +55,7 @@ def test_defenser_cant_go_through_walls(map_one_defenser):
     current_defenser_position = defenser.get_position()
 
     assert defenser == map_one_defenser.get_cell(current_defenser_position)
-    assert None == map_one_defenser.get_cell(
+    assert 0 == map_one_defenser.get_cell(
         (current_defenser_position[0], current_defenser_position[1] + 1)
     )
     defenser.step(4)
@@ -88,13 +88,13 @@ def test_defenser_cant_go_through_walls(map_one_defenser_one_attacker):
     assert defenser == map_one_defenser_one_attacker.get_cell(current_defenser_position)
     assert defenser == map_one_defenser_one_attacker.get_cell(new_attacker_position)
     assert attacker == map_one_defenser_one_attacker.get_cell(current_attacker_position)
-    assert None == map_one_defenser_one_attacker.get_cell(new_defenser_position)
+    assert 0 == map_one_defenser_one_attacker.get_cell(new_defenser_position)
 
     defenser.step(4)
     assert defenser == map_one_defenser_one_attacker.get_cell(current_defenser_position)
     assert defenser == map_one_defenser_one_attacker.get_cell(new_attacker_position)
     assert attacker == map_one_defenser_one_attacker.get_cell(current_attacker_position)
-    assert None == map_one_defenser_one_attacker.get_cell(new_defenser_position)
+    assert 0 == map_one_defenser_one_attacker.get_cell(new_defenser_position)
 
     defenser.step(0)
     assert defenser == map_one_defenser_one_attacker.get_cell(new_defenser_position)
@@ -106,12 +106,12 @@ def test_defenser_cant_go_through_walls(map_one_defenser_one_attacker):
     attacker.step(0)
     assert defenser == map_one_defenser_one_attacker.get_cell(new_defenser_position)
     assert attacker == map_one_defenser_one_attacker.get_cell(current_attacker_position)
-    assert map_one_defenser_one_attacker.get_cell(current_defenser_position) == None
+    assert map_one_defenser_one_attacker.get_cell(current_defenser_position) == 0
 
     attacker.step(0)
     assert defenser == map_one_defenser_one_attacker.get_cell(new_defenser_position)
     assert attacker == map_one_defenser_one_attacker.get_cell(new_attacker_position)
-    assert map_one_defenser_one_attacker.get_cell(current_attacker_position) == None
+    assert map_one_defenser_one_attacker.get_cell(current_attacker_position) == 0
 
     attacker.step(0)
     assert attacker == map_one_defenser_one_attacker.get_cell(new_attacker_position)

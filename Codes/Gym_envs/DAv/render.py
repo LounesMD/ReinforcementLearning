@@ -3,7 +3,7 @@ from Codes.Gym_envs.DAv.players.attacker import Attacker
 from Codes.Gym_envs.DAv.players.defenser import Defenser
 import time
 from Codes.Gym_envs.DAv.map import Map_DAv
-from Codes.Gym_envs.DAv.utils import Wall
+from Codes.Gym_envs.DAv.utils.Wall import Wall
 import matplotlib.pyplot as plt
 
 wall_length = 0.5
