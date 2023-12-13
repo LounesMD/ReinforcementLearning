@@ -79,15 +79,12 @@ class Env_DAv(gym.Env):
                 defenser.get_position()[1]
             ] = 1.0
 
-        return BinaryMapObservation(attackers_tensor, defensers_tensor, walls_tensor)
+        return BinaryMapObservation(
+            attackers_tensor, defensers_tensor, walls_tensor, self.map_size
+        )
 
     def _get_obs(self) -> BinaryMapObservation:
-        return np.array(
-            [
-                self.binary_map.observe_attackers_pov(),
-                self.binary_map.observe_defensers_pov(),
-            ]
-        )
+        return self.binary_map
 
     def reset(self) -> Map_DAv:
         map = Map_DAv(

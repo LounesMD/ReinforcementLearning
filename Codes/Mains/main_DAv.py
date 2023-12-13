@@ -8,7 +8,7 @@ def main():
     env.render()
     while not env.terminated:
         actions = [0, 0, 0, 0]  # Put your actions vector here
-        env.step(actions)
+        obs, _, _, _, _ = env.step(actions)
         env.render()
 
 
