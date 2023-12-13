@@ -1,9 +1,10 @@
+import random
+
+import numpy as np
+
 from Codes.Gym_envs.DAv.players.attacker import Attacker
 from Codes.Gym_envs.DAv.players.defenser import Defenser
 from Codes.Gym_envs.DAv.utils.Wall import Wall
-
-import random
-import numpy as np
 
 
 class Map_DAv:

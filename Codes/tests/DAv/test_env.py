@@ -1,9 +1,11 @@
-from Codes.Gym_envs.DAv.players.attacker import Attacker
-from Codes.Gym_envs.DAv.players.defenser import Defenser
+import random
+
 import gymnasium as gym
 import pytest
-import random
+
 import Codes
+from Codes.Gym_envs.DAv.players.attacker import Attacker
+from Codes.Gym_envs.DAv.players.defenser import Defenser
 
 
 @pytest.fixture

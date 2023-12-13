@@ -5,16 +5,16 @@ Lounès Meddahi.
 """
 
 import math
-import sys
-
-import sys
 import os
-from matplotlib.pyplot import savefig
-from Codes.Environments.Cart_Pole import *
-from Codes.ActionSelection.boltzmann import *
 import random
+import sys
 from random import choices
+
 import numpy as np
+from matplotlib.pyplot import savefig
+
+from Codes.ActionSelection.boltzmann import *
+from Codes.Environments.Cart_Pole import *
 
 
 def render_cart(cart, k, d, action):

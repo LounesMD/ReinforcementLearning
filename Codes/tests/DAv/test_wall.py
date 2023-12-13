@@ -1,7 +1,7 @@
+import pytest
+
 from Codes.Gym_envs.DAv.map import Map_DAv
 from Codes.Gym_envs.DAv.utils.Wall import Wall
-
-import pytest
 
 
 @pytest.fixture

@@ -8,13 +8,12 @@ Quality Function based algorithm :
 
 This file gives an implementation of the Q-Learning algorithm when we use a pre-trained Q-Function on another environnement.
 """
-import time
-from random import choice
-from random import choices
 import math
+import time
+from random import choice, choices
+
 import matplotlib.pyplot as plt
 import numpy as np
-
 
 """
 CE FICHIER EST L'IMPLEMENTATION DE LA PARTIE 3.5.5.1 càd la partie qui étudie le comportement de la learning 

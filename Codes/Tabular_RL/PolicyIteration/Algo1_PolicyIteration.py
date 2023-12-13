@@ -11,10 +11,9 @@ This file gives an implementation of an algorithm that computes a policy from a 
 
 """
 import random
-from random import choice
-from random import random
-from Algo0_ValueFunction import transition_taxi
-from Algo0_ValueFunction import retour_taxi
+from random import choice, random
+
+from Algo0_ValueFunction import retour_taxi, transition_taxi
 
 
 def random_pol(actions):
