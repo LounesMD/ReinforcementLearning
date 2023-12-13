@@ -20,13 +20,12 @@ In order to choose the action to do in the step 1), I've implemented 3 functions
 2) Greedy choice
 3) Blotzmann 
 """
-import time
-from random import choice
-from random import choices
 import math
+import time
+from random import choice, choices
+
 import matplotlib.pyplot as plt
 import numpy as np
-
 
 """
 Pour l'algorithme de Q-learning qui va suivre, on va partir du fait que chaque action nous permet d'avoir un retour.

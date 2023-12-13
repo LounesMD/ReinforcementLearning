@@ -6,10 +6,11 @@ https://ieeexplore.ieee.org/document/6313077
 """
 
 
-import random
 import math
-from matplotlib import pyplot as plt
+import random
+
 import numpy as np
+from matplotlib import pyplot as plt
 
 
 class CartPole:

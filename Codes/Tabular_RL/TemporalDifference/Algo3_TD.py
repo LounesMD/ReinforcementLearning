@@ -11,9 +11,9 @@ This file gives an implementation of the TD algorithm that computes the Value Fu
 The main difference with the previous algorithms is that we DO NOT know both the reward function and the transition function
 """
 
+from random import choice, choices
+
 import matplotlib.pyplot as plt
-from random import choices
-from random import choice
 
 
 def actions():

@@ -15,8 +15,7 @@ Where s* is the state the agent is and a* the action on this state
 """
 
 
-from random import choice
-from random import choices
+from random import choice, choices
 
 import matplotlib.pyplot as plt
 import seaborn as sns

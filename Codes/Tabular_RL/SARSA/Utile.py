@@ -5,10 +5,9 @@ Created on Mon Jun 28 14:46:47 2021
 @author: Lounès
 """
 
-import os
-from random import choice
-from random import choices
 import math
+import os
+from random import choice, choices
 
 
 #####################################Fonctions utiles#####################################

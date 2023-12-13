@@ -11,12 +11,11 @@ This file gives an implementation of the Q-Learning algorithm applied to an non-
 """
 
 
-import time
-from random import choice
-from random import choices
 import math
+import time
+from random import choice, choices
+
 import matplotlib.pyplot as plt
-import numpy as np
 import numpy as np
 
 np.random.seed(0)

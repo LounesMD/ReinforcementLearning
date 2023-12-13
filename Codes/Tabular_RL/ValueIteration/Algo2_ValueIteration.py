@@ -13,9 +13,7 @@ For this purpose we
 
 """
 
-from Algo0_ValueFunction import valeur
-from Algo0_ValueFunction import transition_taxi
-from Algo0_ValueFunction import retour_taxi
+from Algo0_ValueFunction import retour_taxi, transition_taxi, valeur
 
 
 def IterationValeur(etats, actions, transitions, retour, gamma, epsilon):

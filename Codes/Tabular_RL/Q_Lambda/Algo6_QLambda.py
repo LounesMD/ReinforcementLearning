@@ -8,8 +8,7 @@ Quality Function based algorithm :
 
 The Q(λ) algorithm uses the eligibility of a tupple (action , state) made at time t on time t+k.
 """
-from random import choice
-from random import choices
+from random import choice, choices
 
 import matplotlib.pyplot as plt
 import seaborn as sns
