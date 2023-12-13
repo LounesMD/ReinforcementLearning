@@ -158,5 +158,5 @@ def test_binary_map_update(env):
     for defenser in env.defensers:
         if defenser.is_alive():
             cpt += 1
-    assert rewards[1] == cpt
-    assert rewards[0] == env.number_of_defensers - cpt
+    assert sum(rewards[1]) == cpt
+    assert sum(rewards[0]) == env.number_of_defensers - cpt

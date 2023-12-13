@@ -110,24 +110,24 @@ class Env_DAv(gym.Env):
 
         rewards = list()
         # Compute the rewards of the attackers
-        attackers_reward = 0
+        attackers_reward = []
         for i, attacker in enumerate(self.attackers):
             self.binary_map.update_attackers_tensor(attacker.get_position(), 0.0)
             reward = attacker.step(action[i])
-            attackers_reward += reward
+            attackers_reward.append(reward)
             self.binary_map.update_attackers_tensor(attacker.get_position(), 1.0)
 
         rewards.append(attackers_reward)
 
         # Compute the rewards of the defensers
-        defensers_reward = 0
+        defensers_reward = []
         for i, defenser in enumerate(self.defensers):
             if defenser.is_alive():
                 self.binary_map.update_defensers_tensor(defenser.get_position(), 0.0)
                 reward = defenser.step(
                     action[self.number_of_attackers - 1 + i]
                 )  # -1 Because the index starts at 0.
-                defensers_reward += reward
+                defensers_reward.append(reward)
                 self.binary_map.update_defensers_tensor(defenser.get_position(), 1.0)
         rewards.append(defensers_reward)
         # Update the position of the walls.
