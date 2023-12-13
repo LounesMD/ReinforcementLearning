@@ -5,6 +5,7 @@ import time
 from Codes.Gym_envs.DAv.map import Map_DAv
 from Codes.Gym_envs.DAv.utils.Wall import Wall
 import matplotlib.pyplot as plt
+import numpy as np
 
 wall_length = 0.5
 
@@ -16,8 +17,10 @@ class Render_DAv:
 
     def render_env(self, map: Map_DAv):
         ax = self.fig.add_subplot(111)
-
-        ax.axis([-1, 20, -1, 20])
+        plt.xticks(np.arange(0, map.map_size[0], 1))
+        plt.yticks(np.arange(0, map.map_size[1], 1))
+        plt.grid()
+        ax.axis([-1, map.map_size[0], -1, map.map_size[1]])
 
         self.render_map(map, ax)
         self.render_defensers(map.defensers, ax)
