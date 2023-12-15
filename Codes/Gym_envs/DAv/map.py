@@ -96,7 +96,7 @@ class Map_DAv:
     def change_position(self, current_position, new_positon) -> None:
         """
         Move the element at the position 'current_position' to the new position.
-        Also, it puts a None in the current position.
+        Also, it puts a 0 in the current position.
         """
         if current_position != new_positon and self.is_accessible(new_positon):
             self.map[new_positon[0]][new_positon[1]] = self.get_cell(current_position)
@@ -153,11 +153,14 @@ class Map_DAv:
 
     def is_blocked(self, position) -> bool:
         """
-        Returns True if the position in not accessible because of a Wall.
+        Returns True if the position in blocked because of a Wall.
         """
-        return self.is_within_limits(position) and isinstance(
+        if self.is_within_limits(position) and isinstance(
             self.get_cell(position), Wall
-        )
+        ):
+            assert not self.get_cell(position).is_broken()
+            return not self.get_cell(position).is_broken()  # Should always be False
+        return not self.is_within_limits(position)
 
     def is_accessible(self, position) -> bool:
         """

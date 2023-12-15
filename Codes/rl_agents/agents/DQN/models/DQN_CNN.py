@@ -1,13 +1,28 @@
-from Codes.rl_agents.agents.DQN.models.DQN_model import DQN_Model
 import torch
+
+from Codes.rl_agents.agents.DQN.models.DQN_model import DQN_Model
+from Codes.rl_agents.agents.utils import conv2d_output_size
 
 
 class DQN_CNN(DQN_Model):
+    """
+    A version of DQN using conv and linear layers as presented by D. Silver in: https://www.davidsilver.uk/wp-content/uploads/2020/03/deep_rl_tutorial_small_compressed.pdf
+
+    [States] ->
+    [Conv2d -> ReLU -> ... -> Conv2d -> ReLU] ->
+    [Flatten] ->
+    [Linear -> ReLU -> ... -> Linear -> ReLU] ->
+    [Output].
+
+    The input states are of size (h_image, w_image, nb_channels)
+    """
+
     def __init__(
         self,
+        input_size: tuple,
         history_size: int = 1,
-        in_channels: int = 3,
-        nb_layers: int = 2,
+        nb_cnn_layers: int = 2,
+        nb_mlp_layers: int = 2,
         nb_filters: list = [16, 32],
         kernel_size: list = [8, 4],
         stride: list = [2, 2],
@@ -19,11 +34,12 @@ class DQN_CNN(DQN_Model):
         learning_rate: float = 0.003,
         critertion: torch.nn = torch.nn.MSELoss,
         optimizer: torch.optim = torch.optim.AdamW,
+        device: str = "mps",  # Use mps for mac.
     ) -> None:
         super().__init__()
-        assert in_channels > 0
-        self.in_channels = in_channels
-        self.nb_layers = nb_layers
+        self.input_size = input_size
+        self.nb_cnn_layers = nb_cnn_layers
+        self.nb_mlp_layers = nb_mlp_layers
         self.nb_filters = nb_filters
         self.kernel_size = kernel_size
         self.last_mlp_size = last_mlp_size
@@ -33,19 +49,19 @@ class DQN_CNN(DQN_Model):
         self.mlp_size = mlp_size
         self.action_space = action_space
         self.learning_rate = learning_rate
-        self.critertion = critertion
-        # self.model = self._init_one_model()
+        self.critertion = critertion()
         self.cnn_layers = self._init_conv_layers()
         self.linear_layers = self._init_linear_layers()
 
         self.optimizer = optimizer(
             params=self.parameters(), lr=self.learning_rate, amsgrad=True
         )
+        self.device = torch.device(device)
 
     def _init_conv_layers(self):
         modules = list()
-        prev_in_channels = self.in_channels
-        for i in range(self.nb_layers):
+        prev_in_channels = self.input_size[0]
+        for i in range(self.nb_cnn_layers):
             modules.append(
                 torch.nn.Conv2d(
                     in_channels=prev_in_channels,
@@ -61,35 +77,16 @@ class DQN_CNN(DQN_Model):
 
     def _init_linear_layers(self):
         modules = []
-        prev_size = self.nb_filters[-1] * (
-            self.kernel_size[-1] ** 2
-        )  # The number of neurons for the first layer is: Number of filters * kernel_size_w * kernel_size_h
-        for _, size in enumerate(self.mlp_size):
-            modules.append(torch.nn.Linear(prev_size, size))
-            modules.append(torch.nn.ReLU())
-            prev_size = size
-        modules.append(torch.nn.Linear(prev_size, self.output_size))
-        return torch.nn.Sequential(*modules)
-
-    def _init_one_model(self):
-        modules = list()
-        prev_in_channels = self.in_channels
-        for i in range(self.nb_layers):
-            modules.append(
-                torch.nn.Conv2d(
-                    in_channels=prev_in_channels,
-                    out_channels=self.nb_filters[i],
-                    kernel_size=self.kernel_size[i],
-                    stride=self.stride[i],
-                    padding=self.padding[i],
-                )
+        input_size = self.input_size
+        for i in range(self.nb_cnn_layers):
+            input_size = conv2d_output_size(
+                input_size,
+                self.nb_filters[i],
+                self.padding[i],
+                self.kernel_size[i],
+                self.stride[i],
             )
-            modules.append(torch.nn.ReLU())
-            prev_in_channels = self.nb_filters[i]
-
-        prev_size = self.nb_filters[-1] * (
-            self.kernel_size[-1] ** 2
-        )  # The number of neurons for the first layer is: Number of filters * kernel_size_w * kernel_size_h
+        prev_size = input_size[0] * input_size[1] * input_size[2]
         for _, size in enumerate(self.mlp_size):
             modules.append(torch.nn.Linear(prev_size, size))
             modules.append(torch.nn.ReLU())
@@ -99,6 +96,6 @@ class DQN_CNN(DQN_Model):
 
     def forward(self, input):
         cnn_output = self.cnn_layers(input)
-        linear_input = torch.flatten(cnn_output)
+        linear_input = cnn_output.view(cnn_output.shape[0], -1)
         output = self.linear_layers(linear_input)
         return output
