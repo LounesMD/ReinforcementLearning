@@ -141,9 +141,7 @@ class Env_DAv(gym.Env):
             [deff for deff in self.defensers if deff.is_alive()]
         ):
             self.binary_map.update_defensers_tensor(defenser.get_position(), 0.0)
-            reward = defenser.step(
-                action[self.number_of_attackers - 1 + i]
-            )  # -1 Because the index starts at 0.
+            reward = defenser.step(action[self.number_of_attackers + i])
             defensers_reward.append(reward)
             self.binary_map.update_defensers_tensor(defenser.get_position(), 1.0)
         rewards.append(defensers_reward)
