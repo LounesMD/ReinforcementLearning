@@ -1,12 +1,14 @@
 class Attacker:
-    def __init__(self, position, map, id="attacker", actions=[0, 1, 2, 3, 4]) -> None:
+    def __init__(self, position, map, id="attacker", actions=[0, 1, 2, 3]) -> None:
         self.id = id
         self.position = position
-        # Actions: 0: letf; 1: up; 2: right; 3: down; 4: doesn't move
+        # Actions: 0: letf; 1: up; 2: right; 3: down
         self.actions = actions
         self.map = map
         self.color = "red"
         self.alive = True
+        self.nb_step = 0
+        self.prev_pos = position
 
     def is_alive(self):
         return self.is_alive
@@ -27,8 +29,11 @@ class Attacker:
         return self.map
 
     def step(self, action):
+        assert action in self.actions
         reward = 0
+        self.nb_step += 1
         current_position = self.position
+        self.prev_pos = current_position
         new_position = self.position
 
         # We move the attacker

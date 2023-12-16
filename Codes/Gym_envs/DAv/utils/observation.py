@@ -75,7 +75,9 @@ class BinaryMapObservation(ObservationType):
             [Binary walls slice],
         ]
         """
-        current_attacker_slice = np.zeros(shape=(self.map_size[0], self.map_size[1]))
+        current_attacker_slice = np.zeros(
+            shape=(self.map_size[0], self.map_size[1]), dtype=np.float32
+        )
         current_attacker_slice[attacker_position[0]][attacker_position[1]] = 1.0
         return np.stack(
             (
@@ -96,7 +98,9 @@ class BinaryMapObservation(ObservationType):
             [Binary walls slice],
         ]
         """
-        current_defenser_slice = np.zeros(shape=(self.map_size[0], self.map_size[1]))
+        current_defenser_slice = np.zeros(
+            shape=(self.map_size[0], self.map_size[1]), dtype=np.float32
+        )
         current_defenser_slice[defenser_position[0]][defenser_position[1]] = 1.0
         return np.stack(
             (

@@ -8,6 +8,8 @@ class Defenser:
         self.drop = False
         self.alive = True
         self.color = "green"
+        self.nb_step = 0
+        self.prev_pos = position
 
     def get_id(self):
         return self.id
@@ -26,8 +28,11 @@ class Defenser:
 
     def step(self, action):
         assert self.is_alive()
+        assert action in self.actions
         reward = 1
+        self.nb_step += 1
         current_position = self.position
+        self.prev_pos = current_position
 
         # We move the defenser
         if action == 0:
