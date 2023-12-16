@@ -56,7 +56,7 @@ class Attacker:
             new_position
         ):  # If there is a defenser, we kill the it and we take its position.
             self.map.get_cell(new_position).kill()
-            self.map.assign_element(new_position, None)
+            self.map.assign_element(new_position, 0)
             new_position = current_position
             reward = 1
 

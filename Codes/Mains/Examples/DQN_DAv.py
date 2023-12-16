@@ -31,15 +31,22 @@ def main():
         number_of_attackers=1,
         step_limit=250,
     )
+    total_step = 0
     map_size = env.map_size
-    dqn_attackers = DQN_agent(input_size=(4, map_size[0], map_size[1]), action_space=4)
-    dqn_defensers = DQN_agent(input_size=(4, map_size[0], map_size[1]), action_space=5)
+    attacker_action_space = 4
+    defenser_action_space = 5
+    dqn_attackers = DQN_agent(
+        input_size=(4, map_size[0], map_size[1]), action_space=attacker_action_space
+    )
+    dqn_defensers = DQN_agent(
+        input_size=(4, map_size[0], map_size[1]), action_space=defenser_action_space
+    )
     def_scores_list = list()
     episode_length_list = list()
     attackers_loss = list()
     defensers_loss = list()
     def_alive = list()
-    n_games = 2
+    n_games = 5000
     for idx in range(n_games):
         att_loss = list()
         def_loss = list()
@@ -99,6 +106,21 @@ def main():
                     terminated,
                 )
 
+            # For the dead defensers, we suppose they are in an absorbing state where they are stuck and the reward is 0.
+            for i, defenser in enumerate(
+                [deff for deff in env.defensers if (not deff.is_alive())]
+            ):
+                state = env.binary_map.defensers_pov()
+                state = np.zeros(shape=map_size)
+                state = state[np.newaxis,]
+                dqn_defensers.store_transition(
+                    state,
+                    np.random.choice(defenser_action_space),
+                    0,  # A zero reward when they are dead
+                    state,  # Stuck to the same state
+                    True,
+                )
+
             # Learning phase
             res = dqn_attackers.learn()
             if res != None:
@@ -107,8 +129,15 @@ def main():
             if res != None:
                 def_loss.append(res.cpu().detach().numpy())
 
-            if render:
+            if render and (((idx + 1) % 150) == 0):
                 env.render()
+
+            if total_step % dqn_attackers.update_rate == 0:
+                dqn_attackers.update_model()
+            if total_step % dqn_defensers.update_rate == 0:
+                dqn_defensers.update_model()
+
+            total_step += 1
 
         print("Episode: " + str(idx) + ", " + str(episode_length) + " steps.")
         print(

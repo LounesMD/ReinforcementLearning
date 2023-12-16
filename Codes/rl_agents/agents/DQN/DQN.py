@@ -16,21 +16,22 @@ class DQN_agent:
         history_size: int = 1,
         nb_mlp_layers: int = 2,
         nb_cnn_layers: int = 2,
-        nb_filters: list = [16, 32],
+        nb_filters: list = [16, 32, 64],
         kernel_size: list = [8, 4],
-        stride: list = [2, 2],
+        stride: list = [1, 1],
         padding: list = [1, 1],
         action_space: int = 5,
         output_size: int = 5,
         learning_rate: float = 0.001,
         model: DQN_Model = DQN_CNN,
-        mlp_size: list = [256],
+        mlp_size: list = [512, 256],
         gamma: float = 0.95,
         mem_size: int = 10000,
         batch_size: int = 64,
         epsilon: float = 1,
         epsilon_min: float = 0.01,
         epsilon_decay: float = 5e-4,
+        update_rate=1000,
         optimizer: torch.optim = torch.optim.AdamW,
     ) -> None:
         self.nb_mlp_layers = nb_mlp_layers
@@ -61,6 +62,21 @@ class DQN_agent:
         )
         self.model.to(self.model.device)
 
+        self.target_model = model(
+            input_size=self.input_size,
+            nb_cnn_layers=self.nb_cnn_layers,
+            nb_mlp_layers=self.nb_mlp_layers,
+            kernel_size=self.kernel_size,
+            stride=self.stride,
+            padding=self.padding,
+            action_space=self.action_space,
+            output_size=self.output_size,
+            mlp_size=self.mlp_size,
+            learning_rate=self.learning_rate,
+        )
+        self.target_model.load_state_dict(self.model.state_dict())
+        self.target_model.to(self.target_model.device)
+
         self.optimizer = optimizer(
             params=self.model.parameters(), lr=self.learning_rate, amsgrad=True
         )
@@ -69,7 +85,7 @@ class DQN_agent:
         self.epsilon_decay = epsilon_decay
         self.epsilon_min = epsilon_min
         self.gamma = gamma
-
+        self.update_rate = update_rate
         # Memory vectors to store observations
         self.mem_size = mem_size
         self.mem_use = 0
@@ -138,16 +154,14 @@ class DQN_agent:
         next_state_batch = torch.tensor(self.mem_next_state[learning_index]).to(
             self.model.device
         )
-
         q_state_action = self.model(state_batch)[batch_index, action_batch]
 
-        q_next_state_action = self.model.forward(next_state_batch)
-        q_next_state_action[done_batch] = 0.0
-        q_next_state_action = torch.max(q_next_state_action, dim=1)[0]
+        with torch.no_grad():
+            q_next_state_action = self.target_model.forward(next_state_batch)
+            q_next_state_action[done_batch] = 0.0
+            q_next_state_action = torch.max(q_next_state_action, dim=1)[0]
 
-        target_q_value = (
-            reward_batch + self.gamma * q_next_state_action
-        )  # TODO: should not we do input_batch.reward + self.gamma * (best_next_values - q_state_action)?
+            target_q_value = reward_batch + self.gamma * q_next_state_action
 
         loss = self.model.critertion(q_state_action, target_q_value)
 
@@ -159,6 +173,9 @@ class DQN_agent:
             else self.epsilon_min
         )
         return loss
+
+    def update_model(self):
+        self.target_model.load_state_dict(self.model.state_dict())
 
     def save_weights(self, path):
         """

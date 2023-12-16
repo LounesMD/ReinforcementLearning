@@ -25,7 +25,7 @@ class DQN_CNN(DQN_Model):
         nb_mlp_layers: int = 2,
         nb_filters: list = [16, 32],
         kernel_size: list = [8, 4],
-        stride: list = [2, 2],
+        stride: list = [1, 1],
         padding: list = [1, 1],
         action_space: int = 4,
         output_size: int = 5,
