@@ -69,7 +69,7 @@ class Render_DAv:
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
 
-        time.sleep(1)
+        # time.sleep(1)
 
     def render_map(self, map: Map_DAv, ax):
         ax.plot(map.map_size[0], map.map_size[1])

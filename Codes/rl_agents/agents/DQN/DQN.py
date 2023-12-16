@@ -20,7 +20,6 @@ class DQN_agent:
         kernel_size: list = [8, 4],
         stride: list = [2, 2],
         padding: list = [1, 1],
-        last_mlp_size: int = 256,
         action_space: int = 5,
         output_size: int = 5,
         learning_rate: float = 0.001,
@@ -39,7 +38,6 @@ class DQN_agent:
         self.input_size = input_size
         self.nb_filters = nb_filters
         self.kernel_size = kernel_size
-        self.last_mlp_size = last_mlp_size
         self.output_size = output_size
         self.stride = stride
         self.padding = padding
@@ -56,7 +54,6 @@ class DQN_agent:
             kernel_size=self.kernel_size,
             stride=self.stride,
             padding=self.padding,
-            last_mlp_size=self.last_mlp_size,
             action_space=self.action_space,
             output_size=self.output_size,
             mlp_size=self.mlp_size,
@@ -162,3 +159,15 @@ class DQN_agent:
             else self.epsilon_min
         )
         return loss
+
+    def save_weights(self, path):
+        """
+        Save the weights of the model.
+        """
+        torch.save(self.model.state_dict(), path)
+
+    def load_weights(self, path):
+        """
+        load weights for the model.
+        """
+        self.model.load_state_dict(torch.load(path))

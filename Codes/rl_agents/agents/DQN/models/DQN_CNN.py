@@ -27,11 +27,10 @@ class DQN_CNN(DQN_Model):
         kernel_size: list = [8, 4],
         stride: list = [2, 2],
         padding: list = [1, 1],
-        last_mlp_size: int = 256,
         action_space: int = 4,
         output_size: int = 5,
         mlp_size: list = [256],
-        learning_rate: float = 0.003,
+        learning_rate: float = 0.001,
         critertion: torch.nn = torch.nn.MSELoss,
         optimizer: torch.optim = torch.optim.AdamW,
         device: str = "mps",  # Use mps for mac.
@@ -42,7 +41,6 @@ class DQN_CNN(DQN_Model):
         self.nb_mlp_layers = nb_mlp_layers
         self.nb_filters = nb_filters
         self.kernel_size = kernel_size
-        self.last_mlp_size = last_mlp_size
         self.output_size = output_size
         self.stride = stride
         self.padding = padding
