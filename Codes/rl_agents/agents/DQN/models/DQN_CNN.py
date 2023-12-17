@@ -27,7 +27,6 @@ class DQN_CNN(DQN_Model):
         kernel_size: list = [8, 4],
         stride: list = [1, 1],
         padding: list = [1, 1],
-        action_space: int = 4,
         output_size: int = 5,
         mlp_size: list = [256],
         learning_rate: float = 0.001,
@@ -45,7 +44,6 @@ class DQN_CNN(DQN_Model):
         self.stride = stride
         self.padding = padding
         self.mlp_size = mlp_size
-        self.action_space = action_space
         self.learning_rate = learning_rate
         self.critertion = critertion()
         self.cnn_layers = self._init_conv_layers()

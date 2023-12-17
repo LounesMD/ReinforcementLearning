@@ -21,7 +21,6 @@ class DQN_agent:
         stride: list = [1, 1],
         padding: list = [1, 1],
         action_space: int = 5,
-        output_size: int = 5,
         learning_rate: float = 0.001,
         model: DQN_Model = DQN_CNN,
         mlp_size: list = [512, 256],
@@ -39,7 +38,6 @@ class DQN_agent:
         self.input_size = input_size
         self.nb_filters = nb_filters
         self.kernel_size = kernel_size
-        self.output_size = output_size
         self.stride = stride
         self.padding = padding
         self.mlp_size = mlp_size
@@ -55,8 +53,7 @@ class DQN_agent:
             kernel_size=self.kernel_size,
             stride=self.stride,
             padding=self.padding,
-            action_space=self.action_space,
-            output_size=self.output_size,
+            output_size=action_space,
             mlp_size=self.mlp_size,
             learning_rate=self.learning_rate,
         )
@@ -69,8 +66,7 @@ class DQN_agent:
             kernel_size=self.kernel_size,
             stride=self.stride,
             padding=self.padding,
-            action_space=self.action_space,
-            output_size=self.output_size,
+            output_size=action_space,
             mlp_size=self.mlp_size,
             learning_rate=self.learning_rate,
         )
