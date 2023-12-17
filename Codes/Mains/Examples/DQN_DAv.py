@@ -81,7 +81,10 @@ def main():
                     defensers_action.append(action)
 
             # We apply the actions to our environment
-            obs, rewards, terminated, _, _ = env.step(actions)
+            assert len(actions) == len(env.attackers) + len(
+                [deff for deff in env.defensers if deff.is_alive()]
+            )
+            obs, rewards, terminated, truncated, _ = env.step(actions)
             att_scores += sum(rewards[0])
             def_scores += sum(rewards[1])
 
@@ -92,7 +95,7 @@ def main():
                     attackers_action[i],
                     rewards[0][i],
                     obs.nn_attackers_pov(attacker.get_position()),
-                    terminated,
+                    terminated and truncated,
                 )
 
             for i, defenser in enumerate(
@@ -103,7 +106,7 @@ def main():
                     defensers_action[i],
                     rewards[1][i],
                     obs.nn_defensers_pov(defenser.get_position()),
-                    terminated,
+                    terminated and truncated,
                 )
 
             # For the dead defensers, we suppose they are in an absorbing state where they are stuck and the reward is 0.
