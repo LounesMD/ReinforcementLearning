@@ -18,6 +18,7 @@ class Map_DAv:
         map_size: tuple = (20, 20),
         number_of_attackers: int = 1,
         number_of_defensers: int = 1,
+        step_limit: int = 500,
     ) -> None:
         self.map_size = map_size
         self.map = self._init_map()  # We instantiate the map with full zeros
@@ -26,6 +27,7 @@ class Map_DAv:
         self.walls = list()
         self.number_of_attackers = number_of_attackers
         self.number_of_defensers = number_of_defensers
+        self.step_limit = step_limit
         self._random_init_attackers()
         self._random_init_defensers()
 
@@ -74,7 +76,9 @@ class Map_DAv:
                 )
                 accessible = self.is_accessible((i, j))
 
-            new_attacker = Attacker(position=(i, j), map=self)
+            new_attacker = Attacker(
+                position=(i, j), map=self, step_limit=self.step_limit
+            )
             self.attackers.append(new_attacker)
             if self.map[i][j] == 0:
                 self.map[i][j] = new_attacker
@@ -88,7 +92,9 @@ class Map_DAv:
                     0, self.map_size[1] - 1
                 )
                 accessible = self.is_accessible((i, j))
-            new_defenser = Defenser(position=(i, j), map=self)
+            new_defenser = Defenser(
+                position=(i, j), map=self, step_limit=self.step_limit
+            )
             self.defensers.append(new_defenser)
             if self.map[i][j] == 0:
                 self.map[i][j] = new_defenser

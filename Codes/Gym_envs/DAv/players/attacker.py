@@ -1,5 +1,7 @@
 class Attacker:
-    def __init__(self, position, map, id="attacker", actions=[0, 1, 2, 3]) -> None:
+    def __init__(
+        self, position, map, id="attacker", actions=[0, 1, 2, 3], step_limit=500
+    ) -> None:
         self.id = id
         self.position = position
         # Actions: 0: letf; 1: up; 2: right; 3: down
@@ -9,6 +11,7 @@ class Attacker:
         self.alive = True
         self.nb_step = 0
         self.prev_pos = position
+        self.step_limit = step_limit
 
     def is_alive(self):
         return self.is_alive
@@ -30,7 +33,7 @@ class Attacker:
 
     def step(self, action):
         assert action in self.actions
-        reward = 0
+        reward = -1 / self.step_limit
         self.nb_step += 1
         current_position = self.position
         self.prev_pos = current_position

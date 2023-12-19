@@ -6,50 +6,37 @@ import Codes
 from Codes.rl_agents.agents.DQN.DQN import DQN_agent
 
 
-def average_of_elements(list_of_lists):
-    max_length = max(len(lst) for lst in list_of_lists)
-    averages = []
-    for i in range(max_length):
-        sum_elements = 0
-        count = 0
-        for lst in list_of_lists:
-            if i < len(lst):
-                sum_elements += lst[i]
-                count += 1
-        if count > 0:
-            averages.append(sum_elements / count)
-    return averages
-
-
 def main():
     render = False
     env = gym.make(
         "env_DAv-v0",
         rendering=render,
-        map_size=(10, 10),
+        map_size=(20, 20),
         number_of_defensers=1,
         number_of_attackers=1,
-        step_limit=250,
+        step_limit=200,
     )
     total_step = 0
     map_size = env.map_size
     attacker_action_space = 4
     defenser_action_space = 5
     dqn_attackers = DQN_agent(
-        input_size=(4, map_size[0], map_size[1]), action_space=attacker_action_space
+        input_size=(4, map_size[0], map_size[1]),
+        action_space=attacker_action_space,
+        learning_rate=0.001,
     )
     dqn_defensers = DQN_agent(
-        input_size=(4, map_size[0], map_size[1]), action_space=defenser_action_space
+        input_size=(4, map_size[0], map_size[1]),
+        action_space=defenser_action_space,
+        learning_rate=0.0005,
     )
     def_scores_list = list()
     episode_length_list = list()
-    attackers_loss = list()
-    defensers_loss = list()
     def_alive = list()
-    n_games = 5000
+    att_loss = list()
+    def_loss = list()
+    n_games = 2500
     for idx in range(n_games):
-        att_loss = list()
-        def_loss = list()
         att_scores = 0
         def_scores = 0
         episode_length = 0
@@ -119,7 +106,7 @@ def main():
                 dqn_defensers.store_transition(
                     state,
                     np.random.choice(defenser_action_space),
-                    0,  # A zero reward when they are dead
+                    -1,  # A zero reward when they are dead
                     state,  # Stuck to the same state
                     True,
                 )
@@ -132,13 +119,14 @@ def main():
             if res != None:
                 def_loss.append(res.cpu().detach().numpy())
 
-            if render and (((idx + 1) % 150) == 0):
-                env.render()
-
             if total_step % dqn_attackers.update_rate == 0:
                 dqn_attackers.update_model()
             if total_step % dqn_defensers.update_rate == 0:
                 dqn_defensers.update_model()
+
+            if idx % 250 == 0:
+                dqn_attackers.save_weights("dqn_attackers_weights" + str(idx) + ".pth")
+                dqn_defensers.save_weights("dqn_defensers_weights" + str(idx) + ".pth")
 
             total_step += 1
 
@@ -157,15 +145,11 @@ def main():
         def_alive.append(len([deff for deff in env.defensers if deff.is_alive()]))
         def_scores_list.append(def_scores)
         episode_length_list.append(episode_length)
-        defensers_loss.append(def_loss)
-        attackers_loss.append(att_loss)
 
-    p1 = average_of_elements(defensers_loss)
-    p2 = average_of_elements(attackers_loss)
-    plt.plot([i for i in range(len(p2))], p2, label="loss attackers")
+    plt.plot([i for i in range(len(def_loss))], def_loss, label="loss attackers")
     plt.legend()
     plt.show()
-    plt.plot([i for i in range(len(p1))], p1, label="loss defensers")
+    plt.plot([i for i in range(len(att_loss))], att_loss, label="loss defensers")
     plt.legend()
     plt.show()
     plt.plot(

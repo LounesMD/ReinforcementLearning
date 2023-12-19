@@ -101,6 +101,7 @@ class Env_DAv(gym.Env):
             map_size=self.map_size,
             number_of_attackers=self.number_of_attackers,
             number_of_defensers=self.number_of_defensers,
+            step_limit=self.step_limit,
         )
         self.players = self.map.get_attackers() + self.map.get_defensers()
         self.attackers = self.map.get_attackers()
