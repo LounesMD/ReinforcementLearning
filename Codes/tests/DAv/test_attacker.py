@@ -9,7 +9,7 @@ def example_map():
     Returns a map used to initialized the attacker.
     The map is of size (20,20).
     """
-    return Map_DAv(number_of_attackers=1, number_of_defensers=0)
+    return Map_DAv(number_of_attackers=1, number_of_defenders=0)
 
 
 @pytest.fixture
@@ -27,7 +27,7 @@ def attackers_in_borders():
     """
     Attackers positionned in the corners of the map to test that they can't move beyond the borders of the map.
     """
-    map = Map_DAv(number_of_attackers=2, number_of_defensers=0)
+    map = Map_DAv(number_of_attackers=2, number_of_defenders=0)
     attacker1 = map.get_attackers()[0]
     attacker2 = map.get_attackers()[1]
 

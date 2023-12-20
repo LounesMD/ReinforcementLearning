@@ -1,6 +1,6 @@
-class Defenser:
+class Defender:
     def __init__(
-        self, position, map, id="defenser", actions=[0, 1, 2, 3, 4], step_limit=500
+        self, position, map, id="defender", actions=[0, 1, 2, 3, 4], step_limit=500
     ) -> None:
         self.id = id
         self.position = position
@@ -37,7 +37,7 @@ class Defenser:
         current_position = self.position
         self.prev_pos = current_position
 
-        # We move the defenser
+        # We move the defender
         if action == 0:
             new_position = (self.position[0] - 1, self.position[1])
         elif action == 1:

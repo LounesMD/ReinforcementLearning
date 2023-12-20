@@ -3,13 +3,13 @@ import random
 import numpy as np
 
 from Codes.Gym_envs.DAv.players.attacker import Attacker
-from Codes.Gym_envs.DAv.players.defenser import Defenser
+from Codes.Gym_envs.DAv.players.defender import Defender
 from Codes.Gym_envs.DAv.utils.Wall import Wall
 
 
 class Map_DAv:
     """
-    The map is composed of a list of lists so we have a matrix that can stored different types: Int, Attacker, Defenser and Wall.
+    The map is composed of a list of lists so we have a matrix that can stored different types: Int, Attacker, defender and Wall.
     We do that because np.ndarray doesn't allow this behavior.
     """
 
@@ -17,19 +17,19 @@ class Map_DAv:
         self,
         map_size: tuple = (20, 20),
         number_of_attackers: int = 1,
-        number_of_defensers: int = 1,
+        number_of_defenders: int = 1,
         step_limit: int = 500,
     ) -> None:
         self.map_size = map_size
         self.map = self._init_map()  # We instantiate the map with full zeros
         self.attackers = list()
-        self.defensers = list()
+        self.defenders = list()
         self.walls = list()
         self.number_of_attackers = number_of_attackers
-        self.number_of_defensers = number_of_defensers
+        self.number_of_defenders = number_of_defenders
         self.step_limit = step_limit
         self._random_init_attackers()
-        self._random_init_defensers()
+        self._random_init_defenders()
 
     def _init_map(self):
         return [[0 for _ in range(self.map_size[0])] for _ in range(self.map_size[1])]
@@ -48,7 +48,7 @@ class Map_DAv:
 
         Args:
             position (tuple): position
-            element (_type_): elment that can be Attacker, Defenser or Wall
+            element (_type_): elment that can be Attacker, defender or Wall
         """
         self.map[position[0]][position[1]] = element
 
@@ -83,21 +83,21 @@ class Map_DAv:
             if self.map[i][j] == 0:
                 self.map[i][j] = new_attacker
 
-    def _random_init_defensers(self):
-        # We intialiaze the defensers with a random position
-        for _ in range(self.number_of_defensers):
+    def _random_init_defenders(self):
+        # We intialiaze the defenders with a random position
+        for _ in range(self.number_of_defenders):
             accessible = False
             while not accessible:
                 i, j = random.randint(0, self.map_size[0] - 1), random.randint(
                     0, self.map_size[1] - 1
                 )
                 accessible = self.is_accessible((i, j))
-            new_defenser = Defenser(
+            new_defender = Defender(
                 position=(i, j), map=self, step_limit=self.step_limit
             )
-            self.defensers.append(new_defenser)
+            self.defenders.append(new_defender)
             if self.map[i][j] == 0:
-                self.map[i][j] = new_defenser
+                self.map[i][j] = new_defender
 
     def change_position(self, current_position, new_positon) -> None:
         """
@@ -121,7 +121,7 @@ class Map_DAv:
 
     def is_occupied(self, position) -> bool:
         """
-        Return True if the cell at the position `position` is occupied by an attacker or a defenser.
+        Return True if the cell at the position `position` is occupied by an attacker or a defender.
 
         Args:
             position (tuple): position of the cell to check
@@ -129,22 +129,22 @@ class Map_DAv:
         Returns:
             Bool: True if occupied and False else
         """
-        if isinstance(self.get_cell(position), (Attacker, Defenser)):
+        if isinstance(self.get_cell(position), (Attacker, Defender)):
             return True
         else:
             return False
 
-    def is_occupied_by_defenser(self, position) -> bool:
+    def is_occupied_by_defender(self, position) -> bool:
         """
-        Return True if the cell at the position `position` is occupied by a defenser.
-        This method is used by the attacker to know if it has to kill a defenser or not.
+        Return True if the cell at the position `position` is occupied by a defender.
+        This method is used by the attacker to know if it has to kill a defender or not.
         Args:
             position (tuple): position of the cell to check
 
         Returns:
             Bool: True if occupied and False else
         """
-        if isinstance(self.get_cell(position), Defenser):
+        if isinstance(self.get_cell(position), Defender):
             return True
         else:
             return False
@@ -188,11 +188,11 @@ class Map_DAv:
             return False
         return False
 
-    def get_defensers(self):
+    def get_defenders(self):
         """
-        Returns a list of the defensers positionned in the map.
+        Returns a list of the defenders positionned in the map.
         """
-        return self.defensers
+        return self.defenders
 
     def get_attackers(self):
         """

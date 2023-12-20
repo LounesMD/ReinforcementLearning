@@ -55,9 +55,9 @@ class Attacker:
         if self.map.is_blocked(new_position):
             new_position = self.break_the_wall(new_position, current_position)
 
-        if self.map.is_occupied_by_defenser(
+        if self.map.is_occupied_by_defender(
             new_position
-        ):  # If there is a defenser, we kill the it and we take its position.
+        ):  # If there is a defender, we kill the it and we take its position.
             self.map.get_cell(new_position).kill()
             self.map.assign_element(new_position, 0)
             new_position = current_position

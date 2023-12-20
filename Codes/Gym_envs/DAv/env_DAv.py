@@ -4,7 +4,7 @@ import gymnasium as gym
 import numpy as np
 
 from Codes.Gym_envs.DAv.map import Map_DAv
-from Codes.Gym_envs.DAv.players.defenser import Defenser
+from Codes.Gym_envs.DAv.players.defender import Defender
 from Codes.Gym_envs.DAv.render import Render_DAv
 
 
@@ -33,7 +33,7 @@ class Env_DAv(gym.Env):
     def __init__(
         self,
         number_of_attackers: int = 2,
-        number_of_defensers: int = 2,
+        number_of_defenders: int = 2,
         map_size: tuple = (20, 20),
         step_limit: int = 500,
         rendering: bool = False,
@@ -42,18 +42,36 @@ class Env_DAv(gym.Env):
     ) -> None:
         self.action_space = gym.spaces.Discrete(4)
         self.map_size = map_size
-        self.observation_space = gym.spaces.Box(
-            shape=(3, self.map_size[0], self.map_size[1]), low=0, high=1
-        )
         self.number_of_attackers = number_of_attackers
-        self.number_of_defensers = number_of_defensers
+        self.number_of_defenders = number_of_defenders
+        min_x, max_x = 0, map_size[0]
+        min_y, max_y = 0, map_size[1]
+        self.observation_space = gym.spaces.Dict(
+            {
+                "attackers_position": gym.spaces.Box(
+                    low=np.array([min_x, min_y] * number_of_attackers),
+                    high=np.array([max_x, max_y] * number_of_attackers),
+                    dtype=np.float32,
+                ),
+                "defenders_position": gym.spaces.Box(
+                    low=np.array([min_x, min_y] * number_of_defenders),
+                    high=np.array([max_x, max_y] * number_of_defenders),
+                    dtype=np.float32,
+                ),
+                "walls_position": gym.spaces.Box(
+                    low=np.array([min_x, min_y] * map_size[0] * map_size[1]),
+                    high=np.array([max_x, max_y] * map_size[0] * map_size[1]),
+                    dtype=np.float32,
+                ),
+            }
+        )
         self.step_limit = step_limit
         if rendering:
             self.rendering = Render_DAv()
         self.map = None
         self.players = None
         self.attackers = None
-        self.defensers = None
+        self.defenders = None
         self.walls = None
         self.steps = None
         self.terminated = None
@@ -64,18 +82,18 @@ class Env_DAv(gym.Env):
         """
         The observation of the environment is a dict composed of a numpy arrays of:
             - The position of the attackers
-            - The position of the defensers
+            - The position of the defenders
             - The position of the walls
         """
         return {
             "attackers_position": np.array(
                 [attacker.get_position() for attacker in self.attackers]
             ),
-            "defensers_position": np.array(
+            "defenders_position": np.array(
                 [
-                    defenser.get_position()
-                    for defenser in self.defensers
-                    if defenser.is_alive()
+                    defender.get_position()
+                    for defender in self.defenders
+                    if defender.is_alive()
                 ]
             ),
             "walls_position": np.array(
@@ -83,16 +101,16 @@ class Env_DAv(gym.Env):
             ),
         }
 
-    def reset(self) -> None:
+    def reset(self, seed=None) -> None:
         self.map = Map_DAv(
             map_size=self.map_size,
             number_of_attackers=self.number_of_attackers,
-            number_of_defensers=self.number_of_defensers,
+            number_of_defenders=self.number_of_defenders,
             step_limit=self.step_limit,
         )
-        self.players = self.map.get_attackers() + self.map.get_defensers()
+        self.players = self.map.get_attackers() + self.map.get_defenders()
         self.attackers = self.map.get_attackers()
-        self.defensers = self.map.get_defensers()
+        self.defenders = self.map.get_defenders()
         self.walls = self.map.get_walls()
         self.steps = 0
         self.terminated = False
@@ -118,20 +136,20 @@ class Env_DAv(gym.Env):
 
         rewards.append(attackers_reward)
 
-        # Compute the rewards of the defensers
-        defensers_reward = []
-        for i, defenser in enumerate(
-            [deff for deff in self.defensers if deff.is_alive()]
+        # Compute the rewards of the defenders
+        defenders_reward = []
+        for i, defender in enumerate(
+            [deff for deff in self.defenders if deff.is_alive()]
         ):
-            reward = defenser.step(action[self.number_of_attackers + i])
-            defensers_reward.append(reward)
-        rewards.append(defensers_reward)
+            reward = defender.step(action[self.number_of_attackers + i])
+            defenders_reward.append(reward)
+        rewards.append(defenders_reward)
 
         self.steps += 1
 
-        # We are done only when there is no defensers alive an more.
+        # We are done only when there is no defenders alive an more.
         self.terminated = all(
-            [not defenser.is_alive() for defenser in self.map.get_defensers()]
+            [not defender.is_alive() for defender in self.map.get_defenders()]
         )
         self.truncated = self.steps > self.step_limit
         return self._get_obs(), rewards, self.terminated, self.truncated, info
@@ -142,19 +160,19 @@ class Env_DAv(gym.Env):
         """
         self.rendering.render_env(self.map, self.steps)
 
-    def kill_the_defenser(self, defenser_position):
+    def kill_the_defender(self, defender_position):
         """
-        Kills the defenser when touched by an attacker.
+        Kills the defender when touched by an attacker.
         """
-        if isinstance(self.map.get_cell(defenser_position), Defenser):
-            self.map.get_cell(defenser_position).kill()
-            self.map.assign_element(defenser_position, 0.0)
+        if isinstance(self.map.get_cell(defender_position), Defender):
+            self.map.get_cell(defender_position).kill()
+            self.map.assign_element(defender_position, 0.0)
 
-    def get_defensers(self):
+    def get_defenders(self):
         """
-        Returns the defensers of the environment.
+        Returns the defenders of the environment.
         """
-        return self.map.get_defensers()
+        return self.map.get_defenders()
 
     def get_attackers(self):
         """
