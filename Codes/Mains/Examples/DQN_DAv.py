@@ -37,16 +37,15 @@ def main():
     att_loss = list()
     def_loss = list()
 
-    input_for_CNN = init_binary_map(
-        map_size=map_size, attackers=env.attackers, defensers=env.defensers
-    )
-
-    n_games = 25000
+    n_games = 10000
     for idx in range(n_games):
         att_scores = 0
         def_scores = 0
         episode_length = 0
         env.reset()
+        input_for_CNN = init_binary_map(
+            map_size=map_size, attackers=env.attackers, defensers=env.defensers
+        )
         while not env.terminated and not env.truncated:
             episode_length += 1
             actions = list()
@@ -69,7 +68,7 @@ def main():
             current_defensers_position = list()
             for defenser in env.defensers:
                 if defenser.is_alive():
-                    current_defensers_position.append(attacker.get_position())
+                    current_defensers_position.append(defenser.get_position())
                     state = input_for_CNN.nn_defensers_pov(defenser.get_position())
                     state = state[np.newaxis,]
                     action = dqn_defensers.get_action(state)
@@ -87,7 +86,6 @@ def main():
             obs, rewards, terminated, truncated, _ = env.step(actions)
             att_scores += sum(rewards[0])
             def_scores += sum(rewards[1])
-
             input_for_CNN.update_observation(
                 attackers_position=np.array(current_attackers_position),
                 defensers_position=np.array(current_defensers_position),
@@ -96,6 +94,7 @@ def main():
                 new_defensers_position=obs["defensers_position"],
                 new_walls_position=obs["walls_position"],
             )
+
             # We store the transitions for the defensers and attackers
             for i, attacker in enumerate(env.attackers):
                 dqn_attackers.store_transition(
@@ -150,8 +149,12 @@ def main():
                 dqn_defensers.update_model()
 
             if idx % 250 == 0:
-                dqn_attackers.save_weights("dqn_attackers_weights" + str(idx) + ".pth")
-                dqn_defensers.save_weights("dqn_defensers_weights" + str(idx) + ".pth")
+                dqn_attackers.save_weights(
+                    "dqn_attackers_weights_iteration_" + str(idx) + ".pth"
+                )
+                dqn_defensers.save_weights(
+                    "dqn_defensers_weights_iteration_" + str(idx) + ".pth"
+                )
 
             total_step += 1
 

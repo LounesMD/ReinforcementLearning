@@ -32,6 +32,9 @@ def test_binary_map_init_position(env):
         x, y = defenser.get_position()
         assert binary_map.defensers_array[x][y] == 1.0
 
+    assert np.sum(binary_map.defensers_array) == env.number_of_defensers
+    assert np.sum(binary_map.attackers_array) == env.number_of_attackers
+
 
 def test_binary_map_update_position(env):
     map_size = env.map_size
@@ -73,8 +76,22 @@ def test_binary_map_update_position(env):
         new_walls_position=np.array([]),
     )
 
-    for x, y in attackers_new_positions:
+    for i, (x, y) in enumerate(attackers_new_positions):
         assert binary_map.attackers_array[x][y] == 1.0
+        if attackers_old_positions[i] != (x, y):
+            assert (
+                binary_map.attackers_array[attackers_old_positions[i][0]][
+                    attackers_old_positions[i][1]
+                ]
+                == 0.0
+            )
 
-    for x, y in defensers_new_positions:
+    for i, (x, y) in enumerate(defensers_new_positions):
         assert binary_map.defensers_array[x][y] == 1.0
+        if defenders_old_positions[i] != (x, y):
+            assert (
+                binary_map.defensers_array[defenders_old_positions[i][0]][
+                    defenders_old_positions[i][1]
+                ]
+                == 0.0
+            )
