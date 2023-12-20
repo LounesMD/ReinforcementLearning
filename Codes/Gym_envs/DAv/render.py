@@ -63,13 +63,14 @@ class Render_DAv:
             ),
         ]
 
-        ax.legend(handles=legend_elements)
+        ax.legend(handles=legend_elements, loc="upper right")
 
         self.fig.suptitle("DAv. Step: " + str(steps))
+        plt.savefig("DAv. step: " + str(steps) + ".svg")
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
 
-        # time.sleep(1)
+        # time.sleep(3)
 
     def render_map(self, map: Map_DAv, ax):
         ax.plot(map.map_size[0], map.map_size[1])

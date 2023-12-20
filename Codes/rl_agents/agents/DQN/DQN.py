@@ -16,22 +16,21 @@ class DQN_agent:
         history_size: int = 1,
         nb_mlp_layers: int = 2,
         nb_cnn_layers: int = 2,
-        nb_filters: list = [16, 32, 64],
+        nb_filters: list = [16, 32],
         kernel_size: list = [8, 4],
         stride: list = [1, 1],
         padding: list = [1, 1],
         action_space: int = 5,
-        learning_rate: float = 0.001,
+        learning_rate: float = 0.003,
         model: DQN_Model = DQN_CNN,
-        mlp_size: list = [512, 256],
-        gamma: float = 0.95,
-        mem_size: int = 10000,
+        mlp_size: list = [256],
+        gamma: float = 0.97,
+        mem_size: int = 5000,
         batch_size: int = 64,
         epsilon: float = 1,
         epsilon_min: float = 0.01,
         epsilon_decay: float = 5e-4,
         update_rate=1000,
-        optimizer: torch.optim = torch.optim.AdamW,
     ) -> None:
         self.nb_mlp_layers = nb_mlp_layers
         self.nb_cnn_layers = nb_cnn_layers
@@ -73,10 +72,6 @@ class DQN_agent:
         self.target_model.load_state_dict(self.model.state_dict())
         self.target_model.to(self.target_model.device)
 
-        self.optimizer = optimizer(
-            params=self.model.parameters(), lr=self.learning_rate, amsgrad=True
-        )
-
         self.epsilon = epsilon
         self.epsilon_decay = epsilon_decay
         self.epsilon_min = epsilon_min
@@ -104,6 +99,14 @@ class DQN_agent:
         else:
             action = np.random.choice(action_space)
         return action
+
+    def boltzmann(self, actions, tau):
+        """
+        TODO: refactor this method to a class.
+        """
+        numerators = np.exp(actions / tau)
+        denominators = np.sum(numerators)
+        return numerators / denominators
 
     def store_transition(self, state, action, reward, next_state, done):
         """

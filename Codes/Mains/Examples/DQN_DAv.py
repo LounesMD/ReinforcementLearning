@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import Codes
+from Codes.Mains.Examples.utils.binary_observation_utils import init_binary_map
 from Codes.rl_agents.agents.DQN.DQN import DQN_agent
 
 
@@ -11,7 +12,7 @@ def main():
     env = gym.make(
         "env_DAv-v0",
         rendering=render,
-        map_size=(20, 20),
+        map_size=(15, 15),
         number_of_defensers=1,
         number_of_attackers=1,
         step_limit=200,
@@ -35,7 +36,12 @@ def main():
     def_alive = list()
     att_loss = list()
     def_loss = list()
-    n_games = 2500
+
+    input_for_CNN = init_binary_map(
+        map_size=map_size, attackers=env.attackers, defensers=env.defensers
+    )
+
+    n_games = 25000
     for idx in range(n_games):
         att_scores = 0
         def_scores = 0
@@ -49,24 +55,31 @@ def main():
             defensers_state = list()
             attackers_state = list()
 
+            current_attackers_position = list()
             # We compute the actions for the attackers and defensers
             for attacker in env.attackers:
-                state = env.binary_map.nn_attackers_pov(attacker.get_position())
+                current_attackers_position.append(attacker.get_position())
+                state = input_for_CNN.nn_attackers_pov(attacker.get_position())
                 state = state[np.newaxis,]
                 action = dqn_attackers.get_action(state)
                 attackers_state.append(state)
                 actions.append(action)
                 attackers_action.append(action)
 
+            current_defensers_position = list()
             for defenser in env.defensers:
                 if defenser.is_alive():
-                    state = env.binary_map.nn_defensers_pov(defenser.get_position())
+                    current_defensers_position.append(attacker.get_position())
+                    state = input_for_CNN.nn_defensers_pov(defenser.get_position())
                     state = state[np.newaxis,]
                     action = dqn_defensers.get_action(state)
                     defensers_state.append(state)
                     actions.append(action)
                     defensers_action.append(action)
 
+            current_walls_position = [
+                wall.get_position() for wall in env.walls if (not wall.is_broken())
+            ]
             # We apply the actions to our environment
             assert len(actions) == len(env.attackers) + len(
                 [deff for deff in env.defensers if deff.is_alive()]
@@ -75,13 +88,21 @@ def main():
             att_scores += sum(rewards[0])
             def_scores += sum(rewards[1])
 
+            input_for_CNN.update_observation(
+                attackers_position=np.array(current_attackers_position),
+                defensers_position=np.array(current_defensers_position),
+                walls_position=np.array(current_walls_position),
+                new_attackers_position=obs["attackers_position"],
+                new_defensers_position=obs["defensers_position"],
+                new_walls_position=obs["walls_position"],
+            )
             # We store the transitions for the defensers and attackers
             for i, attacker in enumerate(env.attackers):
                 dqn_attackers.store_transition(
                     attackers_state[i],
                     attackers_action[i],
                     rewards[0][i],
-                    obs.nn_attackers_pov(attacker.get_position()),
+                    input_for_CNN.nn_attackers_pov(attacker.get_position()),
                     terminated and truncated,
                 )
 
@@ -92,7 +113,7 @@ def main():
                     defensers_state[i],
                     defensers_action[i],
                     rewards[1][i],
-                    obs.nn_defensers_pov(defenser.get_position()),
+                    input_for_CNN.nn_defensers_pov(defenser.get_position()),
                     terminated and truncated,
                 )
 
@@ -100,12 +121,16 @@ def main():
             for i, defenser in enumerate(
                 [deff for deff in env.defensers if (not deff.is_alive())]
             ):
-                state = env.binary_map.defensers_pov()
-                state = np.zeros(shape=map_size)
+                state = input_for_CNN.defensers_pov()
+                state = np.concatenate(
+                    (np.zeros(shape=(1, map_size[0], map_size[1])), state), axis=0
+                )
                 state = state[np.newaxis,]
                 dqn_defensers.store_transition(
                     state,
-                    np.random.choice(defenser_action_space),
+                    np.random.choice(
+                        defenser_action_space
+                    ),  # We pick a random action as the agent is in an absorbing state
                     -1,  # A zero reward when they are dead
                     state,  # Stuck to the same state
                     True,

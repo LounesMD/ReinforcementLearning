@@ -32,7 +32,7 @@ class Defenser:
     def step(self, action):
         assert self.is_alive()
         assert action in self.actions
-        reward = 0.005
+        reward = 1 / self.step_limit
         self.nb_step += 1
         current_position = self.position
         self.prev_pos = current_position

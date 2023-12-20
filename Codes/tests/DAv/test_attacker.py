@@ -89,4 +89,4 @@ def test_moving_borders(attackers_in_borders):
 
 def test_reward(attacker_middle):
     reward = attacker_middle.step(1)
-    assert reward == 0
+    assert reward == -1 / attacker_middle.step_limit
