@@ -9,27 +9,27 @@ def example_map():
     Returns a map used to initialized the attacker.
     The map is of size (20,20).
     """
-    return Map_DAv(number_of_attackers=2, number_of_defensers=3)
+    return Map_DAv(number_of_attackers=2, number_of_defenders=3)
 
 
 @pytest.fixture
 def example_map_2():
     """
-    Returns a map used to test the echange position method with only one defenser.
+    Returns a map used to test the echange position method with only one defender.
     """
-    return Map_DAv(number_of_attackers=0, number_of_defensers=1)
+    return Map_DAv(number_of_attackers=0, number_of_defenders=1)
 
 
 @pytest.fixture
 def map_killer():
     """
-    Returns a map used to test that the attacker can indeed kill a defenser.
+    Returns a map used to test that the attacker can indeed kill a defender.
     """
-    map = Map_DAv(number_of_attackers=1, number_of_defensers=1)
+    map = Map_DAv(number_of_attackers=1, number_of_defenders=1)
     attacker = map.get_attackers()[0]
     map.change_position(attacker.get_position(), (0, 0))
-    defenser = map.get_defensers()[0]
-    map.change_position(defenser.get_position(), (0, 1))
+    defender = map.get_defenders()[0]
+    map.change_position(defender.get_position(), (0, 1))
     return map
 
 
@@ -38,9 +38,9 @@ def attacker_middle(example_map_2):
     """
     Change the position to the middle of the map so it can be used for tests.
     """
-    defenser = example_map_2.get_defensers()[0]
-    example_map_2.change_position(defenser.get_position(), (10, 10))
-    return defenser
+    defender = example_map_2.get_defenders()[0]
+    example_map_2.change_position(defender.get_position(), (10, 10))
+    return defender
 
 
 def test_right_number_of_attackers(example_map):
@@ -48,9 +48,9 @@ def test_right_number_of_attackers(example_map):
     assert len(attackers) == 2
 
 
-def test_right_number_of_defensers(example_map):
-    defensers = example_map.get_defensers()
-    assert len(defensers) == 3
+def test_right_number_of_defenders(example_map):
+    defenders = example_map.get_defenders()
+    assert len(defenders) == 3
 
 
 def test_attackers_well_initialized(example_map):
@@ -60,21 +60,21 @@ def test_attackers_well_initialized(example_map):
         assert attacker == example_map.get_cell(attacker.get_position())
 
 
-def test_defensers_well_initialized(example_map):
-    for defenser in example_map.get_defensers():
-        assert example_map.is_within_limits(defenser.get_position())
-        assert example_map == defenser.get_map()
-        assert defenser == example_map.get_cell(defenser.get_position())
+def test_defenders_well_initialized(example_map):
+    for defender in example_map.get_defenders():
+        assert example_map.is_within_limits(defender.get_position())
+        assert example_map == defender.get_map()
+        assert defender == example_map.get_cell(defender.get_position())
 
 
-def test_is_occupied_by_defenser(example_map):
-    for defenser in example_map.get_defensers():
-        example_map.is_occupied_by_defenser(defenser.get_position())
+def test_is_occupied_by_defender(example_map):
+    for defender in example_map.get_defenders():
+        example_map.is_occupied_by_defender(defender.get_position())
 
 
 def test_is_occupied(example_map):
-    for defenser in example_map.get_defensers():
-        example_map.is_occupied(defenser.get_position())
+    for defender in example_map.get_defenders():
+        example_map.is_occupied(defender.get_position())
     for attacker in example_map.get_attackers():
         example_map.is_occupied(attacker.get_position())
 
@@ -92,20 +92,20 @@ def test_change_position(attacker_middle, example_map_2):
     assert example_map_2.get_cell(attacker_new_pos) == attacker_middle
 
 
-def test_kill_a_defenser(map_killer):
-    for defenser in map_killer.get_defensers():
-        assert defenser.is_alive()
+def test_kill_a_defender(map_killer):
+    for defender in map_killer.get_defenders():
+        assert defender.is_alive()
 
     for attacker in map_killer.get_attackers():
         attacker.step(1)
 
-    for defenser in map_killer.get_defensers():
-        assert not defenser.is_alive()
+    for defender in map_killer.get_defenders():
+        assert not defender.is_alive()
 
 
 def test_rewards(map_killer):
-    for defenser in map_killer.get_defensers():
-        assert defenser.is_alive()
+    for defender in map_killer.get_defenders():
+        assert defender.is_alive()
 
     for attacker in map_killer.get_attackers():
         reward = attacker.step(1)

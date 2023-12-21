@@ -1,12 +1,11 @@
-from typing import Tuple
+from typing import Dict, Tuple
 
 import gymnasium as gym
 import numpy as np
 
 from Codes.Gym_envs.DAv.map import Map_DAv
-from Codes.Gym_envs.DAv.players.defenser import Defenser
+from Codes.Gym_envs.DAv.players.defender import Defender
 from Codes.Gym_envs.DAv.render import Render_DAv
-from Codes.Gym_envs.DAv.utils.observation import BinaryMapObservation
 
 
 class Env_DAv(gym.Env):
@@ -20,10 +19,6 @@ class Env_DAv(gym.Env):
 
     The implementation of this environment, called by using 'env = gym.make("env_DAv-v0")', is as follows:
     - A map, implemented using lists, that stores the Defenders, Attackers, and Walls in their correct positions and has zeros everywhere else.
-    - A binary_map, used to get a tensor representation of the map. The tensor is composed of three slices:
-        1. A first binary tensor of the attackers/defenders positions
-        2. A second binary tensor of the defenders/attackers positions
-        3. A third binary tensor of the walls.
 
         Two representations of this map can be accessible:
             1. From the attackers' point of view, their tensor is put first.
@@ -38,7 +33,7 @@ class Env_DAv(gym.Env):
     def __init__(
         self,
         number_of_attackers: int = 2,
-        number_of_defensers: int = 2,
+        number_of_defenders: int = 2,
         map_size: tuple = (20, 20),
         step_limit: int = 500,
         rendering: bool = False,
@@ -47,78 +42,85 @@ class Env_DAv(gym.Env):
     ) -> None:
         self.action_space = gym.spaces.Discrete(4)
         self.map_size = map_size
-        self.observation_space = gym.spaces.Box(
-            shape=(3, self.map_size[0], self.map_size[1]), low=0, high=1
-        )
         self.number_of_attackers = number_of_attackers
-        self.number_of_defensers = number_of_defensers
+        self.number_of_defenders = number_of_defenders
+        # TODO: fix the observation_space such as I can return for each element a list of list of int.
+        self.observation_space = gym.spaces.Dict(
+            {
+                "attackers_position": gym.spaces.Sequence(gym.spaces.Box(0, 1)),
+                "defenders_position": gym.spaces.Sequence(gym.spaces.Box(0, 1)),
+                "walls_position": gym.spaces.Sequence(gym.spaces.Box(0, 1)),
+            }
+        )
         self.step_limit = step_limit
         if rendering:
             self.rendering = Render_DAv()
         self.map = None
         self.players = None
         self.attackers = None
-        self.defensers = None
+        self.defenders = None
         self.walls = None
-        self.binary_map = None
         self.steps = None
         self.terminated = None
         self.truncated = None
         self.reset()
 
-    def _init_binary_map(self) -> list:
-        walls_tensor = np.zeros(
-            shape=(self.map_size[0], self.map_size[1]), dtype=np.float32
-        )  # At the initialisation, there is no wall.
+    def _get_obs(self) -> Dict:
+        """
+        The observation of the environment is a dict composed of a numpy arrays of:
+            - The position of the attackers
+            - The position of the defenders
+            - The position of the walls
+        """
+        ret = {
+            "attackers_position": np.array(
+                [attacker.get_position() for attacker in self.attackers]
+            ),
+            "defenders_position": np.array(
+                [
+                    defender.get_position()
+                    for defender in self.defenders
+                    if defender.is_alive()
+                ]
+            ),
+            "walls_position": np.array(
+                [wall.get_position() for wall in self.walls if (not wall.is_broken())]
+            ),
+        }
+        return ret
 
-        # Initialisation of the attackers position
-        attackers_tensor = np.zeros(
-            shape=(self.map_size[0], self.map_size[1]), dtype=np.float32
-        )
-        for attacker in self.attackers:
-            attackers_tensor[attacker.get_position()[0]][
-                attacker.get_position()[1]
-            ] = 1.0
+    def reset(self, seed=None, options=None) -> None:
+        # We need the following line to seed self.np_random
+        super().reset(seed=seed)
 
-        # Initialisation of the defensers position
-        defensers_tensor = np.zeros(
-            shape=(self.map_size[0], self.map_size[1]), dtype=np.float32
-        )
-        for defenser in self.defensers:
-            defensers_tensor[defenser.get_position()[0]][
-                defenser.get_position()[1]
-            ] = 1.0
-
-        return BinaryMapObservation(
-            attackers_tensor, defensers_tensor, walls_tensor, self.map_size
-        )
-
-    def _get_obs(self) -> BinaryMapObservation:
-        return self.binary_map
-
-    def reset(self) -> None:
         self.map = Map_DAv(
             map_size=self.map_size,
             number_of_attackers=self.number_of_attackers,
-            number_of_defensers=self.number_of_defensers,
+            number_of_defenders=self.number_of_defenders,
+            step_limit=self.step_limit,
         )
-        self.players = self.map.get_attackers() + self.map.get_defensers()
+        self.players = self.map.get_attackers() + self.map.get_defenders()
         self.attackers = self.map.get_attackers()
-        self.defensers = self.map.get_defensers()
+        self.defenders = self.map.get_defenders()
         self.walls = self.map.get_walls()
-        self.binary_map = self._init_binary_map()
         self.steps = 0
         self.terminated = False
         self.truncated = False
+        return (self._get_obs(), {})
 
-    def step(self, action) -> Tuple[np.array, list, bool, dict]:
+    def step(self, action) -> Tuple[np.array, list, bool, bool, dict]:
         """
         One step for each player of the environment.
 
         args:
             action(list): A list of one step action of each player.
 
-        TODO: Find a more performant way to udpate the positions.
+        returns:
+            obs (dict): A python dict with the positions of the attackers, defenders and walls.
+            reward (list): A list of 2 lists, each one associated to the rewards of either the attackers or the defenders.
+            terminated (bool): A boolean, True if the episode is terminated and False otherwise.
+            truncated (bool): A boolean, True if the episode has been truncated (elf.steps >= self.step_limit) and False otherwise.
+            info (dict): Nothing for the moment.
         """
         info = (
             dict()
@@ -128,44 +130,28 @@ class Env_DAv(gym.Env):
         # Compute the rewards of the attackers
         attackers_reward = []
         for i, attacker in enumerate(self.attackers):
-            self.binary_map.update_attackers_tensor(attacker.get_position(), 0.0)
             reward = attacker.step(action[i])
             attackers_reward.append(reward)
-            self.binary_map.update_attackers_tensor(attacker.get_position(), 1.0)
 
         rewards.append(attackers_reward)
 
-        # Compute the rewards of the defensers
-        defensers_reward = []
-        for i, defenser in enumerate(
-            [deff for deff in self.defensers if deff.is_alive()]
+        # Compute the rewards of the defenders
+        defenders_reward = []
+        for i, defender in enumerate(
+            [deff for deff in self.defenders if deff.is_alive()]
         ):
-            self.binary_map.update_defensers_tensor(defenser.get_position(), 0.0)
-            reward = defenser.step(action[self.number_of_attackers + i])
-            defensers_reward.append(reward)
-            self.binary_map.update_defensers_tensor(defenser.get_position(), 1.0)
-        rewards.append(defensers_reward)
-        # Update the position of the walls.
-        self.udpate_walls_postion()
+            reward = defender.step(action[self.number_of_attackers + i])
+            defenders_reward.append(reward)
+        rewards.append(defenders_reward)
 
         self.steps += 1
 
-        # We are done only when there is no defensers alive an more.
+        # We are done only when there is no defenders alive an more.
         self.terminated = all(
-            [not defenser.is_alive() for defenser in self.map.get_defensers()]
+            [not defender.is_alive() for defender in self.map.get_defenders()]
         )
-        self.truncated = self.steps > self.step_limit
+        self.truncated = self.steps >= self.step_limit
         return self._get_obs(), rewards, self.terminated, self.truncated, info
-
-    def udpate_walls_postion(self):
-        """
-        Update the binary position of the walls.
-        """
-        for wall in self.walls:
-            if wall.is_broken():
-                self.binary_map.update_walls_tensor(wall.get_position(), 0.0)
-            else:
-                self.binary_map.update_walls_tensor(wall.get_position(), 1.0)
 
     def render(self):
         """
@@ -173,20 +159,19 @@ class Env_DAv(gym.Env):
         """
         self.rendering.render_env(self.map, self.steps)
 
-    def kill_the_defenser(self, defenser_position):
+    def kill_the_defender(self, defender_position):
         """
-        Kills the defenser when touched by an attacker.
+        Kills the defender when touched by an attacker.
         """
-        if isinstance(self.map.get_cell(defenser_position), Defenser):
-            self.map.get_cell(defenser_position).kill()
-            self.map.assign_element(defenser_position, 0.0)
-            self.binary_map.update_defensers_tensor(defenser_position, 0.0)
+        if isinstance(self.map.get_cell(defender_position), Defender):
+            self.map.get_cell(defender_position).kill()
+            self.map.assign_element(defender_position, 0.0)
 
-    def get_defensers(self):
+    def get_defenders(self):
         """
-        Returns the defensers of the environment.
+        Returns the defenders of the environment.
         """
-        return self.map.get_defensers()
+        return self.map.get_defenders()
 
     def get_attackers(self):
         """

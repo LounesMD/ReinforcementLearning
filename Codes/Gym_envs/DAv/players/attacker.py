@@ -1,5 +1,7 @@
 class Attacker:
-    def __init__(self, position, map, id="attacker", actions=[0, 1, 2, 3]) -> None:
+    def __init__(
+        self, position, map, id="attacker", actions=[0, 1, 2, 3], step_limit=500
+    ) -> None:
         self.id = id
         self.position = position
         # Actions: 0: letf; 1: up; 2: right; 3: down
@@ -9,6 +11,7 @@ class Attacker:
         self.alive = True
         self.nb_step = 0
         self.prev_pos = position
+        self.step_limit = step_limit
 
     def is_alive(self):
         return self.is_alive
@@ -30,7 +33,7 @@ class Attacker:
 
     def step(self, action):
         assert action in self.actions
-        reward = 0
+        reward = -1 / self.step_limit
         self.nb_step += 1
         current_position = self.position
         self.prev_pos = current_position
@@ -52,11 +55,11 @@ class Attacker:
         if self.map.is_blocked(new_position):
             new_position = self.break_the_wall(new_position, current_position)
 
-        if self.map.is_occupied_by_defenser(
+        if self.map.is_occupied_by_defender(
             new_position
-        ):  # If there is a defenser, we kill the it and we take its position.
+        ):  # If there is a defender, we kill the it and we take its position.
             self.map.get_cell(new_position).kill()
-            self.map.assign_element(new_position, None)
+            self.map.assign_element(new_position, 0)
             new_position = current_position
             reward = 1
 

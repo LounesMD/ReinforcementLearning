@@ -3,112 +3,168 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import Codes
+from Codes.Mains.Examples.utils.binary_observation_utils import init_binary_map
 from Codes.rl_agents.agents.DQN.DQN import DQN_agent
 
 
-def average_of_elements(list_of_lists):
-    max_length = max(len(lst) for lst in list_of_lists)
-    averages = []
-    for i in range(max_length):
-        sum_elements = 0
-        count = 0
-        for lst in list_of_lists:
-            if i < len(lst):
-                sum_elements += lst[i]
-                count += 1
-        if count > 0:
-            averages.append(sum_elements / count)
-    return averages
-
-
 def main():
+    """
+    This main trains agents with DAv environment.
+    """
     render = False
     env = gym.make(
         "env_DAv-v0",
         rendering=render,
-        map_size=(10, 10),
-        number_of_defensers=1,
+        map_size=(15, 15),
+        number_of_defenders=1,
         number_of_attackers=1,
-        step_limit=250,
+        step_limit=200,
     )
-    map_size = env.map_size
-    dqn_attackers = DQN_agent(input_size=(4, map_size[0], map_size[1]), action_space=4)
-    dqn_defensers = DQN_agent(input_size=(4, map_size[0], map_size[1]), action_space=5)
+    total_step = 0
+    map_size = env.unwrapped.map_size
+    attacker_action_space = 4
+    defender_action_space = 5
+    dqn_attackers = DQN_agent(
+        input_size=(4, map_size[0], map_size[1]),
+        action_space=attacker_action_space,
+        learning_rate=0.001,
+        epsilon_min=0.1,
+    )
+    dqn_defenders = DQN_agent(
+        input_size=(4, map_size[0], map_size[1]),
+        action_space=defender_action_space,
+        learning_rate=0.0005,
+    )
     def_scores_list = list()
     episode_length_list = list()
-    attackers_loss = list()
-    defensers_loss = list()
     def_alive = list()
-    n_games = 2
+    att_loss = list()
+    def_loss = list()
+
+    n_games = 60000
     for idx in range(n_games):
-        att_loss = list()
-        def_loss = list()
         att_scores = 0
         def_scores = 0
         episode_length = 0
         env.reset()
-        while not env.terminated and not env.truncated:
+        input_for_CNN = init_binary_map(
+            map_size=map_size,
+            attackers=env.unwrapped.attackers,
+            defenders=env.unwrapped.defenders,
+        )
+        while not env.unwrapped.terminated and not env.unwrapped.truncated:
             episode_length += 1
             actions = list()
-            defensers_action = list()
+            defenders_action = list()
             attackers_action = list()
-            defensers_state = list()
+            defenders_state = list()
             attackers_state = list()
 
-            # We compute the actions for the attackers and defensers
-            for attacker in env.attackers:
-                state = env.binary_map.nn_attackers_pov(attacker.get_position())
+            current_attackers_position = list()
+            # We compute the actions for the attackers and defenders
+            for attacker in env.unwrapped.attackers:
+                current_attackers_position.append(attacker.get_position())
+                state = input_for_CNN.nn_attackers_pov(attacker.get_position())
                 state = state[np.newaxis,]
                 action = dqn_attackers.get_action(state)
                 attackers_state.append(state)
                 actions.append(action)
                 attackers_action.append(action)
 
-            for defenser in env.defensers:
-                if defenser.is_alive():
-                    state = env.binary_map.nn_defensers_pov(defenser.get_position())
+            current_defenders_position = list()
+            for defender in env.unwrapped.defenders:
+                if defender.is_alive():
+                    current_defenders_position.append(defender.get_position())
+                    state = input_for_CNN.nn_defenders_pov(defender.get_position())
                     state = state[np.newaxis,]
-                    action = dqn_defensers.get_action(state)
-                    defensers_state.append(state)
+                    action = dqn_defenders.get_action(state)
+                    defenders_state.append(state)
                     actions.append(action)
-                    defensers_action.append(action)
+                    defenders_action.append(action)
 
+            current_walls_position = [
+                wall.get_position()
+                for wall in env.unwrapped.walls
+                if (not wall.is_broken())
+            ]
             # We apply the actions to our environment
-            obs, rewards, terminated, _, _ = env.step(actions)
+            assert len(actions) == len(env.unwrapped.attackers) + len(
+                [deff for deff in env.unwrapped.defenders if deff.is_alive()]
+            )
+            obs, rewards, terminated, truncated, _ = env.step(actions)
             att_scores += sum(rewards[0])
             def_scores += sum(rewards[1])
+            input_for_CNN.update_observation(
+                attackers_position=np.array(current_attackers_position),
+                defenders_position=np.array(current_defenders_position),
+                walls_position=np.array(current_walls_position),
+                new_attackers_position=obs["attackers_position"],
+                new_defenders_position=obs["defenders_position"],
+                new_walls_position=obs["walls_position"],
+            )
 
-            # We store the transitions for the defensers and attackers
-            for i, attacker in enumerate(env.attackers):
+            # We store the transitions for the defenders and attackers
+            for i, attacker in enumerate(env.unwrapped.attackers):
                 dqn_attackers.store_transition(
                     attackers_state[i],
                     attackers_action[i],
                     rewards[0][i],
-                    obs.nn_attackers_pov(attacker.get_position()),
-                    terminated,
+                    input_for_CNN.nn_attackers_pov(attacker.get_position()),
+                    terminated and truncated,
                 )
 
-            for i, defenser in enumerate(
-                [deff for deff in env.defensers if deff.is_alive()]
+            for i, defender in enumerate(
+                [deff for deff in env.unwrapped.defenders if deff.is_alive()]
             ):
-                dqn_defensers.store_transition(
-                    defensers_state[i],
-                    defensers_action[i],
+                dqn_defenders.store_transition(
+                    defenders_state[i],
+                    defenders_action[i],
                     rewards[1][i],
-                    obs.nn_defensers_pov(defenser.get_position()),
-                    terminated,
+                    input_for_CNN.nn_defenders_pov(defender.get_position()),
+                    terminated and truncated,
+                )
+
+            # For the dead defenders, we suppose they are in an absorbing state where they are stuck and the reward is 0.
+            for i, defender in enumerate(
+                [deff for deff in env.unwrapped.defenders if (not deff.is_alive())]
+            ):
+                state = input_for_CNN.defenders_pov()
+                state = np.concatenate(
+                    (np.zeros(shape=(1, map_size[0], map_size[1])), state), axis=0
+                )
+                state = state[np.newaxis,]
+                dqn_defenders.store_transition(
+                    state,
+                    np.random.choice(
+                        defender_action_space
+                    ),  # We pick a random action as the agent is in an absorbing state
+                    -1,  # A zero reward when they are dead
+                    state,  # Stuck to the same state
+                    True,
                 )
 
             # Learning phase
             res = dqn_attackers.learn()
             if res != None:
                 att_loss.append(res.cpu().detach().numpy())
-            res = dqn_defensers.learn()
+            res = dqn_defenders.learn()
             if res != None:
                 def_loss.append(res.cpu().detach().numpy())
 
-            if render:
-                env.render()
+            if total_step % dqn_attackers.update_rate == 0:
+                dqn_attackers.update_model()
+            if total_step % dqn_defenders.update_rate == 0:
+                dqn_defenders.update_model()
+
+            if idx % 250 == 0:
+                dqn_attackers.save_weights(
+                    "dqn_attackers_weights_iteration_" + str(idx) + ".pth"
+                )
+                dqn_defenders.save_weights(
+                    "dqn_defenders_weights_iteration_" + str(idx) + ".pth"
+                )
+
+            total_step += 1
 
         print("Episode: " + str(idx) + ", " + str(episode_length) + " steps.")
         print(
@@ -116,30 +172,28 @@ def main():
             + str(att_scores)
             + " for the attackers and: "
             + str(def_scores)
-            + " for the defensers."
+            + " for the defenders."
         )
         print(
-            "Defensers alive: "
-            + str(len([deff for deff in env.defensers if deff.is_alive()]))
+            "Defenders alive: "
+            + str(len([deff for deff in env.unwrapped.defenders if deff.is_alive()]))
         )
-        def_alive.append(len([deff for deff in env.defensers if deff.is_alive()]))
+        def_alive.append(
+            len([deff for deff in env.unwrapped.defenders if deff.is_alive()])
+        )
         def_scores_list.append(def_scores)
         episode_length_list.append(episode_length)
-        defensers_loss.append(def_loss)
-        attackers_loss.append(att_loss)
 
-    p1 = average_of_elements(defensers_loss)
-    p2 = average_of_elements(attackers_loss)
-    plt.plot([i for i in range(len(p2))], p2, label="loss attackers")
+    plt.plot([i for i in range(len(def_loss))], def_loss, label="loss attackers")
     plt.legend()
     plt.show()
-    plt.plot([i for i in range(len(p1))], p1, label="loss defensers")
+    plt.plot([i for i in range(len(att_loss))], att_loss, label="loss defenders")
     plt.legend()
     plt.show()
     plt.plot(
         [i for i in range(len(def_scores_list))],
         def_scores_list,
-        label="defensers score",
+        label="defenders score",
     )
     plt.plot(
         [i for i in range(len(episode_length_list))],
@@ -151,7 +205,7 @@ def main():
     plt.plot(
         [i for i in range(len(def_alive))],
         def_alive,
-        label="number of defensers alive",
+        label="number of defenders alive",
     )
     plt.legend()
     plt.show()

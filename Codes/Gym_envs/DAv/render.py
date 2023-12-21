@@ -6,7 +6,7 @@ from matplotlib.lines import Line2D
 
 from Codes.Gym_envs.DAv.map import Map_DAv
 from Codes.Gym_envs.DAv.players.attacker import Attacker
-from Codes.Gym_envs.DAv.players.defenser import Defenser
+from Codes.Gym_envs.DAv.players.defender import Defender
 from Codes.Gym_envs.DAv.utils.Wall import Wall
 
 wall_length = 0.5
@@ -17,16 +17,19 @@ class Render_DAv:
         plt.ion()
         self.fig = plt.figure()
 
-    def render_env(self, map: Map_DAv, steps: int, render_prev_state: bool = True):
+    def render_env(
+        self,
+        map: Map_DAv,
+        steps: int,
+        render_prev_state: bool = True,
+        savefig: bool = False,
+    ):
         ax = self.fig.add_subplot(111)
-        # plt.xticks(np.arange(0, map.map_size[0], 1))
-        # plt.yticks(np.arange(0, map.map_size[1], 1))
-        # plt.grid()
         self.render_prev_state = render_prev_state
         ax.axis([-1, map.map_size[0], -1, map.map_size[1]])
 
         self.render_map(map, ax)
-        self.render_defensers(map.defensers, ax)
+        self.render_defenders(map.defenders, ax)
         self.render_attackers(map.attackers, ax)
         self.render_walls(map.walls, ax)
 
@@ -47,7 +50,7 @@ class Render_DAv:
                 marker="o",
                 color="w",
                 markerfacecolor="green",
-                label="Defenser",
+                label="Defender",
                 markersize=10,
                 linestyle="None",
             ),
@@ -63,22 +66,24 @@ class Render_DAv:
             ),
         ]
 
-        ax.legend(handles=legend_elements)
+        ax.legend(handles=legend_elements, loc="upper right")
 
         self.fig.suptitle("DAv. Step: " + str(steps))
+        if savefig:
+            plt.savefig("DAv. step: " + str(steps) + ".png")
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
 
-        # time.sleep(1)
+        # time.sleep(3)
 
     def render_map(self, map: Map_DAv, ax):
         ax.plot(map.map_size[0], map.map_size[1])
 
-    def render_defensers(self, defensers: List[Defenser], ax):
-        for defenser in defensers:
+    def render_defenders(self, defenders: List[Defender], ax):
+        for defender in defenders:
             if self.render_prev_state:
-                ax.scatter(defenser.prev_pos[0], defenser.prev_pos[1], c="yellow")
-            ax.scatter(defenser.position[0], defenser.position[1], c=defenser.color)
+                ax.scatter(defender.prev_pos[0], defender.prev_pos[1], c="yellow")
+            ax.scatter(defender.position[0], defender.position[1], c=defender.color)
 
     def render_attackers(self, attackers: List[Attacker], ax):
         for attacker in attackers:
