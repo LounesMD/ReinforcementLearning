@@ -6,7 +6,7 @@ This repository provides an implementation of several reinforcement learning alg
   <img src="Images/Gif_Maze.gif" width="300" title="Qlearning applied to find the shortest way in a maze">
   <img src="Images/Mountain_Car.gif" width="400" height="300" title="Qlearning applied to find the shortest way to leave the maze">
   <img src="Images/CartPole.gif" width="400" height="300" title="Qlearning applied to find the longest sequence of actions to stay alive">
-
+  <img src="Images/DAv.gif" width="400" height="300" title="DQN applied to DAv">
 </p>
 
 
