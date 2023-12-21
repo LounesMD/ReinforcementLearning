@@ -21,7 +21,7 @@ def main():
         step_limit=30,
     )
     total_step = 0
-    map_size = env.map_size
+    map_size = env.unwrapped.map_size
     attacker_action_space = 4
     defender_action_space = 5
     dqn_attackers = DQN_agent(
@@ -41,9 +41,11 @@ def main():
         episode_length = 0
         env.reset()
         input_for_CNN = init_binary_map(
-            map_size=map_size, attackers=env.attackers, defenders=env.defenders
+            map_size=map_size,
+            attackers=env.unwrapped.attackers,
+            defenders=env.unwrapped.defenders,
         )
-        while not env.terminated and not env.truncated:
+        while not env.unwrapped.terminated and not env.unwrapped.truncated:
             episode_length += 1
             actions = list()
             defenders_action = list()
@@ -53,7 +55,7 @@ def main():
 
             current_attackers_position = list()
             # We compute the actions for the attackers and defenders
-            for attacker in env.attackers:
+            for attacker in env.unwrapped.attackers:
                 position = attacker.get_position()
                 current_attackers_position.append(attacker.get_position())
                 state = input_for_CNN.nn_attackers_pov(attacker.get_position())
@@ -64,7 +66,7 @@ def main():
                 attackers_action.append(action)
 
             current_defenders_position = list()
-            for defender in env.defenders:
+            for defender in env.unwrapped.defenders:
                 if defender.is_alive():
                     position = defender.get_position()
                     current_defenders_position.append(defender.get_position())
@@ -76,11 +78,13 @@ def main():
                     defenders_action.append(action)
 
             current_walls_position = [
-                wall.get_position() for wall in env.walls if (not wall.is_broken())
+                wall.get_position()
+                for wall in env.unwrapped.walls
+                if (not wall.is_broken())
             ]
             # We apply the actions to our environment
-            assert len(actions) == len(env.attackers) + len(
-                [deff for deff in env.defenders if deff.is_alive()]
+            assert len(actions) == len(env.unwrapped.attackers) + len(
+                [deff for deff in env.unwrapped.defenders if deff.is_alive()]
             )
             obs, _, _, _, _ = env.step(actions)
             input_for_CNN.update_observation(

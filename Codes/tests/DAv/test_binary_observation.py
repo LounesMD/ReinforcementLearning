@@ -19,16 +19,18 @@ def env():
 
 
 def test_binary_map_init_position(env):
-    map_size = env.map_size
+    map_size = env.unwrapped.map_size
     binary_map = init_binary_map(
-        map_size=map_size, attackers=env.attackers, defenders=env.defenders
+        map_size=map_size,
+        attackers=env.unwrapped.attackers,
+        defenders=env.unwrapped.defenders,
     )
 
-    for attacker in env.attackers:
+    for attacker in env.unwrapped.attackers:
         x, y = attacker.get_position()
         assert binary_map.attackers_array[x][y] == 1.0
 
-    for defender in env.defenders:
+    for defender in env.unwrapped.defenders:
         x, y = defender.get_position()
         assert binary_map.defenders_array[x][y] == 1.0
 
@@ -37,19 +39,21 @@ def test_binary_map_init_position(env):
 
 
 def test_binary_map_update_position(env):
-    map_size = env.map_size
+    map_size = env.unwrapped.map_size
     binary_map = init_binary_map(
-        map_size=map_size, attackers=env.attackers, defenders=env.defenders
+        map_size=map_size,
+        attackers=env.unwrapped.attackers,
+        defenders=env.unwrapped.defenders,
     )
 
     attackers_old_positions = list()
-    for attacker in env.attackers:
+    for attacker in env.unwrapped.attackers:
         attackers_old_positions.append(attacker.get_position())
         x, y = attacker.get_position()
         assert binary_map.attackers_array[x][y] == 1.0
 
     defenders_old_positions = list()
-    for defender in env.defenders:
+    for defender in env.unwrapped.defenders:
         defenders_old_positions.append(defender.get_position())
         x, y = defender.get_position()
         assert binary_map.defenders_array[x][y] == 1.0
@@ -57,13 +61,13 @@ def test_binary_map_update_position(env):
     attackers_new_positions = np.array(
         [
             (random.randint(0, map_size[0] - 1), random.randint(0, map_size[1] - 1))
-            for _ in range(len(env.attackers))
+            for _ in range(len(env.unwrapped.attackers))
         ]
     )
     defenders_new_positions = np.array(
         [
             (random.randint(0, map_size[0] - 1), random.randint(0, map_size[1] - 1))
-            for _ in range(len(env.defenders))
+            for _ in range(len(env.unwrapped.defenders))
         ]
     )
 

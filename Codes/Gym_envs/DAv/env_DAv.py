@@ -44,25 +44,12 @@ class Env_DAv(gym.Env):
         self.map_size = map_size
         self.number_of_attackers = number_of_attackers
         self.number_of_defenders = number_of_defenders
-        min_x, max_x = 0, map_size[0]
-        min_y, max_y = 0, map_size[1]
+        # TODO: fix the observation_space such as I can return for each element a list of list of int.
         self.observation_space = gym.spaces.Dict(
             {
-                "attackers_position": gym.spaces.Box(
-                    low=np.array([min_x, min_y] * number_of_attackers),
-                    high=np.array([max_x, max_y] * number_of_attackers),
-                    dtype=np.float32,
-                ),
-                "defenders_position": gym.spaces.Box(
-                    low=np.array([min_x, min_y] * number_of_defenders),
-                    high=np.array([max_x, max_y] * number_of_defenders),
-                    dtype=np.float32,
-                ),
-                "walls_position": gym.spaces.Box(
-                    low=np.array([min_x, min_y] * map_size[0] * map_size[1]),
-                    high=np.array([max_x, max_y] * map_size[0] * map_size[1]),
-                    dtype=np.float32,
-                ),
+                "attackers_position": gym.spaces.Sequence(gym.spaces.Box(0, 1)),
+                "defenders_position": gym.spaces.Sequence(gym.spaces.Box(0, 1)),
+                "walls_position": gym.spaces.Sequence(gym.spaces.Box(0, 1)),
             }
         )
         self.step_limit = step_limit
@@ -85,7 +72,7 @@ class Env_DAv(gym.Env):
             - The position of the defenders
             - The position of the walls
         """
-        return {
+        ret = {
             "attackers_position": np.array(
                 [attacker.get_position() for attacker in self.attackers]
             ),
@@ -100,8 +87,12 @@ class Env_DAv(gym.Env):
                 [wall.get_position() for wall in self.walls if (not wall.is_broken())]
             ),
         }
+        return ret
 
-    def reset(self, seed=None) -> None:
+    def reset(self, seed=None, options=None) -> None:
+        # We need the following line to seed self.np_random
+        super().reset(seed=seed)
+
         self.map = Map_DAv(
             map_size=self.map_size,
             number_of_attackers=self.number_of_attackers,
@@ -115,13 +106,21 @@ class Env_DAv(gym.Env):
         self.steps = 0
         self.terminated = False
         self.truncated = False
+        return (self._get_obs(), {})
 
-    def step(self, action) -> Tuple[np.array, list, bool, dict]:
+    def step(self, action) -> Tuple[np.array, list, bool, bool, dict]:
         """
         One step for each player of the environment.
 
         args:
             action(list): A list of one step action of each player.
+
+        returns:
+            obs (dict): A python dict with the positions of the attackers, defenders and walls.
+            reward (list): A list of 2 lists, each one associated to the rewards of either the attackers or the defenders.
+            terminated (bool): A boolean, True if the episode is terminated and False otherwise.
+            truncated (bool): A boolean, True if the episode has been truncated (elf.steps >= self.step_limit) and False otherwise.
+            info (dict): Nothing for the moment.
         """
         info = (
             dict()
@@ -151,7 +150,7 @@ class Env_DAv(gym.Env):
         self.terminated = all(
             [not defender.is_alive() for defender in self.map.get_defenders()]
         )
-        self.truncated = self.steps > self.step_limit
+        self.truncated = self.steps >= self.step_limit
         return self._get_obs(), rewards, self.terminated, self.truncated, info
 
     def render(self):
