@@ -8,6 +8,9 @@ from Codes.rl_agents.agents.DQN.DQN import DQN_agent
 
 
 def main():
+    """
+    This main trains agents with DAv environment.
+    """
     render = False
     env = gym.make(
         "env_DAv-v0",
@@ -25,6 +28,7 @@ def main():
         input_size=(4, map_size[0], map_size[1]),
         action_space=attacker_action_space,
         learning_rate=0.001,
+        epsilon_min=0.1,
     )
     dqn_defenders = DQN_agent(
         input_size=(4, map_size[0], map_size[1]),
@@ -37,7 +41,7 @@ def main():
     att_loss = list()
     def_loss = list()
 
-    n_games = 10000
+    n_games = 60000
     for idx in range(n_games):
         att_scores = 0
         def_scores = 0
