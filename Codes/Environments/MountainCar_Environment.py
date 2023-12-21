@@ -1,6 +1,4 @@
 """
-Lounès Meddahi. lounes.meddahi@ens-rennes.fr
-
 This file provide an implementation of the "Car-In-The-Hill" problem.
 It consists of a car in the middle of two hills and try to reach the top of the one in front of it.
 For this purpose, the car can either speed up or do nothing or go backwards. The car is subject to Newton's law.

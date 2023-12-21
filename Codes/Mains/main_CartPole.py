@@ -4,11 +4,10 @@ import Codes
 
 
 def main():
-    env = gym.make("env_DAv-v0", rendering=True)
+    env = gym.make("env_cartPole-v0")
     env.reset()
-    env.render()
-    while not env.terminated:
-        actions = [0, 0, 0, 0]  # Put your actions vector here
+    while not env.unwrapped.terminated and not env.unwrapped.truncated:
+        actions = 0  # Put your actions vector here
         obs, _, _, _, _ = env.step(actions)
         env.render()
 
