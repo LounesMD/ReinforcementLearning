@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import Codes
-from Codes.Mains.Examples.utils.binary_observation_utils import init_binary_map
+from Codes.Mains.Examples.DAv.utils.binary_observation_utils import init_binary_map
 from Codes.rl_agents.agents.DQN.DQN import DQN_agent
 
 

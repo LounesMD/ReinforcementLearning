@@ -11,19 +11,18 @@ from Codes.Gym_envs.DAv.render import Render_DAv
 class Env_DAv(gym.Env):
     """
     DAv Environment. This is how this environment works:
-    - The goal of DAv is to provide a simple environment where attackers and defenders face each other.
-    - The goal of the Attackers is to touch a Defender. To do so, they have to be in a neighboring cell of
-    a defender and perform the action that moves them to the defender's cell.
-    - On their side, the defenders must run away from the attackers. To help them in this task, they
-    can drop walls to block the path of the attackers. Of course, the attackers can destroy the walls.
+        - The goal of DAv is to provide a simple environment where attackers and defenders face each other.
+        - The goal of the Attackers is to touch a Defender. To do so, they have to be in a neighboring cell of
+        a defender and perform the action that moves them to the defender's cell.
+        - On their side, the defenders must run away from the attackers. To help them in this task, they
+        can drop walls to block the path of the attackers. Of course, the attackers can destroy the walls.
 
     The implementation of this environment, called by using 'env = gym.make("env_DAv-v0")', is as follows:
-    - A map, implemented using lists, that stores the Defenders, Attackers, and Walls in their correct positions and has zeros everywhere else.
-
+        - A map, implemented using lists, that stores the Defenders, Attackers, and Walls in their correct positions and has zeros everywhere else.
         Two representations of this map can be accessible:
             1. From the attackers' point of view, their tensor is put first.
             2. From the defenders' point of view, their tensor is put first.
-    - Rewards:
+    Rewards:
         - A +1 reward is given to a defender at each step the defender is alive.
         - A -1 reward is given for the rest of the game if the defender is dead.
         - A +0 reward is given to a defender at each step.
