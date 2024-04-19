@@ -98,7 +98,7 @@ All the articles I've read and plan to read. I keep track of the teams involved 
   - [ ] [The road to modern AI](https://arxiv.org/ftp/arxiv/papers/2212/2212.11279.pdf)
 
 ## Courses
-Here are the courses I took to further my knowledge of Reinforcement Learning:
+Here are the courses I took to further my knowledge of reinforcement learning:
   - [ ] [Reinforcement Learning - MVA](http://researchers.lille.inria.fr/~lazaric/Webpage/Teaching.html) by [Alessandro Lazaric](http://researchers.lille.inria.fr/~lazaric/Webpage/Home/Home.html)<br>
   - [x] [Reinforcement Learning - Scool](https://philippe-preux.github.io/Documents/digest-ar.pdf) by [Philippe Preux](https://philippe-preux.github.io/)<br>
   - [x] [Game Theory and Applications](https://www.dropbox.com/s/lkbqe5i3wgc3on3/support.pdf?dl=0) by [Bruno Tuffin](https://people.rennes.inria.fr/Bruno.Tuffin/) and [Patrick Maillé](https://www.imt-atlantique.fr/fr/personne/patrick-maille) <br>
